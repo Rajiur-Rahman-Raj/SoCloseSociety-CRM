@@ -22,7 +22,7 @@
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="me-2 flag-icon">
-                    <img src="{{ asset('dashboard_assets/assets') }}/images/lang.png" alt="lang.png">
+                    <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang.png" alt="lang.png">
                 </span>
                 Eng
                 <i class="fa-solid fa-chevron-down"></i>
@@ -30,7 +30,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="#">
                         <span class="me-2 flag-icon">
-                            <img src="{{ asset('dashboard_assets/assets') }}/images/lang2.png" alt="lang2.png">
+                            <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang2.png" alt="lang2.png">
                         </span>
                         france
                     </a></li>
@@ -51,15 +51,16 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('dashboard_assets/assets') }}/images/avatar/profile.png" alt="profile.png"> {{ Auth::user()->name }}
+                    <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/avatar/profile.png" alt="profile.png"> <?php echo e(Auth::user()->name); ?>
+
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{{ url('user/profile') }}"><i class="mr-50"
+                    <li><a class="dropdown-item" href="<?php echo e(url('user/profile')); ?>"><i class="mr-50"
                         data-feather="user"></i> Profile</a></li>
-                    {{-- <li><a class="dropdown-item" href="#">Settings</a></li> --}}
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    
+                    <form method="POST" action="<?php echo e(route('logout')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <a class="dropdown-item" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
                         this.closest('form').submit();"><i class="mr-50"
                                 data-feather="power"></i>Logout</a>
                     </form>
@@ -67,4 +68,4 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav><?php /**PATH C:\Users\Rajiur Rahman\Desktop\Alhamdulillah\crm\resources\views/layouts/nav.blade.php ENDPATH**/ ?>
