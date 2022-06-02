@@ -6,18 +6,19 @@
         <a style="text-decoration: none;" href="index.html">LOGO</a>
     </div>
     <div class="list-group list-group-flush my-3">
-        <a href="index.html" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+        <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                 class="fa-solid fa-house me-2"></i>Dashboard <span class="badge ms-3">2</span></a>
 
-        <a href="currentTickets.html"
+        <a href="{{ route('ticket') }}"
             class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                 class="fa-solid fa-ticket me-2"></i>Tickets</a>
 
-        <a href="team.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+        <a href="{{ route('team') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                 class="fa-solid fa-users me-2"></i>Team</a>
-        <a href="user.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+
+        <a href="{{ route('user') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                 class="fa-solid fa-user me-2"></i>User</a>
-        <a href="settings.html"
+        <a href="{{ route('settings') }}"
             class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                 class="fa-solid fa-gear me-2"></i>Settings</a>
 

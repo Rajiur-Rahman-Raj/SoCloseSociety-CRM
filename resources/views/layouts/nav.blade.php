@@ -51,7 +51,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('dashboard_assets/assets') }}/images/avatar/profile.png" alt="profile.png"> {{ Auth::user()->name }}
+                    <img width="50" height="50" class="rounded-circle" src="{{ Auth::user()->profile_photo_url }}"> {{ Auth::user()->name }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{{ url('user/profile') }}"><i class="mr-50"

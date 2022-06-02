@@ -51,7 +51,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/avatar/profile.png" alt="profile.png"> <?php echo e(Auth::user()->name); ?>
+                    <img width="50" height="50" class="rounded-circle" src="<?php echo e(Auth::user()->profile_photo_url); ?>"> <?php echo e(Auth::user()->name); ?>
 
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

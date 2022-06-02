@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +25,14 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('layouts.dashboard');
     })->name('dashboard');
+});
+
+
+Route::group(['prefix' => 'admin','middleware' => ['auth']], function(){
+
+    Route::get('ticket', [AdminController::class, 'ticket'])->name('ticket');
+    Route::get('team', [AdminController::class, 'team'])->name('team');
+    Route::get('user', [AdminController::class, 'user'])->name('user');
+    Route::get('settings', [AdminController::class, 'settings'])->name('settings');
+
 });
