@@ -26,4 +26,10 @@
             <link rel="stylesheet" href="<?php echo e(asset('dashboard_assets/assets')); ?>/css/responsive.css">
             <title><?php echo e(config('app.name')); ?> | <?php echo $__env->yieldContent('title'); ?> </title>
         </head>
+
+        <style>
+            .table-overflow-none{
+                overflow-x:unset !important; 
+            }
+        </style>
     <body><?php /**PATH C:\Users\Rajiur Rahman\Desktop\Alhamdulillah\crm\resources\views/layouts/dashboard_css.blade.php ENDPATH**/ ?>
