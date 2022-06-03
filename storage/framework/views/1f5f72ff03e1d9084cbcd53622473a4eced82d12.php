@@ -1,19 +1,19 @@
         <!--=====Jquery=====-->
-        <script src="{{ asset('dashboard_assets/assets') }}/plugins/jquery/jquery-git.min.js"></script>
+        <script src="<?php echo e(asset('dashboard_assets/assets')); ?>/plugins/jquery/jquery-git.min.js"></script>
         <!--=====Bootstrap Js=====-->
-        <script src=" {{ asset('dashboard_assets/assets') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"> </script>
+        <script src=" <?php echo e(asset('dashboard_assets/assets')); ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"> </script>
         <!--=====Icon Js=====-->
-        <script src="{{ asset('dashboard_assets/assets') }}/icons/js/all.js">
+        <script src="<?php echo e(asset('dashboard_assets/assets')); ?>/icons/js/all.js">
         </script>
         <!--====Chart====-->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <!--=====Vmap Js=====-->
-        <script src="{{ asset('dashboard_assets/assets') }}/plugins/vmap/js/jquery.vmap.js"></script>
-        <script src="{{ asset('dashboard_assets/assets') }}/plugins/vmap/js/jquery.vmap.world.js"></script>
+        <script src="<?php echo e(asset('dashboard_assets/assets')); ?>/plugins/vmap/js/jquery.vmap.js"></script>
+        <script src="<?php echo e(asset('dashboard_assets/assets')); ?>/plugins/vmap/js/jquery.vmap.world.js"></script>
         <!--==========Data Tables==========-->
-        <script src="./{{ asset('dashboard_assets/assets') }}/plugins/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="./<?php echo e(asset('dashboard_assets/assets')); ?>/plugins/datatables/js/jquery.dataTables.min.js"></script>
         <!--=====Main Js====-->
-        <script src="{{ asset('dashboard_assets/assets') }}/js/script.js"></script>
+        <script src="<?php echo e(asset('dashboard_assets/assets')); ?>/js/script.js"></script>
 
         <script>
             // $(function () {
@@ -21,7 +21,7 @@
             // });
         </script>
 
-        {{-- toastr js--}}
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
@@ -72,26 +72,27 @@
             }
         </script>
 
-        @if ($errors->any())
-        @foreach ($errors->all() as $error)
+        <?php if($errors->any()): ?>
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <script>
-                toastr.error('{{ $error }}');
+                toastr.error('<?php echo e($error); ?>');
             </script>
-        @endforeach
-        @endif
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
 
-        @if (session()->get('danger'))
+        <?php if(session()->get('danger')): ?>
         <script>
-            toastr.error('{{ session()->get('danger') }}');
+            toastr.error('<?php echo e(session()->get('danger')); ?>');
         </script>
-        @endif
+        <?php endif; ?>
 
-        @if (session()->get('success'))
+        <?php if(session()->get('success')): ?>
         <script>
-            toastr.success('{{ session()->get('success') }}');
+            toastr.success('<?php echo e(session()->get('success')); ?>');
         </script>
-        @endif
+        <?php endif; ?>
 
     </body>
 </html>
 
+<?php /**PATH C:\Users\HP\Desktop\CRM\SoCloseSociety-CRM\resources\views/layouts/dashboard_js.blade.php ENDPATH**/ ?>
