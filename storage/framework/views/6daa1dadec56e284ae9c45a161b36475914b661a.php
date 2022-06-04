@@ -92,7 +92,7 @@ unset($__errorArgs, $__bag); ?>
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href=""> <i class="fa-solid fa-edit"> </i> Edit</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateStatus<?php echo e($status->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteStatus<?php echo e($status->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
                                 </li>
@@ -124,6 +124,42 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                     </div>
                </div>
+                <!--=====MODAL FOR UPDATE USER=====-->
+                <div class="modal fade" id="updateStatus<?php echo e($status->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header border-bottom-0">
+                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Status</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?php echo e(route('status.update', $status->id)); ?>" method="POST">
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('put'); ?>
+                                    <div class="form-group mt-2">
+                                    <label class="form-label">Name <span class="text-danger"> *</span></label>
+                                    <input type="text" name="name" class="form-control" value="<?php echo e($status->name); ?>">
+                                    <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </tbody>

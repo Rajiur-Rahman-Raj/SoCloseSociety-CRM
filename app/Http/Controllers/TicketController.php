@@ -8,6 +8,7 @@ use App\Models\Status;
 use App\Models\Ticket;
 use App\Models\Priority;
 use App\Models\UserRole;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -24,7 +25,7 @@ class TicketController extends Controller
             'status' => Status::orderBy('name','ASC')->get(),
             'priority' => Priority::all(),
             'roles' => UserRole::all(),
-            // 'department' => Department::all(),
+            'department' => Department::all(),
             'users' => User::all(),
         ]);
     }
@@ -49,7 +50,7 @@ class TicketController extends Controller
     {
         Ticket::create($request->except('_token') + ['created_at' => Carbon::now()]);
 
-        return redirect()->route('ticket.index')->withSuccess('Created successfully');
+        return redirect()->route('ticket.index')->withSuccess('Created Successfully');
     }
 
     /**
@@ -83,7 +84,9 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
+        $ticket->update($request->except('_token') + ['updated_at' => Carbon::now()]);
+
+        return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
     }
 
     /**
@@ -94,13 +97,24 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
+        $ticket->delete();
+
+        return redirect()->route('ticket.index')->withDanger('Deleted Successfully');
     }
 
 
     public function get_users(Request $request)
     {
+        $show_users = User::where('role_id', $request->role_id)->get(['id', 'name']);
 
+        $view = view('includes.user_dropdown', compact('show_users'));
+        $data = $view->render();
+        return response()->json(['data' => $data]);
+
+    }
+
+    public function edit_users(Request $request)
+    {
         $show_users = User::where('role_id', $request->role_id)->get(['id', 'name']);
 
         $view = view('includes.user_dropdown', compact('show_users'));
