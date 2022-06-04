@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid px-4">
-    <!--=====MODAL FOR CREATE Role=====-->
+    <!--=====MODAL FOR CREATE ROLE=====-->
     <div class="modal fade" id="createRole" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -38,6 +38,8 @@ unset($__errorArgs, $__bag); ?>
             </div>
         </div>
     </div>
+
+
     <!--==========Team Header==========-->
     <div class="team_header d-flex justify-content-between flex-wrap mt-3">
         <div class="team_header__left">
@@ -78,16 +80,19 @@ unset($__errorArgs, $__bag); ?>
                     <td><?php echo e($item->role); ?></td>
                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
                     <td>
+
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo e($item->id); ?>"><i class="fa-solid fa-trash" class="mr-50"></i> Delete</a></li>
+                                <li class="mb-1"><a style="cursor: pointer" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editModal<?php echo e($item->id); ?>"><i class="fa-solid fa-edit" class="mr-50"></i> Edit</a></li>
+
+                                <li><a style="cursor: pointer" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo e($item->id); ?>"><i class="fa-solid fa-trash" class="mr-50"></i> Delete</a></li>
+
                             </ul>
                         </div>
-
                     </td>
                 </tr>
 
@@ -114,6 +119,47 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                     </div>
                 </div>
+
+
+                <!--=====MODAL FOR EDIT ROLE=====-->
+                    <div class="modal fade" id="editModal<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0">
+                                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Edit Role</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="<?php echo e(route('user_role.update',$item->id)); ?>">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field("PUT"); ?>
+                                        <div class="mb-3">
+                                            <label for="role" class="col-form-label">Role<span class="text-danger"> *</span></label>
+                                            <input type="text" class="form-control" name="role" id="role" value="<?php echo e($item->role); ?>">
+                                            <?php $__errorArgs = ['role'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <span class="text-danger"> <?php echo e($message); ?></span>
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                        </div>
+                                        <div class="modal-footer border-top-0">
+                                            <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
+                                                class="btn w-100">Update
+                                                Role</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </tbody>

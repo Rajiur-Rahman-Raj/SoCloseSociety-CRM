@@ -24,12 +24,20 @@
             <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/css/styles.css" />
             <!--==========Responsive CSS==========-->
             <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/css/responsive.css">
+            {{-- Toastr CSS --}}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+            {{-- trix  --}}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
+
             <title>{{ config('app.name') }} | @yield('title') </title>
         </head>
 
         <style>
             .table-overflow-none{
-                overflow-x:unset !important; 
+                overflow-x:unset !important;
             }
         </style>
+
+        @yield('css')
+
     <body>

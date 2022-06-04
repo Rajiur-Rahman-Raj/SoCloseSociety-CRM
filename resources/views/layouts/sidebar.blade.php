@@ -9,9 +9,9 @@
         <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                 class="fa-solid fa-house me-2"></i>Dashboard <span class="badge ms-3">2</span></a>
 
-        <a href="{{ route('ticket') }}"
+        {{-- <a href="{{ route('ticket') }}"
         class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-ticket me-2"></i>Tickets</a>
+            class="fa-solid fa-ticket me-2"></i>Tickets</a> --}}
 
 
         <a href="{{ route('team') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i

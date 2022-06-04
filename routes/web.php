@@ -30,7 +30,7 @@ Route::middleware([
 
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function(){
 
-    Route::get('ticket', [AdminController::class, 'ticket'])->name('ticket');
+    // Route::get('ticket', [AdminController::class, 'ticket'])->name('ticket');
     Route::get('team', [AdminController::class, 'team'])->name('team');
     Route::get('user', [AdminController::class, 'user'])->name('user');
     Route::get('settings', [AdminController::class, 'settings'])->name('settings');

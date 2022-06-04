@@ -1,5 +1,6 @@
         <!--=====Jquery=====-->
-        <script src="<?php echo e(asset('dashboard_assets/assets')); ?>/plugins/jquery/jquery-git.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
         <!--=====Bootstrap Js=====-->
         <script src=" <?php echo e(asset('dashboard_assets/assets')); ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"> </script>
         <!--=====Icon Js=====-->
@@ -23,6 +24,8 @@
 
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
 
 
         <script>
@@ -91,6 +94,8 @@
             toastr.success('<?php echo e(session()->get('success')); ?>');
         </script>
         <?php endif; ?>
+
+        <?php echo $__env->yieldContent('js'); ?>
 
     </body>
 </html>

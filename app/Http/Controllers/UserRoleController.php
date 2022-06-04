@@ -78,7 +78,9 @@ class UserRoleController extends Controller
      */
     public function update(Request $request, UserRole $userRole)
     {
-        //
+        $userRole->update($request->except('_token') + ['updated_at' => Carbon::now()]);
+
+        return redirect()->route('user_role.index')->withSuccess('Role Updated successfully');
     }
 
     /**
@@ -91,6 +93,6 @@ class UserRoleController extends Controller
     {
         $userRole->delete();
 
-        return redirect()->route('user_role.index')->withDanger('Role Deleted successfully');
+        return redirect()->route('user_role.index')->withDanger('Role Deleted Successfully');
     }
 }
