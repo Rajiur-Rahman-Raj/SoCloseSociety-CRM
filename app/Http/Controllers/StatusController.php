@@ -63,7 +63,7 @@ class StatusController extends Controller
      */
     public function edit(Status $status)
     {
-        return view('admin.status.edit', compact('status'));
+
     }
 
     /**

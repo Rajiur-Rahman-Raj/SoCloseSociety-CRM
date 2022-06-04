@@ -1,2 +1,2 @@
-    <a href="<?php echo e(route('user')); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-    class="fa-solid fa-user me-2"></i></a><?php /**PATH C:\Users\ck\Desktop\work\SoCloseSociety-CRM\resources\views/layouts/raju_sidebar.blade.php ENDPATH**/ ?>
+    <a href="<?php echo e(route('priority.index')); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+    class="fa-solid fa-user me-2"></i>Priorities</a><?php /**PATH C:\Users\ck\Desktop\work\SoCloseSociety-CRM\resources\views/layouts/raju_sidebar.blade.php ENDPATH**/ ?>

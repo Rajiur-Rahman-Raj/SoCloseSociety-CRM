@@ -84,7 +84,7 @@
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href=""> <i class="fa-solid fa-edit"> </i> Edit</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateStatus{{ $status->id }}" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteStatus{{ $status->id }}" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
                                 </li>
@@ -116,6 +116,35 @@
                         </div>
                     </div>
                </div>
+                <!--=====MODAL FOR UPDATE USER=====-->
+                <div class="modal fade" id="updateStatus{{ $status->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header border-bottom-0">
+                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Status</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('status.update', $status->id) }}" method="POST">
+                                    @csrf
+                                    @method('put')
+                                    <div class="form-group mt-2">
+                                    <label class="form-label">Name <span class="text-danger"> *</span></label>
+                                    <input type="text" name="name" class="form-control" value="{{ $status->name }}">
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 @endforeach
 
             </tbody>
