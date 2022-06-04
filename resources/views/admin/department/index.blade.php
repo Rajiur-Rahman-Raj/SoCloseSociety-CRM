@@ -1,37 +1,32 @@
-<?php $__env->startSection('content'); ?>
+@extends('layouts.app_backend')
+
+@section('content')
 <div class="container-fluid px-4">
     <!--=====MODAL FOR CREATE USER=====-->
-    <div class="modal fade" id="createStatus" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="createDepartment" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
-                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Status</h5>
+                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Department</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?php echo e(route('status.store')); ?>" method="POST" enctype="multipart/form-data">
-                        <?php echo csrf_field(); ?>
+                    <form action="{{ route('department.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Name <span class="text-danger">*</span> </label>
-                            <input type="text" class="form-control" name="name" id="recipient-name" value="<?php echo e(old('name')); ?>">
-                            <?php $__errorArgs = ["name"];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <span class="text-danger"> <?php echo e($message); ?></span>
-                            <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                            <input type="text" class="form-control" name="name" id="recipient-name" value="{{ old('name') }}">
+                            @error("name")
+                                <span class="text-danger"> {{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="modal-footer border-top-0">
                             <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
                                 class="btn w-100">Create
-                                Status</button>
+                                Department</button>
                         </div>
 
                     </form>
@@ -56,10 +51,10 @@ unset($__errorArgs, $__bag); ?>
             </div>
         </div>
         <div class="team_header__right">
-            <button data-bs-toggle="modal" data-bs-target="#createStatus" data-bs-whatever="@mdo">
+            <button data-bs-toggle="modal" data-bs-target="#createDepartment" data-bs-whatever="@mdo">
                 <a>
                     <span><i class="fa-solid fa-circle-plus me-2"></i></span>
-                    Create Status</a>
+                    Create Department</a>
             </button>
 
         </div>
@@ -75,14 +70,13 @@ unset($__errorArgs, $__bag); ?>
                 </tr>
             </thead>
             <tbody>
-                <?php $__currentLoopData = $statuses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                @foreach ($departments as $department)
                 <tr>
-                    <th scope="row"><?php echo e($loop->iteration); ?></th>
+                    <th scope="row">{{ $loop->iteration }}</th>
                     <td>
-                        <?php echo e($status->name); ?>
-
+                        {{ $department->name }}
                     </td>
-                    <td><?php echo e($status->created_at->format('d-m-Y')); ?></td>
+                    <td>{{ $department->created_at->format('d-m-Y') }}</td>
                     <td>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -90,20 +84,20 @@ unset($__errorArgs, $__bag); ?>
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateStatus<?php echo e($status->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateDepartment{{ $department->id }}" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
                                 <li>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteStatus<?php echo e($status->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
+                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteDepartment{{ $department->id }}" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
                                 </li>
                             </ul>
                         </div>
                     </td>
                 </tr>
 
-                <div class="modal fade" id="deleteStatus<?php echo e($status->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteDepartment{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Status</h5>
+                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Department</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -112,9 +106,9 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <form action="<?php echo e(route('status.destroy', $status->id)); ?>" method="POST" enctype="multipart/form-data">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('delete'); ?>
+                                <form action="{{ route('department.destroy', $department->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('delete')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
@@ -123,32 +117,25 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                </div>
                 <!--=====MODAL FOR UPDATE USER=====-->
-                <div class="modal fade" id="updateStatus<?php echo e($status->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="modal fade" id="updateDepartment{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Status</h5>
+                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Department</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="<?php echo e(route('status.update', $status->id)); ?>" method="POST">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('put'); ?>
+                                <form action="{{ route('department.update', $department->id) }}" method="POST">
+                                    @csrf
+                                    @method('put')
                                     <div class="form-group mt-2">
                                     <label class="form-label">Name <span class="text-danger"> *</span></label>
-                                    <input type="text" name="name" class="form-control" value="<?php echo e($status->name); ?>">
-                                    <?php $__errorArgs = ['name'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                        <span class="text-danger"><?php echo e($message); ?></span>
-                                    <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                                    <input type="text" name="name" class="form-control" value="{{ $department->name }}">
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                                 </form>
@@ -158,12 +145,10 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                @endforeach
 
             </tbody>
         </table>
     </div>
 </div>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.app_backend', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\ck\Desktop\work\SoCloseSociety-CRM\resources\views/admin/status/index.blade.php ENDPATH**/ ?>
+@endsection

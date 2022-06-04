@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Status;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class StatusController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $statuses = Status::all();
-        return view('admin.status.index', compact('statuses'));
+        $departments = Department::all();
+        return view('admin.department.index', compact('departments'));
     }
 
     /**
@@ -40,17 +40,17 @@ class StatusController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
-        Status::create($request->except('_token') + ['created_at' => Carbon::now()]);
-        return redirect()->route('status.index')->withSuccess('Data Store Success');
+        Department::create($request->except('_token') + ['created_at' => Carbon::now()]);
+        return redirect()->route('department.index')->withSuccess('Data Store Success');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Status  $status
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function show(Status $status)
+    public function show(Department $department)
     {
         //
     }
@@ -58,10 +58,10 @@ class StatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Status  $status
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function edit(Status $status)
+    public function edit(Department $department)
     {
 
     }
@@ -70,28 +70,29 @@ class StatusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Status  $status
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Status $status)
+    public function update(Request $request, Department $department)
     {
         $request->validate([
             'name' => 'required'
         ]);
-        $status->name = $request->name;
-        $status->save();
-        return redirect()->route('status.index')->withSuccess('Data Update Success');
+        $department->name = $request->name;
+        $department->save();
+        return redirect()->route('department.index')->withSuccess('Data Update Success');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Status  $status
+     * @param  \App\Models\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Status $status)
+    public function destroy(Department $department)
     {
-        $status->delete();
+        $department->delete();
         return back()->with('danger', 'data deleted successfull!');
     }
 }

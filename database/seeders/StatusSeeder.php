@@ -3,18 +3,19 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Status;
 
-class DatabaseSeeder extends Seeder
+class StatusSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            StatusSeeder::class,
+        Status::create([
+            'name' => 'Active',
         ]);
     }
 }

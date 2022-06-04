@@ -37,15 +37,15 @@
             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('navigation-menu')->html();
-} elseif ($_instance->childHasBeenRendered('z8QQxCb')) {
-    $componentId = $_instance->getRenderedChildComponentId('z8QQxCb');
-    $componentTag = $_instance->getRenderedChildComponentTagName('z8QQxCb');
+} elseif ($_instance->childHasBeenRendered('HRWHIir')) {
+    $componentId = $_instance->getRenderedChildComponentId('HRWHIir');
+    $componentTag = $_instance->getRenderedChildComponentTagName('HRWHIir');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('z8QQxCb');
+    $_instance->preserveRenderedChild('HRWHIir');
 } else {
     $response = \Livewire\Livewire::mount('navigation-menu');
     $html = $response->html();
-    $_instance->logRenderedChild('z8QQxCb', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('HRWHIir', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -62,7 +62,8 @@ echo $html;
 
             <!-- Page Content -->
             <main>
-                
+                <?php echo e($slot); ?>
+
             </main>
         </div>
 
