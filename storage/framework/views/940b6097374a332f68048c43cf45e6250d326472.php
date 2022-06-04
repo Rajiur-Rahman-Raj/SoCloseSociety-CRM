@@ -24,10 +24,12 @@
             <link rel="stylesheet" href="<?php echo e(asset('dashboard_assets/assets')); ?>/css/styles.css" />
             <!--==========Responsive CSS==========-->
             <link rel="stylesheet" href="<?php echo e(asset('dashboard_assets/assets')); ?>/css/responsive.css">
-             <!--==========toastr CSS==========-->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-            
             <title><?php echo e(config('app.name')); ?> | <?php echo $__env->yieldContent('title'); ?> </title>
         </head>
-    <body>
-<?php /**PATH C:\Users\HP\Desktop\CRM\SoCloseSociety-CRM\resources\views/layouts/dashboard_css.blade.php ENDPATH**/ ?>
+
+        <style>
+            .table-overflow-none{
+                overflow-x:unset !important; 
+            }
+        </style>
+    <body><?php /**PATH C:\Users\HP\Desktop\CRM\SoCloseSociety-CRM\resources\views/layouts/dashboard_css.blade.php ENDPATH**/ ?>
