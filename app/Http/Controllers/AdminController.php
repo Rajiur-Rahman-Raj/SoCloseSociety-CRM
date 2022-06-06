@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
+use Auth;
 class AdminController extends Controller
 {
+
+    public function admin_dashboard(){
+        return view('layouts.dashboard');
+    }
+    
     public function ticket(){
         return view('admin.ticket');
     }

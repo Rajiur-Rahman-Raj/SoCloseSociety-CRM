@@ -45,14 +45,16 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'role_id' => 'required',
+            'permission' => 'required',
         ]);
 
-
+         
         User::insert([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role_id' => $request->role_id,
+            'permission' => json_encode($request->permission),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

@@ -104,6 +104,7 @@
                 <tr>
                     <th scope="col">Serial</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Permission</th>
                     <th scope="col">Role</th>
                     <th scope="col">Email</th>
                     <th scope="col">Created Date</th>
@@ -116,6 +117,14 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>
                         {{ $item->name }}
+                    </td>
+                    <td>
+                        @php
+                           $permission = json_decode($item->permission)
+                        @endphp
+                        @foreach ($permission as $per)
+                            {{ $per }},
+                        @endforeach
                     </td>
 
                     <td>{{ $item->getRole->role  }}</td>

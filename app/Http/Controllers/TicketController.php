@@ -20,6 +20,7 @@ class TicketController extends Controller
      */
     public function index()
     {
+        
         return view('admin.ticket.index',[
             'tickets' => Ticket::latest()->get(),
             'status' => Status::orderBy('name','ASC')->get(),

@@ -1,0 +1,1 @@
+<h2>i am agent dashboard</h2><?php /**PATH C:\Users\Rajiur Rahman\Desktop\crm2\SoCloseSociety-CRM\resources\views/layouts/agent_dashboard.blade.php ENDPATH**/ ?>

@@ -132,6 +132,7 @@ unset($__errorArgs, $__bag); ?>
                 <tr>
                     <th scope="col">Serial</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Permission</th>
                     <th scope="col">Role</th>
                     <th scope="col">Email</th>
                     <th scope="col">Created Date</th>
@@ -145,6 +146,14 @@ unset($__errorArgs, $__bag); ?>
                     <td>
                         <?php echo e($item->name); ?>
 
+                    </td>
+                    <td>
+                        <?php
+                           $permission = json_decode($item->permission)
+                        ?>
+                        <?php $__currentLoopData = $permission; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $per): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php echo e($per); ?>,
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </td>
 
                     <td><?php echo e($item->getRole->role); ?></td>

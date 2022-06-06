@@ -1,5 +1,4 @@
-
-<nav class="navbar navbar-expand-lg navbar-light bg-white px-4">
+   <nav class="navbar navbar-expand-lg navbar-light bg-white px-4">
     <div class="d-flex align-items-center">
         <i class="fas fa-align-left primary-text fs-4 me-3 icon" id="menu-toggle"></i>
         <div class="input-group m-0">
@@ -68,4 +67,5 @@
             </li>
         </ul>
     </div>
-</nav><?php /**PATH C:\Users\Rajiur Rahman\Desktop\crm2\SoCloseSociety-CRM\resources\views/layouts/nav.blade.php ENDPATH**/ ?>
+</nav>
+<?php /**PATH C:\Users\Rajiur Rahman\Desktop\crm2\SoCloseSociety-CRM\resources\views/layouts/nav.blade.php ENDPATH**/ ?>

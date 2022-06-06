@@ -1,34 +1,33 @@
     
     
     @php
-        $loged_in_user_role_id = Auth::user()->role_id;
-        $user_role_id = App\Models\UserRole::find($loged_in_user_role_id)->id;
-        $user_role_permission = App\Models\UserRole::find($loged_in_user_role_id)->permission;
+        $loged_in_user_permission = json_decode(Auth::user()->permission);
     @endphp
 
-    {{-- @if ($loged_in_user_role_id == $user_role_id && $user_role_permission == 1)
-            <span>Access all</span>
-        @else
-        <a href="{{ route('priority.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-user me-2"></i>Priorities {{ $loged_in_user_role_id }}</a>
-    @endif
+    @foreach ($loged_in_user_permission as $item)
 
-    @if ($loged_in_user_role_id == $user_role_id && $user_role_permission == 2)
-            <span>only access agent data</span>
-        @else
-        <a href="{{ route('priority.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-user me-2"></i>Priorities {{ $loged_in_user_role_id }}</a>
-    @endif
+        {{-- @if($item == 1)
+        <a href="{{ route('user_role.index') }}"
+        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+        class="fa-solid fa-gear me-2"></i>User Role
+        </a>
+        @endif --}}
 
-    @if ($loged_in_user_role_id == $user_role_id && $user_role_permission == 3)
-            <span>only create ticket</span>
-        @else
-        <a href="{{ route('priority.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-user me-2"></i>Priorities {{ $loged_in_user_role_id }}</a>
-    @endif --}}
+
+        @if($item == 2)
+            <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+            class="fa-solid fa-user me-2"></i>Users</a>
+        @endif
+
+
+        @if($item == 4)
+            <a href="{{ route('priority.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+            class="fa-solid fa-user me-2"></i>Priorities</a>
+        @endif
+
+
+    @endforeach
+    
 
     
-    <a href="{{ route('priority.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-        class="fa-solid fa-user me-2"></i>Priorities</a>
-    <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-    class="fa-solid fa-user me-2"></i>Users</a>
+    
