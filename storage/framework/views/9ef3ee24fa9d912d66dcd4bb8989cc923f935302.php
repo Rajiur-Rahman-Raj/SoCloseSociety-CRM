@@ -24,12 +24,22 @@
             <link rel="stylesheet" href="<?php echo e(asset('dashboard_assets/assets')); ?>/css/styles.css" />
             <!--==========Responsive CSS==========-->
             <link rel="stylesheet" href="<?php echo e(asset('dashboard_assets/assets')); ?>/css/responsive.css">
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
+            <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
             <title><?php echo e(config('app.name')); ?> | <?php echo $__env->yieldContent('title'); ?> </title>
         </head>
 
         <style>
             .table-overflow-none{
-                overflow-x:unset !important; 
+                overflow-x:unset !important;
             }
         </style>
-    <body><?php /**PATH C:\Users\Rajiur Rahman\Desktop\Alhamdulillah\crm\resources\views/layouts/dashboard_css.blade.php ENDPATH**/ ?>
+
+        <?php echo $__env->yieldContent('css'); ?>
+
+    <body>
+<?php /**PATH C:\Users\Rajiur Rahman\Desktop\Alhamdulillah\crm\resources\views/layouts/dashboard_css.blade.php ENDPATH**/ ?>

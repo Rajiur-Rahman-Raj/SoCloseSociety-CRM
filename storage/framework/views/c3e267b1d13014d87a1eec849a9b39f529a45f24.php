@@ -8,11 +8,9 @@
     <div class="list-group list-group-flush my-3">
         <a href="<?php echo e(route('dashboard')); ?>" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                 class="fa-solid fa-house me-2"></i>Dashboard <span class="badge ms-3">2</span></a>
+
         
-        <a href="<?php echo e(route('ticket')); ?>"
-        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-ticket me-2"></i>Tickets</a>
-        
+
 
         <a href="<?php echo e(route('team')); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                 class="fa-solid fa-users me-2"></i>Team</a>
@@ -24,8 +22,10 @@
                 class="fa-solid fa-gear me-2"></i>Settings</a>
 
         <?php echo $__env->make('layouts.raju_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-        
+
         <?php echo $__env->make('layouts.mahbub_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+        <?php echo $__env->make('layouts.tareq_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <form method="POST" action="<?php echo e(route('logout')); ?>">
             <?php echo csrf_field(); ?>
@@ -35,4 +35,5 @@
         </form>
     </div>
 </div>
-<!-- /#sidebar-wrapper --><?php /**PATH C:\Users\Rajiur Rahman\Desktop\Alhamdulillah\crm\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
+<!-- /#sidebar-wrapper -->
+<?php /**PATH C:\Users\Rajiur Rahman\Desktop\Alhamdulillah\crm\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
