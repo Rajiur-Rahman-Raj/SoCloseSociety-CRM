@@ -1,6 +1,6 @@
-@extends('layouts.app_backend')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 
 <div class="container-fluid px-4">
     <!--=====MODAL FOR CREATE User=====-->
@@ -14,49 +14,77 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                    <form action="<?php echo e(route('users.store')); ?>" method="POST" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
                         <div class="mb-3">
                             <label for="name" class="col-form-label">Name</label>
-                            <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <input type="text" name="name" class="form-control" id="name" value="<?php echo e(old('name')); ?>">
+                            <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="mb-3">
                             <label for="value" class="col-form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="value" value="{{ old('email') }}">
-                            @error('email')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <input type="email" name="email" class="form-control" id="value" value="<?php echo e(old('email')); ?>">
+                            <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="mb-3">
                             <label for="value" class="col-form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" value="{{ old('password') }}">
-                            @error('password')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <input type="password" name="password" class="form-control" id="password" value="<?php echo e(old('password')); ?>">
+                            <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="mb-3">
                             <label for="value" class="col-form-label">Select Role</label>
                             <select name="role_id" id="role_id_for_create_user"  class="form-control">
                                 <option value="">--Select One--</option>
-                                @foreach ($user_role_data as $item)
-                                <option value="{{ $item->id }}">{{ $item->role }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $user_role_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>"><?php echo e($item->role); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
-                            @error('role_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                            <?php $__errorArgs = ['role_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div id="role_permission_area">
-                            @php
+                            <?php
                                 $role_id = '';
-                            @endphp
-                            @include('includes.role_permission')
+                            ?>
+                            <?php echo $__env->make('includes.role_permission', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </div>
                         
 
@@ -111,24 +139,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($all_user_data as $item)
+                <?php $__currentLoopData = $all_user_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
+                    <th scope="row"><?php echo e($loop->iteration); ?></th>
                     <td>
-                        {{ $item->name }}
-                    </td>
-                    {{-- <td>
-                        @php
-                           $permission = json_decode($item->permission)
-                        @endphp
-                        @foreach ($permission as $per)
-                            {{ $per }},
-                        @endforeach
-                    </td> --}}
+                        <?php echo e($item->name); ?>
 
-                    <td>{{ $item->getRole->role  }}</td>
-                    <td>{{ $item->email }}</td>
-                    <td>{{ $item->created_at->Format('Y-m-d') }}</td>
+                    </td>
+                    
+
+                    <td><?php echo e($item->getRole->role); ?></td>
+                    <td><?php echo e($item->email); ?></td>
+                    <td><?php echo e($item->created_at->Format('Y-m-d')); ?></td>
                     <td>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -136,11 +158,11 @@
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#showUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#showUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
+                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
                                     
-                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
                                 </li>
                               
                             </ul>
@@ -151,9 +173,9 @@
                 </tr>
 
             
-                {{-- delete modal --}}
+                
 
-                <div class="modal fade" id="deleteUsers{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteUsers<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
@@ -166,9 +188,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <form action="{{ route('users.destroy', $item->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('delete')
+                                <form action="<?php echo e(route('users.destroy', $item->id)); ?>" method="POST" enctype="multipart/form-data">
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('delete'); ?>
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
@@ -178,7 +200,7 @@
                </div>
 
                <!--=====MODAL FOR UPDATE USER=====-->
-               <div class="modal fade" id="updateUser{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+               <div class="modal fade" id="updateUser<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -188,23 +210,37 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('users.update', $item->id) }}" method="POST">
-                                @csrf
-                                @method('put')
+                            <form action="<?php echo e(route('users.update', $item->id)); ?>" method="POST">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('put'); ?>
                                 <div class="form-group mt-2">
                                 <label class="form-label">Name <span class="text-danger"> *</span></label>
-                                <input type="text" name="name" class="form-control" value="{{ $item->name }}">
-                                @error('name')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <input type="text" name="name" class="form-control" value="<?php echo e($item->name); ?>">
+                                <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="form-group mt-2">
                                     <label class="form-label">Email <span class="text-danger"> *</span></label>
-                                    <input type="email" name="email" class="form-control" value="{{ $item->email }}">
-                                    @error('email')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <input type="email" name="email" class="form-control" value="<?php echo e($item->email); ?>">
+                                    <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="mb-3">
@@ -213,13 +249,20 @@
                                     <select name="role_id" id="role_id" class="form-control">
                                         <option value="">--Select One--</option>
                                         
-                                        @foreach ($user_role_data as $user_role_item)
-                                        <option value="{{ $user_role_item->id }}" {{ $user_role_item->id == $item->role_id ? 'selected' : '' }} >{{ $user_role_item->role }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $user_role_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user_role_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($user_role_item->id); ?>" <?php echo e($user_role_item->id == $item->role_id ? 'selected' : ''); ?> ><?php echo e($user_role_item->role); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-                                    @error('role_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <?php $__errorArgs = ['role_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <span class="text-danger"><?php echo e($message); ?></span>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -230,7 +273,7 @@
                 </div>
                 </div>
 
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 
             </tbody>
         </table>
@@ -239,9 +282,9 @@
 </div>
 
     
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
     <script>
         $(document).ready(function() {
             $('#role_id_for_create_user').on('change', function(){
@@ -256,7 +299,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{ route('get_permission.users') }}",
+                url: "<?php echo e(route('get_permission.users')); ?>",
                 data: {
                     role_id: role_id_for_create_user
                 },
@@ -271,4 +314,5 @@
             
         })
         </script>
-        @endsection
+        <?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app_backend', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Rajiur Rahman\Desktop\CRM-FINAL\SoCloseSociety-CRM\resources\views/admin/user/index.blade.php ENDPATH**/ ?>

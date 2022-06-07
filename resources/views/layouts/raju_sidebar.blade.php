@@ -1,32 +1,30 @@
-    
-    
+
     @php
-        $loged_in_user_permission = json_decode(Auth::user()->permission);
+
+        // $all_navigations = App\Models\Navigation::all();
+        $users_permission = json_decode(Auth::user()->permission);
+        $role_id = Auth::user()->role_id;
     @endphp
 
-    @foreach ($loged_in_user_permission as $item)
+    <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+    class="fa-solid fa-house me-2"></i> Dashboard <span class="badge ms-3">2</span></a>
 
-        {{-- @if($item == 1)
-        <a href="{{ route('user_role.index') }}"
-        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-        class="fa-solid fa-gear me-2"></i>User Role
+    @foreach ($users_permission as $item)
+        @php
+            $navigation_data = App\Models\Navigation::find($item);
+        @endphp
+        <a href="{{ route($navigation_data->route.'.index') }}"
+        class="list-group-item list-group-item-action bg-transparent second-text fw-bold">{!! $navigation_data->icon !!} {{ $navigation_data->name }}
         </a>
-        @endif --}}
-
-
-        @if($item == 2)
-            <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-user me-2"></i>Users</a>
-        @endif
-
-
-        @if($item == 4)
-            <a href="{{ route('priority.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-            class="fa-solid fa-user me-2"></i>Priorities</a>
-        @endif
-
-
     @endforeach
+
+    @if ($role_id == 1)
+        <a href="{{ route('navigation.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+        class="fa-solid fa-user me-2"></i>Create Navigation</a>
+    @endif
+    
+
+
     
 
     

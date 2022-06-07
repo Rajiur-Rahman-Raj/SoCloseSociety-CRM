@@ -1,4 +1,4 @@
-@section('css')
+<?php $__env->startSection('css'); ?>
 
     <style>
         .form-check{
@@ -17,7 +17,7 @@
     }
     </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 <script>
     function checkAll(myCheckbox){
@@ -38,7 +38,7 @@
     }
 </script>
 
-@if($role_id)
+<?php if($role_id): ?>
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="headingOne">
@@ -52,24 +52,25 @@
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="checkAll(this)">
                     <label class="form-check-label" for="flexSwitchCheckDefault">Select All</label>
                 </div>
-                @php
+                <?php
                     $all_navigations = App\Models\Navigation::all();
-                @endphp
+                ?>
 
-                @foreach ($all_navigations as $item)
+                <?php $__currentLoopData = $all_navigations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="form-check form-switch">
-                    <input class="form-check-input inner-checkbox" name="permission[]" value="{{ $item->id }}" type="checkbox" id="flexSwitchCheckDefault{{ $item->id }}">
-                    <label class="form-check-label" for="flexSwitchCheckDefault{{ $item->id }}"> {{ $item->name }} [ {!! $item->icon !!} ]</label>
+                    <input class="form-check-input inner-checkbox" name="permission[]" value="<?php echo e($item->id); ?>" type="checkbox" id="flexSwitchCheckDefault<?php echo e($item->id); ?>">
+                    <label class="form-check-label" for="flexSwitchCheckDefault<?php echo e($item->id); ?>"> <?php echo e($item->name); ?> [ <?php echo $item->icon; ?> ]</label>
                 </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 
         </div>
       </div>
     </div>
   </div>
-@endif
+<?php endif; ?>
 
 
 
 
 
+<?php /**PATH C:\Users\Rajiur Rahman\Desktop\CRM-FINAL\SoCloseSociety-CRM\resources\views/includes/role_permission.blade.php ENDPATH**/ ?>

@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'role_id' => 1,
-            'permission' => json_encode(['0','1', '2', '3', '4', '5', '6']),
+            'permission' => json_encode(['1', '2', '3', '4', '5', '6']),
             'email' => 'admin@admin.com',
             'password' => bcrypt('@@Bladepro@123@@'),
             'created_at' => Carbon::now(),

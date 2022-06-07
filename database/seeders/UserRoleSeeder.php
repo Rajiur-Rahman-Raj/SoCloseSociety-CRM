@@ -15,17 +15,14 @@ class UserRoleSeeder extends Seeder
     {
         UserRole::create([
             'role' => "Admin",
-            'permission' => 1,
         ]);
 
         UserRole::create([
             'role' => "Agent",
-            'permission' => 2,
         ]);
 
         UserRole::create([
             'role' => "Customer",
-            'permission' => 3,
         ]);
     }
 }

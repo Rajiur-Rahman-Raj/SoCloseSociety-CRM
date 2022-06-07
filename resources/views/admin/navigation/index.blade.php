@@ -4,17 +4,17 @@
 
 <div class="container-fluid px-4">
     <!--=====MODAL FOR CREATE User=====-->
-    <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="createNavigation" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
-                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create User</h5>
+                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Navigation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('navigation.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="col-form-label">Name</label>
@@ -24,22 +24,22 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="value" value="{{ old('email') }}">
-                            @error('email')
+                            <label for="value" class="col-form-label">Icon</label>
+                            <input type="text" name="icon" class="form-control" id="icon" value="{{ old('icon') }}">
+                            @error('icon')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" value="{{ old('password') }}">
-                            @error('password')
+                            <label for="value" class="col-form-label">Route</label>
+                            <input type="text" name="route" class="form-control" id="route" value="{{ old('route') }}">
+                            @error('route')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="value" class="col-form-label">Select Role</label>
                             <select name="role_id" id="role_id_for_create_user"  class="form-control">
                                 <option value="">--Select One--</option>
@@ -50,16 +50,7 @@
                             @error('role_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div>
-
-                        <div id="role_permission_area">
-                            @php
-                                $role_id = '';
-                            @endphp
-                            @include('includes.role_permission')
-                        </div>
-                        
-
+                        </div> --}}
 
                         <div class="modal-footer border-top-0">
                             <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
@@ -72,9 +63,10 @@
             </div>
         </div>
     </div>
+
     <!--=====MODAL FOR CREATE User End =====-->
 
-    <!--==========Priority Header==========-->
+    <!--==========Navigation Header==========-->
     <div class="team_header d-flex justify-content-between flex-wrap mt-3 ">
         <div class="team_header__left">
             <div class="input-group mb-3">
@@ -90,44 +82,36 @@
             </div>
         </div>
         <div class="team_header__right">
-            <button data-bs-toggle="modal" data-bs-target="#createUser" data-bs-whatever="@mdo">
+            <button data-bs-toggle="modal" data-bs-target="#createNavigation" data-bs-whatever="@mdo">
                 <span><i class="fa-solid fa-circle-plus me-2"></i></span>
-                Create User
+                Create Navigation
             </button>
            
         </div>
     </div>
-    <!--==========Priority Table==========-->
+    <!--==========Navigation Table==========-->
     <div class="user_list user-page table-responsive table-overflow-none">
         <table class="table table-hover" id="myTable" class="display nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">Serial</th>
+                    <th scope="col">Icon</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Route</th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($all_user_data as $item)
+                @foreach ($all_navigation_data as $item)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>
-                        {{ $item->name }}
+                        {!! $item->icon !!}
                     </td>
-                    {{-- <td>
-                        @php
-                           $permission = json_decode($item->permission)
-                        @endphp
-                        @foreach ($permission as $per)
-                            {{ $per }},
-                        @endforeach
-                    </td> --}}
 
-                    <td>{{ $item->getRole->role  }}</td>
-                    <td>{{ $item->email }}</td>
+                    <td>{{ $item->name  }}</td>
+                    <td>{{ $item->route }}</td>
                     <td>{{ $item->created_at->Format('Y-m-d') }}</td>
                     <td>
                         <div class="dropdown">
@@ -136,11 +120,10 @@
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#showUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateNavigation{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
                                     
-                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteNavigation{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
                                 </li>
                               
                             </ul>
@@ -153,7 +136,7 @@
             
                 {{-- delete modal --}}
 
-                <div class="modal fade" id="deleteUsers{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteNavigation{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
@@ -166,7 +149,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <form action="{{ route('users.destroy', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('navigation.destroy', $item->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -178,7 +161,7 @@
                </div>
 
                <!--=====MODAL FOR UPDATE USER=====-->
-               <div class="modal fade" id="updateUser{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+               <div class="modal fade" id="updateNavigation{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -188,7 +171,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('users.update', $item->id) }}" method="POST">
+                            <form action="{{ route('navigation.update', $item->id) }}" method="POST">
                                 @csrf
                                 @method('put')
                                 <div class="form-group mt-2">
@@ -200,14 +183,22 @@
                                 </div>
 
                                 <div class="form-group mt-2">
-                                    <label class="form-label">Email <span class="text-danger"> *</span></label>
-                                    <input type="email" name="email" class="form-control" value="{{ $item->email }}">
-                                    @error('email')
+                                    <label class="form-label">Icon <span class="text-danger"> *</span></label>
+                                    <input type="text" name="icon" class="form-control" value="{{ $item->icon }}">
+                                    @error('icon')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="form-group mt-2">
+                                    <label class="form-label">Route <span class="text-danger"> *</span></label>
+                                    <input type="text" name="route" class="form-control" value="{{ $item->route }}">
+                                    @error('route')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                {{-- <div class="mb-3">
                                     <label for="value" class="col-form-label">Select Role</label>
         
                                     <select name="role_id" id="role_id" class="form-control">
@@ -220,7 +211,7 @@
                                     @error('role_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
                             </form>
@@ -228,7 +219,7 @@
 
                     </div>
                 </div>
-                </div>
+            </div>
 
                 @endforeach
                 
@@ -236,39 +227,5 @@
         </table>
     </div>
     <!-- other content -->
-</div>
-
-    
+</div> 
 @endsection
-
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $('#role_id_for_create_user').on('change', function(){
-                
-                var role_id_for_create_user = $(this).val();
-                //ajax setup 
-                $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('get_permission.users') }}",
-                data: {
-                    role_id: role_id_for_create_user
-                },
-                success: function(data) {
-                    $('#role_permission_area').html(data.data)
-                }
-            })
-
-
-
-            });
-            
-        })
-        </script>
-        @endsection
