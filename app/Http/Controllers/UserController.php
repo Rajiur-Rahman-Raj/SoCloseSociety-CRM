@@ -42,6 +42,7 @@ class UserController extends Controller
         // dd($request->role_id);
         $request->validate([
             'name' => 'required',
+            'phone' => 'numeric',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'role_id' => 'required',
@@ -51,6 +52,7 @@ class UserController extends Controller
          
         User::insert([
             'name' => $request->name,
+            'phone' => $request->phone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role_id' => $request->role_id,
@@ -96,12 +98,14 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'phone' => 'numeric',
             'email' => 'required|email',
             'role_id' => 'required',
         ]);
 
         User::find($id)->update([
             'name' => $request->name,
+            'phone' => $request->phone,
             'email' => $request->email,
             'role_id' => $request->role_id,
             'updated_at' => Carbon::now(),

@@ -30,20 +30,6 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
-                        <div class="mb-3">
-                            <label for="value" class="col-form-label">Value</label>
-                            <input type="text" name="value" class="form-control" id="value" value="<?php echo e(old('value')); ?>">
-                            <?php $__errorArgs = ['value'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                <span class="text-danger"><?php echo e($message); ?></span>
-                            <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                        </div>
                         <div class="modal-footer border-top-0">
                             <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
                                 class="btn w-100">Submit</button>
@@ -86,7 +72,6 @@ unset($__errorArgs, $__bag); ?>
                 <tr>
                     <th scope="col">Serial</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Value</th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -99,7 +84,6 @@ unset($__errorArgs, $__bag); ?>
                         <?php echo e($item->name); ?>
 
                     </td>
-                    <td><?php echo e($item->value); ?></td>
                     <td><?php echo e($item->created_at->format('d-m-Y')); ?></td>
                     <td>
                         <div class="dropdown">

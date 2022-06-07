@@ -56,6 +56,15 @@
 
                                                     <tr>
                                                         <th>
+                                                            Phone
+                                                        </th>
+                                                        <td>
+                                                            {{ $all_user_data->phone }}
+                                                            {{-- <img src="{{ asset('uploads/images/testimonial') }}/{{ $testimonial->user_photo }}" alt="not found" width="70" height="70"> --}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
                                                             Email
                                                         </th>
                                                         <td>
@@ -66,8 +75,7 @@
                                                                                                             
                                                 </tbody>
                                             </table>
-                                            <a class="btn mt-1 btn-success" href="">Return Back</a>
-                                            <a class="btn edit-btn mt-1 btn-primary" href="">Edit</a>
+                                            <a class="btn mt-1 btn-success" href="{{ route('users.index') }}">Return Back</a>
 
                                         </div>
                                     </div>

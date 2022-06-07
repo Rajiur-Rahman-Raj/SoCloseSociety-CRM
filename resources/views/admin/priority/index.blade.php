@@ -23,13 +23,6 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="value" class="col-form-label">Value</label>
-                            <input type="text" name="value" class="form-control" id="value" value="{{ old('value') }}">
-                            @error('value')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <div class="modal-footer border-top-0">
                             <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
                                 class="btn w-100">Submit</button>
@@ -72,7 +65,6 @@
                 <tr>
                     <th scope="col">Serial</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Value</th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -84,7 +76,6 @@
                     <td>
                         {{ $item->name }}
                     </td>
-                    <td>{{ $item->value }}</td>
                     <td>{{ $item->created_at->format('d-m-Y') }}</td>
                     <td>
                         <div class="dropdown">

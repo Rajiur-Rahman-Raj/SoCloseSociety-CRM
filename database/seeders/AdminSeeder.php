@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
+            'phone' => '01868752464',
             'role_id' => 1,
             'permission' => json_encode(['1', '2', '3', '4', '5', '6']),
             'email' => 'admin@admin.com',

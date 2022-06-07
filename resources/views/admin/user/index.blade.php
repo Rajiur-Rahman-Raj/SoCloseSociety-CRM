@@ -17,14 +17,22 @@
                     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="name" class="col-form-label">Name</label>
+                            <label for="name" class="col-form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Email</label>
+                            <label for="name" class="col-form-label">Phone</label>
+                            <input type="text" name="phone" class="form-control" id="phone" value="{{ old('phone') }}">
+                            @error('phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="value" class="col-form-label">Email <span class="text-danger">*</span></label></label>
                             <input type="email" name="email" class="form-control" id="value" value="{{ old('email') }}">
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
@@ -32,7 +40,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Password</label>
+                            <label for="value" class="col-form-label">Password <span class="text-danger">*</span></label></label>
                             <input type="password" name="password" class="form-control" id="password" value="{{ old('password') }}">
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
@@ -40,7 +48,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Select Role</label>
+                            <label for="value" class="col-form-label">Select Role <span class="text-danger">*</span></label></label>
                             <select name="role_id" id="role_id_for_create_user"  class="form-control">
                                 <option value="">--Select One--</option>
                                 @foreach ($user_role_data as $item)

@@ -58,6 +58,16 @@
 
                                                     <tr>
                                                         <th>
+                                                            Phone
+                                                        </th>
+                                                        <td>
+                                                            <?php echo e($all_user_data->phone); ?>
+
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>
                                                             Email
                                                         </th>
                                                         <td>
@@ -69,8 +79,7 @@
                                                                                                             
                                                 </tbody>
                                             </table>
-                                            <a class="btn mt-1 btn-success" href="">Return Back</a>
-                                            <a class="btn edit-btn mt-1 btn-primary" href="">Edit</a>
+                                            <a class="btn mt-1 btn-success" href="<?php echo e(route('users.index')); ?>">Return Back</a>
 
                                         </div>
                                     </div>

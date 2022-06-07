@@ -38,7 +38,6 @@ class PriorityController extends Controller
     {
         $request->validate([
             'name'    => 'required|unique:priorities',
-            'value'   => 'required|numeric',
         ]);
 
         Priority::create($request->except('_token') + ['created_at' => Carbon::now()]);

@@ -17,7 +17,7 @@
                     <form action="<?php echo e(route('users.store')); ?>" method="POST" enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
                         <div class="mb-3">
-                            <label for="name" class="col-form-label">Name</label>
+                            <label for="name" class="col-form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" id="name" value="<?php echo e(old('name')); ?>">
                             <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -30,8 +30,23 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
+
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Email</label>
+                            <label for="name" class="col-form-label">Phone</label>
+                            <input type="text" name="phone" class="form-control" id="phone" value="<?php echo e(old('phone')); ?>">
+                            <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="text-danger"><?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="value" class="col-form-label">Email <span class="text-danger">*</span></label></label>
                             <input type="email" name="email" class="form-control" id="value" value="<?php echo e(old('email')); ?>">
                             <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -46,7 +61,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Password</label>
+                            <label for="value" class="col-form-label">Password <span class="text-danger">*</span></label></label>
                             <input type="password" name="password" class="form-control" id="password" value="<?php echo e(old('password')); ?>">
                             <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -61,7 +76,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="mb-3">
-                            <label for="value" class="col-form-label">Select Role</label>
+                            <label for="value" class="col-form-label">Select Role <span class="text-danger">*</span></label></label>
                             <select name="role_id" id="role_id_for_create_user"  class="form-control">
                                 <option value="">--Select One--</option>
                                 <?php $__currentLoopData = $user_role_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
