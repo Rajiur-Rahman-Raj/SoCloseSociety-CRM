@@ -158,7 +158,7 @@ unset($__errorArgs, $__bag); ?>
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#showUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
+                                <li><a class="dropdown-item" href="<?php echo e(route('users.show', $item->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
                                 <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
                                     

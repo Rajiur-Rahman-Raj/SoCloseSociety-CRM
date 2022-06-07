@@ -136,7 +136,7 @@
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#showUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
+                                <li><a class="dropdown-item" href="{{ route('users.show', $item->id) }}" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
                                 <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
                                     
