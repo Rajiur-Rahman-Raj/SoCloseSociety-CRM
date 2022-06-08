@@ -53,12 +53,11 @@ class UserController extends Controller
         User::insert([
             'name' => $request->name,
             'phone' => $request->phone,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
             'role_id' => $request->role_id,
             'permission' => json_encode($request->permission),
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
         ]);
 
         return redirect()->route('users.index')->with('success', 'Data upload successfull');
@@ -101,13 +100,15 @@ class UserController extends Controller
             'phone' => 'numeric',
             'email' => 'required|email',
             'role_id' => 'required',
+            'permission' => 'required',
         ]);
 
         User::find($id)->update([
             'name' => $request->name,
             'phone' => $request->phone,
-            'email' => $request->email,
             'role_id' => $request->role_id,
+            'permission' => json_encode($request->permission),
+            'email' => $request->email,
             'updated_at' => Carbon::now(),
         ]);
 

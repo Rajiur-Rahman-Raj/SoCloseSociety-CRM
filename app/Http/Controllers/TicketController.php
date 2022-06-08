@@ -10,6 +10,7 @@ use App\Models\Priority;
 use App\Models\UserRole;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Auth;
 
 class TicketController extends Controller
 {
@@ -53,6 +54,12 @@ class TicketController extends Controller
 
         return redirect()->route('ticket.index')->withSuccess('Created Successfully');
     }
+    //create customer ticket method
+    public function customer_ticket(Request $request){
+        Ticket::create($request->except('_token') + ['created_at' => Carbon::now(), 'customer' => Auth::id()]);
+        
+        return redirect()->route('ticket.index')->withSuccess('Created Successfully');
+    }
 
     /**
      * Display the specified resource.
@@ -88,6 +95,21 @@ class TicketController extends Controller
         $ticket->update($request->except('_token') + ['updated_at' => Carbon::now()]);
 
         return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
+    }
+
+    public function customer_ticket_update(Request $request, $id){
+        Ticket::find($id)->update([
+            'subject' => $request->subject,
+            'department' => $request->department,
+            'ticket_body' => $request->ticket_body,
+        ]);
+
+        return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
+    }
+
+    public function customer_ticket_delete(Request $request, $id){
+        Ticket::find($id)->delete();
+        return redirect()->route('ticket.index')->withSuccess('Delete Successfully');
     }
 
     /**

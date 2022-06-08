@@ -147,8 +147,12 @@
                                 <li><a class="dropdown-item" href="{{ route('users.show', $item->id) }}" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
                                 <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
+                                    @if($item->role_id == 1)
+
+                                    @else
+                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                    @endif
                                     
-                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
                                 </li>
                               
                             </ul>
@@ -208,9 +212,9 @@
                                 </div>
 
                                 <div class="form-group mt-2">
-                                <label class="form-label">Phone <span class="text-danger"> *</span></label>
-                                <input type="text" name="name" class="form-control" value="{{ $item->name }}">
-                                @error('name')
+                                <label class="form-label">Phone</label>
+                                <input type="text" name="phone" class="form-control" value="{{ $item->phone }}">
+                                @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 </div>
@@ -237,15 +241,15 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 @php
-                                    $all_data = json_decode($item->permission);
+                                    $selected_permission = json_decode($item->permission);
                                 @endphp
-                                
-                                <div id="role_permission_area">
+
+                                <div>
                                     @include('includes.user_update_role')
                                 </div>
-
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-3">Update</button>
                             </form>
                         </div>
 

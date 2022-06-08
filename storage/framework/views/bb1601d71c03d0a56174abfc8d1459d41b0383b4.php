@@ -176,8 +176,12 @@ unset($__errorArgs, $__bag); ?>
                                 <li><a class="dropdown-item" href="<?php echo e(route('users.show', $item->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
                                 <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
+                                    <?php if($item->role_id == 1): ?>
+
+                                    <?php else: ?>
+                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                    <?php endif; ?>
                                     
-                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
                                 </li>
                               
                             </ul>
@@ -244,9 +248,9 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="form-group mt-2">
-                                <label class="form-label">Phone <span class="text-danger"> *</span></label>
-                                <input type="text" name="name" class="form-control" value="<?php echo e($item->name); ?>">
-                                <?php $__errorArgs = ['name'];
+                                <label class="form-label">Phone</label>
+                                <input type="text" name="phone" class="form-control" value="<?php echo e($item->phone); ?>">
+                                <?php $__errorArgs = ['phone'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -294,15 +298,15 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
+
                                 <?php
-                                    $all_data = json_decode($item->permission);
+                                    $selected_permission = json_decode($item->permission);
                                 ?>
-                                
-                                <div id="role_permission_area">
+
+                                <div>
                                     <?php echo $__env->make('includes.user_update_role', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 </div>
-
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-3">Update</button>
                             </form>
                         </div>
 

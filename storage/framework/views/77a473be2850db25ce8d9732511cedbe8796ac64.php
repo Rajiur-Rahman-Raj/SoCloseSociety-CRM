@@ -68,7 +68,6 @@ unset($__errorArgs, $__bag); ?>
             <thead>
                 <tr>
                     <th scope="col">SL</th>
-                    <th scope="col">ID Number</th>
                     <th scope="col">Role</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Action</th>
@@ -78,7 +77,6 @@ unset($__errorArgs, $__bag); ?>
                 <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
                     <th scope="row"><?php echo e($loop->index + 1); ?></th>
-                    <th scope="row"><?php echo e($item->id); ?></th>
                     <td><?php echo e($item->role); ?></td>
                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
                     <td>

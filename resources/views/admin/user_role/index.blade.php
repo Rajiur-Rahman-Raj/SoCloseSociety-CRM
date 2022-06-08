@@ -63,7 +63,6 @@
             <thead>
                 <tr>
                     <th scope="col">SL</th>
-                    <th scope="col">ID Number</th>
                     <th scope="col">Role</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Action</th>
@@ -73,7 +72,6 @@
                 @foreach ($roles as $item)
                 <tr>
                     <th scope="row">{{ $loop->index + 1 }}</th>
-                    <th scope="row">{{ $item->id }}</th>
                     <td>{{$item->role}}</td>
                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
                     <td>

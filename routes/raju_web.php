@@ -10,9 +10,7 @@ use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\DepartmentController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'login');
 
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function(){
 
@@ -30,6 +28,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function(){
     Route::resource('ticket', TicketController::class);
     Route::post('/get/users', [TicketController::class, 'get_users'])->name('get.users');
     Route::post('/edit/users', [TicketController::class, 'edit_users'])->name('edit.users');
+
+    Route::delete('/customer/ticket/delete/{id}', [TicketController::class, 'customer_ticket_delete'])->name('customer_ticket.destroy');
+
+    
+
+    //customer ticket create
+    Route::post('/customer/ticket', [TicketController::class, 'customer_ticket'])->name('customer_ticket.store');
+    Route::post('/customer/ticket/update/{id}', [TicketController::class, 'customer_ticket_update'])->name('customer_ticket.update');
 
     //User Role controller
     Route::resource('user_role', UserRoleController::class);

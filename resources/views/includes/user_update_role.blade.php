@@ -50,24 +50,21 @@
         <div class="accordion-body">
                 <div class="form-check form-switch select_all_checkbox">
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="checkAll(this)">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Select All </label>
+                    <label class="form-check-label" for="flexSwitchCheckDefault"> Select All </label>
                     
                 </div>
                 @php
                     $all_navigations = App\Models\Navigation::all();
                 @endphp
 
-                @foreach ($all_navigations as $item)
 
-                @foreach ($all_data as $data)   
+                @foreach ($all_navigations as $item)
                     
+                    <div class="form-check form-switch">
+                        <input class="form-check-input inner-checkbox" {{ in_array($item->id, $selected_permission)? 'checked' : '' }} name="permission[]" value="{{ $item->id }}" type="checkbox" id="flexSwitchCheckDefault{{ $item->id }}">
+                        <label class="form-check-label" for="flexSwitchCheckDefault{{ $item->id }}"> {{ $item->name }} [ {!! $item->icon !!} ]</label>
+                    </div>              
                 @endforeach
-                <div class="form-check form-switch">
-                    <input class="form-check-input inner-checkbox" name="permission[]" value="{{ $item->id }}" type="checkbox" id="flexSwitchCheckDefault{{ $item->id }}">
-                    <label class="form-check-label" for="flexSwitchCheckDefault{{ $item->id }}"> {{ $item->name }} [ {!! $item->icon !!} ]</label>
-                </div>
-                @endforeach
-                
         </div>
       </div>
     </div>
