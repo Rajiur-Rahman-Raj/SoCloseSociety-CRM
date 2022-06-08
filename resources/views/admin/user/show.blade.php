@@ -26,18 +26,18 @@
                                                         <td>
                                                             {{ $all_user_data->name }}
                                                         </td>
-                                                    </tr>                                
-                                                                                                            
+                                                    </tr>
+
                                                     <tr>
                                                         <th>
                                                             Role
                                                         </th>
                                                         <td>
                                                             {{ $all_user_data->getRole->role }}
-                                                           
+
                                                         </td>
-                                                    </tr>   
-                                                    
+                                                    </tr>
+
                                                     <tr>
                                                         <th>
                                                             Permission
@@ -47,10 +47,9 @@
                                                                 $all_data = json_decode($all_user_data->permission);
                                                             @endphp
                                                             @foreach ($all_data as $item)
-                                                               
+
                                                                 {{ App\Models\Navigation::find($item)->name }} |
                                                             @endforeach
-                                                            {{-- <img src="{{ asset('uploads/images/testimonial') }}/{{ $testimonial->user_photo }}" alt="not found" width="70" height="70"> --}}
                                                         </td>
                                                     </tr>
 
@@ -60,7 +59,6 @@
                                                         </th>
                                                         <td>
                                                             {{ $all_user_data->phone }}
-                                                            {{-- <img src="{{ asset('uploads/images/testimonial') }}/{{ $testimonial->user_photo }}" alt="not found" width="70" height="70"> --}}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -69,10 +67,9 @@
                                                         </th>
                                                         <td>
                                                             {{ $all_user_data->email }}
-                                                            {{-- <img src="{{ asset('uploads/images/testimonial') }}/{{ $testimonial->user_photo }}" alt="not found" width="70" height="70"> --}}
                                                         </td>
                                                     </tr>
-                                                                                                            
+
                                                 </tbody>
                                             </table>
                                             <a class="btn mt-1 btn-success" href="{{ route('users.index') }}">Return Back</a>

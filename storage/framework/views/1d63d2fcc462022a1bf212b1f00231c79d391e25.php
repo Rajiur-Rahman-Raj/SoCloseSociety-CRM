@@ -1,5 +1,4 @@
 <?php $__env->startSection('css'); ?>
-
     <style>
         .form-check{
         margin-left: 70px !important;
@@ -16,7 +15,6 @@
         margin-bottom: 10px !important;
     }
     </style>
-
 <?php $__env->stopSection(); ?>
 
 <script>
@@ -34,7 +32,6 @@
                 checkbox.checked = false;
             });
         }
-
     }
 </script>
 
@@ -50,24 +47,20 @@
         <div class="accordion-body">
                 <div class="form-check form-switch select_all_checkbox">
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="checkAll(this)">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Select All </label>
-                    
+                    <label class="form-check-label" for="flexSwitchCheckDefault"> Select All </label>
+
                 </div>
+
                 <?php
                     $all_navigations = App\Models\Navigation::all();
                 ?>
 
                 <?php $__currentLoopData = $all_navigations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-                <?php $__currentLoopData = $all_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>   
-                    
+                    <div class="form-check form-switch">
+                        <input class="form-check-input inner-checkbox" <?php echo e(in_array($item->id, $selected_permission)? 'checked' : ''); ?> name="permission[]" value="<?php echo e($item->id); ?>" type="checkbox" id="flexSwitchCheckDefault<?php echo e($item->id); ?>">
+                        <label class="form-check-label" for="flexSwitchCheckDefault<?php echo e($item->id); ?>"> <?php echo e($item->name); ?> [ <?php echo $item->icon; ?> ]</label>
+                    </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <div class="form-check form-switch">
-                    <input class="form-check-input inner-checkbox" name="permission[]" value="<?php echo e($item->id); ?>" type="checkbox" id="flexSwitchCheckDefault<?php echo e($item->id); ?>">
-                    <label class="form-check-label" for="flexSwitchCheckDefault<?php echo e($item->id); ?>"> <?php echo e($item->name); ?> [ <?php echo $item->icon; ?> ]</label>
-                </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                
         </div>
       </div>
     </div>

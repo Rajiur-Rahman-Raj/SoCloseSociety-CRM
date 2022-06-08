@@ -21,7 +21,7 @@
                 <div class="current_ticket__right__btn__div me-2">
                     <button class="btn" data-bs-toggle="modal" data-bs-target="#createTicket" data-bs-whatever="@mdo">
                         <span><i class="fa-solid fa-circle-plus me-2"></i></span>
-                        Create Ticket 
+                        Create Ticket
                     </button>
                 </div>
 
@@ -86,7 +86,7 @@
 
                                         <label class="mt-3" for="#">Ticket Body</label>
                                         <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4">{{ old('ticket_body') }}</textarea>
-                                   
+
 
                                         <button class="btn w-100 create_ticket_btn mt-3">Create Ticket</button>
                                     </div>
@@ -178,7 +178,7 @@
                                 @foreach ($tickets as $item)
                                 <tr id="tr1 ">
                                     <td>#{{ $item->id }}</td>
-                                    <td>{{ $item->get_customer->name }}</td>
+                                    <td>{{ $item->get_customer->name ?? ''}}</td>
                                     <td>{{ $item->get_department->name }}</td>
                                     <td>{{ $item->subject }}</td>
                                     <td>{{ $item->get_status->name ?? ''}}</td>
@@ -273,7 +273,6 @@
 
                                                         <label class="mt-3" for="#">Ticket Body</label>
                                                         <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4">{{ $item->ticket_body }}</textarea>
-                                                        
 
                                                         <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
                                                     </div>
@@ -323,7 +322,7 @@
     <!--==========Team Header==========-->
     <div class="current_ticket mt-3 d-flex justify-content-between flex-wrap">
         <div class="current_ticket__left">
-         
+
         </div>
 
         <div class="current_ticket__right">
@@ -349,7 +348,7 @@
                                 <form action="{{ route('customer_ticket.store') }}" method="post">
                                     @csrf
                                     <div class="offcanvas-body">
-                                        
+
 
 
                                         <label class="mt-3" for="#">Subject</label>
@@ -545,10 +544,10 @@
                                                         @csrf
                                                         @method("PUT")
                                                         <div class="offcanvas-body">
-                                                            
+
                                                             <label class="mt-3" for="#">Subject</label>
                                                             <input type="text" name="subject" class="form-control mt-2" value="{{ $item->subject }}">
-    
+
                                                             <label class="mt-3" for="#">Department</label>
                                                             <select name="department" class="form-select mt-1" aria-label="Default select example">
                                                                 <option selected disabled>Select Department</option>
@@ -557,16 +556,16 @@
                                                                 @endforeach
                                                             </select>
                                                             </select>
-    
+
                                                             <label class="mt-3" for="#">Ticket Body</label>
-                                                            
+
                                                             <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4">{{ $item->ticket_body }}</textarea>
-    
+
                                                             <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
                                                         </div>
                                                     </form>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>
@@ -585,13 +584,13 @@
                                         <td>{{ $item->created_at->format('d-M-Y') }}</td>
                                         <td class="text-center ">
                                             <div class="dropdown">
-    
+
                                                 <a class="btn bg-transparent dropdown-toggle" href="#"
                                                     role="button" id="dropdownMenuLink"
                                                     data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis-vertical"></i>
                                                 </a>
-    
+
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                     <li class="m-2">
                                                         <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editTicket_{{ $item->id }}" data-bs-whatever="@mdo">
@@ -609,7 +608,7 @@
                                             </div>
                                         </td>
                                     </tr>
-    
+
                                     {{-- ######## Edit Admin page ticket Data ####### --}}
                                     <div class="modal fade" id="editTicket_{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel"
                                     aria-hidden="true">
@@ -632,7 +631,7 @@
                                                                     <option value="{{ $role->id }}" {{ $role->id == $item->id ? 'selected' : '' }}>{{ $role->role }}</option>
                                                                 @endforeach
                                                             </select>
-    
+
                                                             <label class="mt-3" for="#">Customers</label>
                                                             {{-- <input type="text" name="customer" class="form-select mt-1> --}}
                                                             <select name="customer" id="user_drop" class="form-select mt-1" aria-label="Default select example">
@@ -641,10 +640,10 @@
                                                                 @endphp
                                                                 @include('includes.user_dropdown')
                                                             </select>
-    
+
                                                             <label class="mt-3" for="#">Subject</label>
                                                             <input type="text" name="subject" class="form-control mt-2" value="{{ $item->subject }}">
-    
+
                                                             <label class="mt-3" for="#">Department</label>
                                                             <select name="department" class="form-select mt-1" aria-label="Default select example">
                                                                 <option selected disabled>Select Department</option>
@@ -653,7 +652,7 @@
                                                                 @endforeach
                                                             </select>
                                                             </select>
-    
+
                                                             <label class="mt-3" for="#">Status</label>
                                                             <select name="status" class="form-select mt-1" aria-label="Default select example">
                                                                 <option selected disabled>Select Ticket Status</option>
@@ -661,7 +660,7 @@
                                                                 <option value="{{ $stat->id }}" {{ $stat->id == $item->id ? 'selected' : '' }}>{{ $stat->name }}</option>
                                                                 @endforeach
                                                             </select>
-    
+
                                                             <label class="mt-3" for="#">Priority</label>
                                                             <select name="priority" class="form-select mt-1" aria-label="Default select example">
                                                                 <option selected disabled>Select Ticket Priority</option>
@@ -669,19 +668,19 @@
                                                                 <option value="{{ $prio->id }}" {{ $prio->id == $item->id ? 'selected' : '' }}>{{ $prio->name }}</option>
                                                                 @endforeach
                                                             </select>
-    
+
                                                             <label class="mt-3" for="#">Ticket Body</label>
                                                             <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4">{{ $item->ticket_body }}</textarea>
-    
+
                                                             <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
                                                         </div>
                                                     </form>
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     {{-- ######## Delete admin page ticket Data ####### --}}
                                     <div class="modal fade" id="deleteTicket_{{ $item->id }}" tabindex="-1" aria-labelledby="daleteModalLabel"
                                         aria-hidden="true">
@@ -709,7 +708,7 @@
                                     @endforeach
                                 </tbody>
                             @endif
-                            
+
                         </table>
                     </div>
                 </div>

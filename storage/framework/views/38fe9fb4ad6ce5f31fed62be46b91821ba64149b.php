@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 
 <div class="container-fluid px-4">
@@ -95,23 +93,16 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
 
-                        <div id="role_permission_area">
-                            <?php
-                                $role_id = '';
-                            ?>
-                            <?php echo $__env->make('includes.role_permission', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                        </div>
                         
-
 
                         <div class="modal-footer border-top-0">
                             <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
-                                class="btn w-100">Submit</button>
+                                class="btn w-100">Create User</button>
                         </div>
-                        
+
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -137,7 +128,7 @@ unset($__errorArgs, $__bag); ?>
                 <span><i class="fa-solid fa-circle-plus me-2"></i></span>
                 Create User
             </button>
-           
+
         </div>
     </div>
     <!--==========Priority Table==========-->
@@ -161,11 +152,9 @@ unset($__errorArgs, $__bag); ?>
                         <?php echo e($item->name); ?>
 
                     </td>
-                    
-
                     <td><?php echo e($item->getRole->role); ?></td>
                     <td><?php echo e($item->email); ?></td>
-                    <td><?php echo e($item->created_at->Format('Y-m-d')); ?></td>
+                    <td><?php echo e($item->created_at->Format('d-M-Y')); ?></td>
                     <td>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -176,18 +165,22 @@ unset($__errorArgs, $__bag); ?>
                                 <li><a class="dropdown-item" href="<?php echo e(route('users.show', $item->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
                                 <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
                                 <li>
-                                    
-                                    <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                    <?php if($item->role_id == 1): ?>
+
+                                    <?php else: ?>
+                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                    <?php endif; ?>
+
                                 </li>
-                              
+
                             </ul>
-                            
+
                         </div>
                     </td>
-                    
+
                 </tr>
 
-            
+
                 
 
                 <div class="modal fade" id="deleteUsers<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -209,7 +202,7 @@ unset($__errorArgs, $__bag); ?>
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
-                            
+
                         </div>
                     </div>
                </div>
@@ -244,9 +237,9 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="form-group mt-2">
-                                <label class="form-label">Phone <span class="text-danger"> *</span></label>
-                                <input type="text" name="name" class="form-control" value="<?php echo e($item->name); ?>">
-                                <?php $__errorArgs = ['name'];
+                                <label class="form-label">Phone</label>
+                                <input type="text" name="phone" class="form-control" value="<?php echo e($item->phone); ?>">
+                                <?php $__errorArgs = ['phone'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -275,10 +268,10 @@ unset($__errorArgs, $__bag); ?>
 
                                 <div class="mb-3">
                                     <label for="value" class="col-form-label">Role</label>
-        
+
                                     <select name="role_id" id="role_id_for_update_user" class="form-control">
                                         <option value="">--Select One--</option>
-                                        
+
                                         <?php $__currentLoopData = $user_role_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user_role_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($user_role_item->id); ?>" <?php echo e($user_role_item->id == $item->role_id ? 'selected' : ''); ?> ><?php echo e($user_role_item->role); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -294,93 +287,82 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
+
                                 <?php
-                                    $all_data = json_decode($item->permission);
+                                    $selected_permission = json_decode($item->permission);
                                 ?>
-                                
-                                <div id="role_permission_area">
+                                <div>
                                     <?php echo $__env->make('includes.user_update_role', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-3">Update</button>
                             </form>
                         </div>
 
                     </div>
                 </div>
                 </div>
-
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                
             </tbody>
         </table>
     </div>
-    <!-- other content -->
 </div>
 
-    
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
     <script>
-        $(document).ready(function() {
-            $('#role_id_for_create_user').on('change', function(){
-                
-                var role_id_for_create_user = $(this).val();
-                //ajax setup 
-                $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    $(document).ready(function() {
+        $('#role_id_for_create_user').on('change', function(){
 
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo e(route('get_permission.users')); ?>",
-                data: {
-                    role_id: role_id_for_create_user
-                },
-                success: function(data) {
-                    $('#role_permission_area').html(data.data)
-                }
-            })
+            var role_id_for_create_user = $(this).val();
+            //ajax setup
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-
-
-            });
-            
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo e(route('get_permission.users')); ?>",
+            data: {
+                role_id: role_id_for_create_user
+            },
+            success: function(data) {
+                $('#role_permission_area').html(data.data)
+            }
         })
-        </script>
-
+        });
+    })
+    </script>
 
     <script>
-        $(document).ready(function() {
-            $('#role_id_for_update_user').on('change', function(){
-                
-                var role_id_for_create_user = $(this).val();
-                //ajax setup 
-                $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    $(document).ready(function() {
+        $('#role_id_for_update_user').on('change', function(){
 
-            $.ajax({
-                type: 'POST',
-                url: "<?php echo e(route('get_permission.users')); ?>",
-                data: {
-                    role_id: role_id_for_create_user
-                },
-                success: function(data) {
-                    $('#role_permission_area').html(data.data)
-                }
-            })
+            var role_id_for_create_user = $(this).val();
+            //ajax setup
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-
-
-            });
-            
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo e(route('get_permission.users')); ?>",
+            data: {
+                role_id: role_id_for_create_user
+            },
+            success: function(data) {
+                $('#role_permission_area').html(data.data)
+            }
         })
-        </script>
-        <?php $__env->stopSection(); ?>
+        });
+
+    })
+    </script>
+<?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.app_backend', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\HP\Desktop\SoCloseSociety-CRM\resources\views/admin/user/index.blade.php ENDPATH**/ ?>

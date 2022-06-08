@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
@@ -42,7 +43,12 @@ class UserRoleController extends Controller
             'role' => 'required|unique:user_roles',
         ]);
 
-        UserRole::create($request->except('_token') + ['created_at' => Carbon::now()]);
+        // UserRole::create($request->except('_token') + ['created_at' => Carbon::now()]);
+        UserRole::insert([
+            'role' => $request->role,
+            'permission' => json_encode($request->permission),
+            'created_at' => Carbon::now(),
+        ]);
 
         return redirect()->route('user_role.index')->withSuccess('Role Created successfully');
     }
@@ -78,7 +84,12 @@ class UserRoleController extends Controller
      */
     public function update(Request $request, UserRole $userRole)
     {
-        $userRole->update($request->except('_token') + ['updated_at' => Carbon::now()]);
+        $userRole->update([
+            'role' => $request->role,
+            'permission' => json_encode($request->permission),
+            'created_at' => Carbon::now(),
+        ]);
+        $userRole->save();
 
         return redirect()->route('user_role.index')->withSuccess('Role Updated successfully');
     }
@@ -91,6 +102,7 @@ class UserRoleController extends Controller
      */
     public function destroy(UserRole $userRole)
     {
+        User::where('role_id',$userRole->id)->delete();
         $userRole->delete();
 
         return redirect()->route('user_role.index')->withDanger('Role Deleted Successfully');

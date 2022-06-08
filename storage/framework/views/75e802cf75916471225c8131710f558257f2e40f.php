@@ -41,12 +41,12 @@
 <?php if($role_id): ?>
 <div class="accordion" id="accordionExample">
     <div class="accordion-item">
-      <h2 class="accordion-header" id="headingOne">
+        <h2 class="accordion-header" id="headingOne">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="    background: #6c7bff;color: white;font-size: 18px;">
             <span style="    color: #080808;font-size: 20px;margin-right: 10px;margin-top: -2px;"><i class="fa-solid fa-lock"></i> </span>  Permission
         </button>
-      </h2>
-      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
         <div class="accordion-body">
                 <div class="form-check form-switch select_all_checkbox">
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="checkAll(this)">
@@ -62,11 +62,11 @@
                     <label class="form-check-label" for="flexSwitchCheckDefault<?php echo e($item->id); ?>"> <?php echo e($item->name); ?> [ <?php echo $item->icon; ?> ]</label>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                
+
         </div>
-      </div>
+        </div>
     </div>
-  </div>
+</div>
 <?php endif; ?>
 
 

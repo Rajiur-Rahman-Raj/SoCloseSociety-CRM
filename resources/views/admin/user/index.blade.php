@@ -60,23 +60,21 @@
                             @enderror
                         </div>
 
-                        <div id="role_permission_area">
+                        {{-- <div id="role_permission_area">
                             @php
                                 $role_id = '';
                             @endphp
                             @include('includes.role_permission')
-                        </div>
-                        
-
+                        </div> --}}
 
                         <div class="modal-footer border-top-0">
                             <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
-                                class="btn w-100">Submit</button>
+                                class="btn w-100">Create User</button>
                         </div>
-                        
+
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -102,7 +100,7 @@
                 <span><i class="fa-solid fa-circle-plus me-2"></i></span>
                 Create User
             </button>
-           
+
         </div>
     </div>
     <!--==========Priority Table==========-->
@@ -125,18 +123,9 @@
                     <td>
                         {{ $item->name }}
                     </td>
-                    {{-- <td>
-                        @php
-                           $permission = json_decode($item->permission)
-                        @endphp
-                        @foreach ($permission as $per)
-                            {{ $per }},
-                        @endforeach
-                    </td> --}}
-
                     <td>{{ $item->getRole->role  }}</td>
                     <td>{{ $item->email }}</td>
-                    <td>{{ $item->created_at->Format('Y-m-d') }}</td>
+                    <td>{{ $item->created_at->Format('d-M-Y') }}</td>
                     <td>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -152,18 +141,18 @@
                                     @else
                                         <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
                                     @endif
-                                    
+
                                 </li>
-                              
+
                             </ul>
-                            
+
                         </div>
                     </td>
-                    
+
                 </tr>
 
-            
-                {{-- delete modal --}}
+
+                {{-- modal for delete data --}}
 
                 <div class="modal fade" id="deleteUsers{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -184,7 +173,7 @@
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
-                            
+
                         </div>
                     </div>
                </div>
@@ -229,10 +218,10 @@
 
                                 <div class="mb-3">
                                     <label for="value" class="col-form-label">Role</label>
-        
+
                                     <select name="role_id" id="role_id_for_update_user" class="form-control">
                                         <option value="">--Select One--</option>
-                                        
+
                                         @foreach ($user_role_data as $user_role_item)
                                         <option value="{{ $user_role_item->id }}" {{ $user_role_item->id == $item->role_id ? 'selected' : '' }} >{{ $user_role_item->role }}</option>
                                         @endforeach
@@ -245,10 +234,10 @@
                                 @php
                                     $selected_permission = json_decode($item->permission);
                                 @endphp
-
                                 <div>
                                     @include('includes.user_update_role')
                                 </div>
+
                                 <button type="submit" class="btn btn-primary mt-3">Update</button>
                             </form>
                         </div>
@@ -256,77 +245,65 @@
                     </div>
                 </div>
                 </div>
-
                 @endforeach
-                
             </tbody>
         </table>
     </div>
-    <!-- other content -->
 </div>
 
-    
 @endsection
 
 @section('js')
     <script>
-        $(document).ready(function() {
-            $('#role_id_for_create_user').on('change', function(){
-                
-                var role_id_for_create_user = $(this).val();
-                //ajax setup 
-                $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    $(document).ready(function() {
+        $('#role_id_for_create_user').on('change', function(){
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('get_permission.users') }}",
-                data: {
-                    role_id: role_id_for_create_user
-                },
-                success: function(data) {
-                    $('#role_permission_area').html(data.data)
-                }
-            })
+            var role_id_for_create_user = $(this).val();
+            //ajax setup
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-
-
-            });
-            
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('get_permission.users') }}",
+            data: {
+                role_id: role_id_for_create_user
+            },
+            success: function(data) {
+                $('#role_permission_area').html(data.data)
+            }
         })
-        </script>
-
+        });
+    })
+    </script>
 
     <script>
-        $(document).ready(function() {
-            $('#role_id_for_update_user').on('change', function(){
-                
-                var role_id_for_create_user = $(this).val();
-                //ajax setup 
-                $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+    $(document).ready(function() {
+        $('#role_id_for_update_user').on('change', function(){
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('get_permission.users') }}",
-                data: {
-                    role_id: role_id_for_create_user
-                },
-                success: function(data) {
-                    $('#role_permission_area').html(data.data)
-                }
-            })
+            var role_id_for_create_user = $(this).val();
+            //ajax setup
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-
-
-            });
-            
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('get_permission.users') }}",
+            data: {
+                role_id: role_id_for_create_user
+            },
+            success: function(data) {
+                $('#role_permission_area').html(data.data)
+            }
         })
-        </script>
-        @endsection
+        });
+
+    })
+    </script>
+@endsection

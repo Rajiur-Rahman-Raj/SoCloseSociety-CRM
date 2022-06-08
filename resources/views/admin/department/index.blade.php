@@ -5,7 +5,7 @@
     <!--=====MODAL FOR CREATE USER=====-->
     <div class="modal fade" id="createDepartment" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
                     <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Department</h5>
@@ -25,7 +25,7 @@
 
                         <div class="mb-3">
                             <label for="role_id" class="col-form-label">Select Role (Agent*)</label>
-                            <select name="role_id" id="role_dropdown" class="form-select mt-1">
+                            <select name="role_id" id="role_dropdown" class="form-select mt-1" style="width: 100%">
                                 <option selected disabled>Select Agent</option>
                                 @foreach ($roles as $item)
                                     <option value="{{ $item->id }}">{{ $item->role }}</option>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="mb-3">
                         <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
-                        <select name="user_id[]" id="user_dropdown" class="form-select mt-1" aria-label="Default select example" multiple>
+                        <select name="user_id[]" id="user_dropdown" class="form-select mt-1" aria-label="Default select example" multiple="multiple" style="width: 100%">
                             @php
                                 $show_users = [];
                             @endphp
@@ -117,7 +117,7 @@
                 </tr>
 
                 <div class="modal fade" id="deleteDepartment{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Department</h5>
@@ -142,7 +142,7 @@
                 <!--=====MODAL FOR UPDATE USER=====-->
                 <div class="modal fade" id="updateDepartment{{ $department->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Department</h5>
@@ -201,6 +201,8 @@
 @section('js')
 <script>
     $(document).ready(function() {
+        $('#role_dropdown').select2();
+        $('#user_dropdown').select2({theme: "classic"});
         $('#role_dropdown').change(function() {
 
             var role_id = $(this).val();

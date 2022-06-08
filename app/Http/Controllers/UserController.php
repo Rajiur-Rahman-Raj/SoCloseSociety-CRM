@@ -39,22 +39,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->role_id);
-        $request->validate([
+      $request->validate([
             'name' => 'required',
             'phone' => 'numeric',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'role_id' => 'required',
-            'permission' => 'required',
+            // 'permission' => 'required',
         ]);
 
-         
         User::insert([
             'name' => $request->name,
             'phone' => $request->phone,
             'role_id' => $request->role_id,
-            'permission' => json_encode($request->permission),
+            'permission' => UserRole::find($request->role_id)->permission,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'created_at' => Carbon::now(),
@@ -83,7 +81,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -129,11 +127,11 @@ class UserController extends Controller
 
     // show role permission area
     public function get_role_permission_area(Request $request){
-        
+
         $role_id  =  $request->role_id;
 
         $view = view('includes.role_permission', compact('role_id'));
         $data  = $view->render();
         return response()->json(['data' => $data]);
-    } 
+    }
 }
