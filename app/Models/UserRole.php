@@ -10,4 +10,8 @@ class UserRole extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function get_rol(){
+        return $this->hasOne(Department::class, 'role_id', 'id');
+    }
 }

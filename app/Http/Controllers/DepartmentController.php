@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\UserRole;
 use App\Models\Department;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class DepartmentController extends Controller
 {
@@ -16,7 +18,8 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
-        return view('admin.department.index', compact('departments'));
+        $roles = UserRole::all();
+        return view('admin.department.index', compact('departments','roles'));
     }
 
     /**
@@ -37,10 +40,19 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->user_id;
         $request->validate([
             'name' => 'required'
         ]);
-        Department::create($request->except('_token') + ['created_at' => Carbon::now()]);
+
+        // Department::create($request->except('_token') + ['created_at' => Carbon::now()]);
+         Department::insert([
+            'name'=>$request->name,
+            'role_id'=> $request->role_id,
+            'user_id'=> json_encode($request->user_id),
+            'created_at'=> Carbon::now()
+        ]);
+
         return redirect()->route('department.index')->withSuccess('Data Store Success');
     }
 
@@ -52,7 +64,8 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        //
+        // return $department;
+        return view('admin.department.show', compact('department'));
     }
 
     /**
@@ -78,8 +91,12 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
+
         $department->name = $request->name;
+        $department->role_id = $request->role_id;
+        $department->user_id = json_encode($request->user_id);
         $department->save();
+
         return redirect()->route('department.index')->withSuccess('Data Update Success');
 
     }
@@ -95,4 +112,16 @@ class DepartmentController extends Controller
         $department->delete();
         return back()->with('danger', 'data deleted successfull!');
     }
+
+    public function edit_dapartment(Request $request)
+    {
+        // return $request->role_id;
+        $show_users = User::where('role_id', $request->role_id)->get(['id', 'name']);
+
+        $view = view('includes.user_drop', compact('show_users'));
+        $data = $view->render();
+        return response()->json(['data' => $data]);
+
+    }
+
 }
