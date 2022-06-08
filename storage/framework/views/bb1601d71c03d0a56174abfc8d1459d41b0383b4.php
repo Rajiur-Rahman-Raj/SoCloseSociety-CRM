@@ -217,7 +217,7 @@ unset($__errorArgs, $__bag); ?>
                <!--=====MODAL FOR UPDATE USER=====-->
                <div class="modal fade" id="updateUser<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header border-bottom-0">
                             <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update User</h5>
@@ -230,6 +230,21 @@ unset($__errorArgs, $__bag); ?>
                                 <?php echo method_field('put'); ?>
                                 <div class="form-group mt-2">
                                 <label class="form-label">Name <span class="text-danger"> *</span></label>
+                                <input type="text" name="name" class="form-control" value="<?php echo e($item->name); ?>">
+                                <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="text-danger"><?php echo e($message); ?></span>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div class="form-group mt-2">
+                                <label class="form-label">Phone <span class="text-danger"> *</span></label>
                                 <input type="text" name="name" class="form-control" value="<?php echo e($item->name); ?>">
                                 <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -259,9 +274,9 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="value" class="col-form-label">Select Role</label>
+                                    <label for="value" class="col-form-label">Role</label>
         
-                                    <select name="role_id" id="role_id" class="form-control">
+                                    <select name="role_id" id="role_id_for_update_user" class="form-control">
                                         <option value="">--Select One--</option>
                                         
                                         <?php $__currentLoopData = $user_role_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user_role_item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -278,6 +293,13 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                                </div>
+                                <?php
+                                    $all_data = json_decode($item->permission);
+                                ?>
+                                
+                                <div id="role_permission_area">
+                                    <?php echo $__env->make('includes.user_update_role', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -303,6 +325,37 @@ unset($__errorArgs, $__bag); ?>
     <script>
         $(document).ready(function() {
             $('#role_id_for_create_user').on('change', function(){
+                
+                var role_id_for_create_user = $(this).val();
+                //ajax setup 
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo e(route('get_permission.users')); ?>",
+                data: {
+                    role_id: role_id_for_create_user
+                },
+                success: function(data) {
+                    $('#role_permission_area').html(data.data)
+                }
+            })
+
+
+
+            });
+            
+        })
+        </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#role_id_for_update_user').on('change', function(){
                 
                 var role_id_for_create_user = $(this).val();
                 //ajax setup 

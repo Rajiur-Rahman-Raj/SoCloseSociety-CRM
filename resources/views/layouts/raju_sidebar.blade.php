@@ -8,7 +8,7 @@
 
     <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text active"><i
     class="fa-solid fa-house me-2"></i> Dashboard <span class="badge ms-3">2</span></a>
-
+        
     @foreach ($users_permission as $item)
         @php
             $navigation_data = App\Models\Navigation::find($item);

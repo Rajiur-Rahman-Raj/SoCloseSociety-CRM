@@ -188,7 +188,7 @@
                <!--=====MODAL FOR UPDATE USER=====-->
                <div class="modal fade" id="updateUser{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header border-bottom-0">
                             <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update User</h5>
@@ -208,6 +208,14 @@
                                 </div>
 
                                 <div class="form-group mt-2">
+                                <label class="form-label">Phone <span class="text-danger"> *</span></label>
+                                <input type="text" name="name" class="form-control" value="{{ $item->name }}">
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+
+                                <div class="form-group mt-2">
                                     <label class="form-label">Email <span class="text-danger"> *</span></label>
                                     <input type="email" name="email" class="form-control" value="{{ $item->email }}">
                                     @error('email')
@@ -216,9 +224,9 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="value" class="col-form-label">Select Role</label>
+                                    <label for="value" class="col-form-label">Role</label>
         
-                                    <select name="role_id" id="role_id" class="form-control">
+                                    <select name="role_id" id="role_id_for_update_user" class="form-control">
                                         <option value="">--Select One--</option>
                                         
                                         @foreach ($user_role_data as $user_role_item)
@@ -228,6 +236,13 @@
                                     @error('role_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+                                </div>
+                                @php
+                                    $all_data = json_decode($item->permission);
+                                @endphp
+                                
+                                <div id="role_permission_area">
+                                    @include('includes.user_update_role')
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -253,6 +268,37 @@
     <script>
         $(document).ready(function() {
             $('#role_id_for_create_user').on('change', function(){
+                
+                var role_id_for_create_user = $(this).val();
+                //ajax setup 
+                $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('get_permission.users') }}",
+                data: {
+                    role_id: role_id_for_create_user
+                },
+                success: function(data) {
+                    $('#role_permission_area').html(data.data)
+                }
+            })
+
+
+
+            });
+            
+        })
+        </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('#role_id_for_update_user').on('change', function(){
                 
                 var role_id_for_create_user = $(this).val();
                 //ajax setup 
