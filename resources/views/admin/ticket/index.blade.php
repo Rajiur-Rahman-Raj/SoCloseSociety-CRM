@@ -482,11 +482,12 @@
 
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <li class="m-2">
-                                                    <a style="cursor: pointer" href="{{ route('customer_ticket.show') }}" data-bs-whatever="@mdo">
+                                                    <a style="cursor: pointer" href="" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
                                                         Show
                                                     </a>
                                                 </li>
+                                                {{-- {{ route('customer_ticket.show') }} --}}
                                                 <li class="m-2">
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editCustomerTicket_{{ $item->id }}" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>

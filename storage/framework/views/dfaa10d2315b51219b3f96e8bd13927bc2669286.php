@@ -482,6 +482,13 @@
 
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <li class="m-2">
+                                                    <a style="cursor: pointer" href="" data-bs-whatever="@mdo">
+                                                        <span><i class="fa-solid fa-edit me-2"></i></span>
+                                                        Show
+                                                    </a>
+                                                </li>
+                                                
+                                                <li class="m-2">
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editCustomerTicket_<?php echo e($item->id); ?>" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
                                                         Edit

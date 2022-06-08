@@ -16,8 +16,8 @@
                     <form action="<?php echo e(route('department.store')); ?>" method="POST" enctype="multipart/form-data">
                         <?php echo csrf_field(); ?>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Name <span class="text-danger">*</span> </label>
-                            <input type="text" class="form-control" name="name" id="recipient-name" value="<?php echo e(old('name')); ?>">
+                            <label for="name" class="col-form-label">Name <span class="text-danger">*</span> </label>
+                            <input type="text" class="form-control" name="name" id="name" value="<?php echo e(old('name')); ?>">
                             <?php $__errorArgs = ["name"];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -28,6 +28,35 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="role_id" class="col-form-label">Select Role (Agent*)</label>
+                            <select name="role_id" id="role_dropdown" class="form-select mt-1">
+                                <option selected disabled>Select Agent</option>
+                                <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->role); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <?php $__errorArgs = ["name"];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                <span class="text-danger"> <?php echo e($message); ?></span>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        <div class="mb-3">
+                        <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
+                        <select name="user_id[]" id="user_dropdown" class="form-select mt-1" aria-label="Default select example" multiple>
+                            <?php
+                                $show_users = [];
+                            ?>
+                            <?php echo $__env->make('includes.user_dropdown', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                        </select>
                         </div>
 
                         <div class="modal-footer border-top-0">
@@ -92,6 +121,7 @@ unset($__errorArgs, $__bag); ?>
                                 <i class="fa-solid fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="<?php echo e(route('department.show', $department->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateDepartment<?php echo e($department->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteDepartment<?php echo e($department->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
@@ -139,18 +169,47 @@ unset($__errorArgs, $__bag); ?>
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('put'); ?>
                                     <div class="form-group mt-2">
-                                    <label class="form-label">Name <span class="text-danger"> *</span></label>
-                                    <input type="text" name="name" class="form-control" value="<?php echo e($department->name); ?>">
-                                    <?php $__errorArgs = ['name'];
+                                        <label class="form-label">Name <span class="text-danger"> *</span></label>
+                                        <input type="text" name="name" class="form-control" value="<?php echo e($department->name); ?>">
+                                        <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?>
-                                        <span class="text-danger"><?php echo e($message); ?></span>
-                                    <?php unset($message);
+                                            <span class="text-danger"><?php echo e($message); ?></span>
+                                        <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="role_id" class="col-form-label"> Role (Agent*)</label>
+                                        <select name="role_id" id="role_drop<?php echo e($department->id); ?>" class="form-select mt-1">
+                                            <option selected disabled>Select Agent</option>
+                                            <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($role->id); ?>" <?php echo e($role->id == $department->role_id ? 'selected' : ''); ?>><?php echo e($role->role); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                        <?php $__errorArgs = ["role_id"];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                            <span class="text-danger"> <?php echo e($message); ?></span>
+                                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
+                                        <select name="user_id[]" multiple id="user_drop<?php echo e($department->id); ?>" class="form-select mt-1" aria-label="Default select example">
+                                            <?php
+                                                $show_users = [];
+                                            ?>
+                                            <?php echo $__env->make('includes.user_drop', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                        </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                                 </form>
@@ -166,6 +225,65 @@ unset($__errorArgs, $__bag); ?>
         </table>
     </div>
 </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+<script>
+    $(document).ready(function() {
+        $('#role_dropdown').change(function() {
+
+            var role_id = $(this).val();
+            // alert(role_id)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo e(route('get.users')); ?>",
+                data: {
+                    role_id: role_id
+                },
+                success: function(data) {
+                    $('#user_dropdown').html(data.data)
+                    // console.log(data);
+                }
+            })
+        });
+    });
+</script>
+
+<?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<script>
+    $(document).ready(function() {
+        $('#role_drop<?php echo e($department->id); ?>').change(function() {
+
+            var role_id = $(this).val();
+            // alert(role_id)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo e(route('edit.department')); ?>",
+                data: {
+                    role_id: role_id
+                },
+                success: function(data) {
+                    $('#user_drop<?php echo e($department->id); ?>').html(data.data)
+                    // console.log(data);
+                }
+            })
+        });
+    });
+</script>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app_backend', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Rajiur Rahman\Desktop\CRM-FINAL\SoCloseSociety-CRM\resources\views/admin/department/index.blade.php ENDPATH**/ ?>
