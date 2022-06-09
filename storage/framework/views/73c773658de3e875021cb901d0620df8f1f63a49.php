@@ -18,21 +18,47 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="dropdown nav-item ms-auto border-0">
+            <?php
+                $locale= \App::getLocale();
+            ?>
+
+            <?php if($locale == 'fr'): ?>
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="me-2 flag-icon">
+                        <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang2.png" alt="lang.png">
+                    </span>
+                   Frence
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            <?php else: ?>
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="me-2 flag-icon">
-                    <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang.png" alt="lang.png">
-                </span>
-                Eng
-                <i class="fa-solid fa-chevron-down"></i>
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="me-2 flag-icon">
+                        <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang.png" alt="lang.png">
+                    </span>
+                    Eng
+                    <i class="fa-solid fa-chevron-down"></i>
             </button>
+            <?php endif; ?>
+
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">
+                <li>
+                    <a class="dropdown-item" href="<?php echo e(route('locale','en')); ?>">
+                        <span class="me-2 flag-icon">
+                            <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang.png" alt="lang.png">
+                        </span>
+                        Eng
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="<?php echo e(route('locale','fr')); ?>">
                         <span class="me-2 flag-icon">
                             <img src="<?php echo e(asset('dashboard_assets/assets')); ?>/images/lang2.png" alt="lang2.png">
                         </span>
-                        france
-                    </a></li>
+                        France
+                    </a>
+                </li>
             </ul>
         </div>
 

@@ -123,7 +123,7 @@
                     <td>
                         {{ $item->name }}
                     </td>
-                    <td>{{ $item->getRole->role  }}</td>
+                    <td>{{ $item->getRole->role }}</td>
                     <td>{{ $item->email }}</td>
                     <td>{{ $item->created_at->Format('d-M-Y') }}</td>
                     <td>

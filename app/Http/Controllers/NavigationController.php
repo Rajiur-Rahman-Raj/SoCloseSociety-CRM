@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\UserRole;
 use App\Models\Navigation;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class NavigationController extends Controller
 {
@@ -98,7 +100,28 @@ class NavigationController extends Controller
      */
     public function destroy(Navigation $navigation)
     {
+        $users = User::all();
+
+        foreach($users as $user){
+            $permissions = json_decode($user->permission);
+            $nw_permissons =  array_diff( $permissions, [$navigation->id] );
+
+            $user->permission = json_encode($nw_permissons);
+            $user->save();
+        };
+
+        $rols = UserRole::all();
+
+        foreach($rols as $rol){
+            $permissions = json_decode($rol->permission);
+            $nw_permissons =  array_diff( $permissions, [$navigation->id] );
+
+            $rol->permission = json_encode($nw_permissons);
+            $rol->save();
+        };
+
         $navigation->delete();
+
         return back()->with('danger', 'data delete successfully');
     }
 }

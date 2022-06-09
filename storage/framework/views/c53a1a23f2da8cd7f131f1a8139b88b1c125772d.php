@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 
 
@@ -73,7 +71,7 @@
                     <div class="chart__left bg-white p-3 rounded">
                         <div class=" chart__left__heading d-flex justify-content-between">
                             <div class="chart_left_heading_left">
-                                <h4>Ticket Analyticks</h4>
+                                <h4><?php echo e(__('Ticket Analyticks')); ?></h4>
                             </div>
                             <div class="chart_left_heading_right">
                                 <select class="form-select border-0" aria-label="Default select example">
@@ -872,7 +870,7 @@
                     </div>
                     <div class="card-body">
                         <?php
-                            $role_id = Auth::user()->role_id;    
+                            $role_id = Auth::user()->role_id;
                             $role_name = App\Models\UserRole::find($role_id)->role;
                         ?>
                         You Are Logged in as a <?php echo e($role_name); ?>

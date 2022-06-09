@@ -103,6 +103,7 @@ class UserRoleController extends Controller
     public function destroy(UserRole $userRole)
     {
         User::where('role_id',$userRole->id)->delete();
+        
         $userRole->delete();
 
         return redirect()->route('user_role.index')->withDanger('Role Deleted Successfully');

@@ -98,7 +98,7 @@ unset($__errorArgs, $__bag); ?>
             <thead>
                 <tr>
                     <th scope="col">Serial</th>
-                    <th scope="col">Name</th>
+                    <th scope="col"><?php echo e(__('Name')); ?></th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -228,7 +228,7 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->startSection('js'); ?>
 <script>
     $(document).ready(function() {
-        $('#role_dropdown').select2({width: 'resolve'});
+        $('#role_dropdown').select2();
         $('#user_dropdown').select2({theme: "classic"});
         $('#role_dropdown').change(function() {
 

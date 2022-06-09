@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
 
 <?php if(Auth::user()->role_id == 1): ?>
@@ -84,6 +86,8 @@
 
                                         <label class="mt-3" for="#">Ticket Body</label>
                                         <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4"><?php echo e(old('ticket_body')); ?></textarea>
+
+                                        <input type="hidden" name="creator" class="form-control mt-2" value="1">
 
 
                                         <button class="btn w-100 create_ticket_btn mt-3">Create Ticket</button>
@@ -193,10 +197,18 @@
 
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <li class="m-2">
+                                                    <?php if($item->creator == 1): ?>
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editTicket_<?php echo e($item->id); ?>" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
                                                         Edit
                                                     </a>
+                                                    <?php else: ?>
+                                                    <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit_admin_customer_Ticket_<?php echo e($item->id); ?>" data-bs-whatever="@mdo">
+                                                        <span><i class="fa-solid fa-edit me-2"></i></span>
+                                                        Edit
+                                                    </a>
+                                                    <?php endif; ?>
+                                                    
                                                 </li>
                                                 <li class="m-2">
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#deleteTicket_<?php echo e($item->id); ?>" data-bs-whatever="@mdo">
@@ -251,7 +263,7 @@
                                                             <option value="<?php echo e($dept->id); ?>" <?php echo e($dept->id == $item->id ? 'selected' : ''); ?>><?php echo e($dept->name); ?></option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
-                                                        </select>
+                                                      
 
                                                         <label class="mt-3" for="#">Status</label>
                                                         <select name="status" class="form-select mt-1" aria-label="Default select example">
@@ -271,6 +283,66 @@
 
                                                         <label class="mt-3" for="#">Ticket Body</label>
                                                         <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4"><?php echo e($item->ticket_body); ?></textarea>
+
+                                                        <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="modal fade" id="edit_admin_customer_Ticket_<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="editModalLabel"
+                                aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header border-bottom-0">
+                                                <h5 style="color: #6C7BFF;" class="modal-title" id="editModalLabel">Update Ticket</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?php echo e(route('ticket.update', $item->id)); ?>" method="post">
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field("PUT"); ?>
+                                                    <div class="offcanvas-body">
+                                                       
+
+                                                        <label class="mt-3" for="#">Customer Name</label>
+                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->get_customer->name); ?>">
+
+                                                        <label class="mt-3" for="#">Status</label>
+                                                        <select name="status" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <option value="<?php echo e($stat->id); ?>"><?php echo e($stat->name); ?></option>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
+
+                                                        <label class="mt-3" for="#">Priority</label>
+                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            <?php $__currentLoopData = $priority; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <option value="<?php echo e($prio->id); ?>"><?php echo e($prio->name); ?></option>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
+
+                                                        <label class="mt-3" for="#">Department</label>
+                                                        <input type="text" name="department" class="form-control" value="<?php echo e($item->get_department->name); ?>">
+
+                                                        <label class="mt-3" for="#">Agent</label>
+                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            <?php
+                                                                $all_agent = json_decode($item->get_department->user_id);
+                                                            ?>
+                                                            <?php $__currentLoopData = $all_agent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            
+                                                            <option value=""><?php echo e(App\Models\User::find($agent)->name ?? ''); ?></option>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
 
                                                         <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
                                                     </div>
@@ -314,6 +386,19 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <?php else: ?>
 <div class="container-fluid px-4">
@@ -366,6 +451,7 @@
                                         <input type="hidden" name="ticket_body" id="ticket_body" class="form-control mt-2">
                                         <textarea name="ticket_body" class="form-control" id="ticket_body" cols="30" rows="4"><?php echo e(old('ticket_body')); ?></textarea>
 
+                                        <input type="hidden" name="creator" class="form-control mt-2" value="2">
                                         <button class="btn w-100 create_ticket_btn mt-3">Create Ticket</button>
                                     </div>
                                 </form>
@@ -479,7 +565,7 @@
 
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <li class="m-2">
-                                                    <a style="cursor: pointer" href="" data-bs-whatever="@mdo">
+                                                    <a style="cursor: pointer" href="<?php echo e(route('customer_ticket.show', $item->id)); ?>" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
                                                         Show
                                                     </a>
