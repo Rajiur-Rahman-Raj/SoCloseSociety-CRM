@@ -498,6 +498,7 @@ tr {
 
 .select2-container {
   display: block;
+  z-index: 999999;
 }
 
 .select2-container--open .select2-dropdown--below {

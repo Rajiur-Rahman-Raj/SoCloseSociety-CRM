@@ -328,21 +328,41 @@
                                                             <option value="{{ $prio->id }}">{{ $prio->name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        <label class="mt-3" for="#">Customer Name</label>
+                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->get_customer->name }}">
+
+                                                        <label class="mt-3" for="#">Status</label>
+                                                        <select name="status" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            @foreach ($status as $stat)
+                                                            <option value="{{ $stat->id }}">{{ $stat->name }}</option>
+                                                            @endforeach
+                                                        </select>
+
+                                                        <label class="mt-3" for="#">Priority</label>
+                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            @foreach ($priority as $prio)
+                                                            <option value="{{ $prio->id }}">{{ $prio->name }}</option>
+                                                            @endforeach
+                                                        </select>
 
                                                         <label class="mt-3" for="#">Department</label>
                                                         <input type="text" name="department" class="form-control" value="{{ $item->get_department->name }}">
 
-                                                        <label class="mt-3" for="#">Agent</label>
-                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
-                                                            <option value="" disabled selected>--Select One--</option>
+                                                        <label class="mt-3" for="agent_id">Agent</label>
+                                                     
+                                                        <select name="agent_id[]" id="agent_dropdown{{ $item->id }}" class="form-select mt-1" aria-label="Default select example" multiple="multiple" style="width: 100%">
                                                             @php
                                                                 $all_agent = json_decode($item->get_department->user_id);
                                                             @endphp
+                                                            
                                                             @foreach ($all_agent as $agent)
-                                                            {{-- @php
+                                                            @php
                                                                 $agent_name = App\Models\User::find($agent)->name;
-                                                            @endphp --}}
-                                                            <option value="">{{ App\Models\User::find($agent)->name ?? ''}}</option>
+                                                                $agent_id = App\Models\User::find($agent)->id;
+                                                            @endphp
+                                                            <option value="{{ $agent_id }}">{{ ucwords($agent_name) }}</option>
                                                             @endforeach
                                                         </select>
 
@@ -354,6 +374,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 {{-- ######## Delete Data ####### --}}
                                 <div class="modal fade" id="deleteTicket_{{ $item->id }}" tabindex="-1" aria-labelledby="daleteModalLabel"
@@ -810,6 +831,20 @@
 
 
 @section('js')
+
+{{-- select agent option ticket edit --}}
+
+@foreach ($tickets as $item)
+    <script>
+
+        $(document).ready(function() {
+            $('#agent_dropdown{{ $item->id }}').select2({theme: "classic"});
+        });
+
+    </script>
+@endforeach
+
+
 <script>
     $(document).ready(function() {
         $('#role_dropdown').change(function() {
@@ -862,4 +897,6 @@
         });
     });
 </script>
+
+
 @endsection

@@ -20,10 +20,6 @@
             <link href="{{ asset('dashboard_assets/assets') }}/plugins/vmap/css/jqvmap.css" media="screen" rel="stylesheet" type="text/css">
             <!--==========Data Tables CSS==========-->
             <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/plugins/datatables/css/jquery.dataTables.min.css">
-            <!--=====MAIN CSS=====-->
-            <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/css/styles.css" />
-            <!--==========Responsive CSS==========-->
-            <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/css/responsive.css">
             {{-- Toastr CSS --}}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
             {{-- trix  --}}
@@ -31,6 +27,11 @@
             <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
             {{-- select 2 --}}
             <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+            
+            <!--=====MAIN CSS=====-->
+            <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/css/styles.css" />
+            <!--==========Responsive CSS==========-->
+            <link rel="stylesheet" href="{{ asset('dashboard_assets/assets') }}/css/responsive.css">
 
             <title>{{ config('app.name') }} | @yield('title') </title>
         </head>

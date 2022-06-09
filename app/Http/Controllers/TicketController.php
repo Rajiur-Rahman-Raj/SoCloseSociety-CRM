@@ -21,6 +21,14 @@ class TicketController extends Controller
      */
     public function index()
     {
+
+        // $loged_in_user_id = Auth::user()->role_id;
+        
+        // if($loged_in_user_id == 1){
+        //     $tickets = Ticket::latest()->get();
+        // }else{
+        //     $tickets = Ticket::where('customer', Auth::id())->latest()->get();
+        // }
         
         return view('admin.ticket.index',[
             'tickets' => Ticket::latest()->get(),

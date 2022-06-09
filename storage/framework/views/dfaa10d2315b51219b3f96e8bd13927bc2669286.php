@@ -328,19 +328,41 @@
                                                             <option value="<?php echo e($prio->id); ?>"><?php echo e($prio->name); ?></option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
+                                                        <label class="mt-3" for="#">Customer Name</label>
+                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->get_customer->name); ?>">
+
+                                                        <label class="mt-3" for="#">Status</label>
+                                                        <select name="status" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <option value="<?php echo e($stat->id); ?>"><?php echo e($stat->name); ?></option>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
+
+                                                        <label class="mt-3" for="#">Priority</label>
+                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
+                                                            <option value="" disabled selected>--Select One--</option>
+                                                            <?php $__currentLoopData = $priority; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <option value="<?php echo e($prio->id); ?>"><?php echo e($prio->name); ?></option>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
 
                                                         <label class="mt-3" for="#">Department</label>
                                                         <input type="text" name="department" class="form-control" value="<?php echo e($item->get_department->name); ?>">
 
-                                                        <label class="mt-3" for="#">Agent</label>
-                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
-                                                            <option value="" disabled selected>--Select One--</option>
+                                                        <label class="mt-3" for="agent_id">Agent</label>
+                                                     
+                                                        <select name="agent_id[]" id="agent_dropdown<?php echo e($item->id); ?>" class="form-select mt-1" aria-label="Default select example" multiple="multiple" style="width: 100%">
                                                             <?php
                                                                 $all_agent = json_decode($item->get_department->user_id);
                                                             ?>
-                                                            <?php $__currentLoopData = $all_agent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                             
-                                                            <option value=""><?php echo e(App\Models\User::find($agent)->name ?? ''); ?></option>
+                                                            <?php $__currentLoopData = $all_agent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <?php
+                                                                $agent_name = App\Models\User::find($agent)->name;
+                                                                $agent_id = App\Models\User::find($agent)->id;
+                                                            ?>
+                                                            <option value="<?php echo e($agent_id); ?>"><?php echo e(ucwords($agent_name)); ?></option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
 
@@ -352,6 +374,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 
                                 <div class="modal fade" id="deleteTicket_<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="daleteModalLabel"
@@ -808,6 +831,20 @@
 
 
 <?php $__env->startSection('js'); ?>
+
+
+
+<?php $__currentLoopData = $tickets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <script>
+
+        $(document).ready(function() {
+            $('#agent_dropdown<?php echo e($item->id); ?>').select2({theme: "classic"});
+        });
+
+    </script>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
 <script>
     $(document).ready(function() {
         $('#role_dropdown').change(function() {
@@ -860,6 +897,8 @@
         });
     });
 </script>
+
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app_backend', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Rajiur Rahman\Desktop\CRM-FINAL\SoCloseSociety-CRM\resources\views/admin/ticket/index.blade.php ENDPATH**/ ?>
