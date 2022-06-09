@@ -1,6 +1,7 @@
+@extends('layouts.app_backend')
 
+@section('content')
 
-<?php $__env->startSection('content'); ?>
 
 <section class="banner-main-section py-5 all-pages-input" id="main">
 
@@ -11,7 +12,7 @@
                     <div class="col-lg-12 col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">User </h4>
+                                <h4 class="card-title"> Ticket Details </h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -21,62 +22,67 @@
                                                 <tbody>
                                                     <tr>
                                                         <th>
+                                                             Tickets Id
+                                                        </th>
+                                                        <td>
+                                                           
+                                                            #{{ $single_ticket_details->id }}
+                                                        </td>
+                                                    </tr>                                
+                                                    <tr>
+                                                        <th>
                                                              Name
                                                         </th>
                                                         <td>
-                                                            <?php echo e($all_user_data->name); ?>
-
+                                                            @php
+                                                                $customer_name = App\Models\User::find($single_ticket_details->customer);   
+                                                            @endphp
+                                                            {{ $customer_name->name }}
                                                         </td>
-                                                    </tr>
+                                                    </tr>                                
+                                                                                                            
+                                                    <tr>
+                                                        <th>
+                                                            Department
+                                                        </th>
+                                                        <td>
+                                                            {{ $single_ticket_details->get_department->name }}
+                                                           
+                                                        </td>
+                                                    </tr> 
 
                                                     <tr>
                                                         <th>
-                                                            Role
+                                                            Subject
                                                         </th>
                                                         <td>
-                                                            <?php echo e($all_user_data->getRole->role); ?>
-
-
+                                                            {{ $single_ticket_details->subject }}
+                                                           
                                                         </td>
-                                                    </tr>
+                                                    </tr>  
 
                                                     <tr>
                                                         <th>
-                                                            Permission
+                                                            Status
                                                         </th>
                                                         <td>
-                                                            <?php
-                                                                $all_data = json_decode($all_user_data->permission);
-                                                            ?>
-                                                            <?php $__currentLoopData = $all_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-                                                                <?php echo e(App\Models\Navigation::find($item)->name); ?> |
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            {{ $single_ticket_details->get_status->name ?? 'Waiting' }}
+                                                           
                                                         </td>
-                                                    </tr>
-
+                                                    </tr>    
                                                     <tr>
                                                         <th>
-                                                            Phone
+                                                            Ticket Body
                                                         </th>
                                                         <td>
-                                                            <?php echo e($all_user_data->phone); ?>
-
+                                                            {{ $single_ticket_details->ticket_body }}
+                                                           
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            Email
-                                                        </th>
-                                                        <td>
-                                                            <?php echo e($all_user_data->email); ?>
-
-                                                        </td>
-                                                    </tr>
-
+                                                    </tr>   
+                                                                                                   
                                                 </tbody>
                                             </table>
-                                            <a class="btn mt-1 btn-success" href="<?php echo e(route('users.index')); ?>">Return Back</a>
+                                            <a class="btn mt-1 btn-success" href="{{ route('ticket.index') }}">Return Back</a>
 
                                         </div>
                                     </div>
@@ -89,6 +95,4 @@
         </div>
 </section>
 
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.app_backend', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Rajiur Rahman\Desktop\CRM-FINAL\SoCloseSociety-CRM\resources\views/admin/user/show.blade.php ENDPATH**/ ?>
+@endsection

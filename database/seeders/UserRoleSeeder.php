@@ -20,13 +20,9 @@ class UserRoleSeeder extends Seeder
 
         UserRole::create([
             'role' => "Agent",
-            'permission' => json_encode(['2', '6',]),
-        ]);
-
-        UserRole::create([
-            'role' => "Customer",
             'permission' => json_encode(['1']),
         ]);
+
 
     }
 }

@@ -112,6 +112,11 @@ class TicketController extends Controller
         return redirect()->route('ticket.index')->withSuccess('Delete Successfully');
     }
 
+    public function customer_ticket_show($id){
+        $single_ticket_details = Ticket::find($id);
+        return view('admin.ticket.show', compact('single_ticket_details'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

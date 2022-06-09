@@ -25,5 +25,15 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('@@Bladepro@123@@'),
             'created_at' => Carbon::now(),
         ]);
+
+        User::create([
+            'name' => 'Agent',
+            'phone' => '01868752464',
+            'role_id' => 2,
+            'permission' => json_encode(['1']),
+            'email' => 'agent@agent.com',
+            'password' => bcrypt('@@Bladepro@123@@'),
+            'created_at' => Carbon::now(),
+        ]);
     }
 }

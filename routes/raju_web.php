@@ -31,6 +31,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function(){
 
     Route::delete('/customer/ticket/delete/{id}', [TicketController::class, 'customer_ticket_delete'])->name('customer_ticket.destroy');
 
+    Route::get('/customer/ticket/show/{id}', [TicketController::class, 'customer_ticket_show'])->name('customer_ticket.show');
+
     
 
     //customer ticket create

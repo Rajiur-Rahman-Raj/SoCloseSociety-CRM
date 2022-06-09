@@ -5,7 +5,7 @@
     <!--=====MODAL FOR CREATE USER=====-->
     <div class="modal fade" id="createDepartment" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
                     <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Department</h5>
@@ -32,7 +32,7 @@ unset($__errorArgs, $__bag); ?>
 
                         <div class="mb-3">
                             <label for="role_id" class="col-form-label">Select Role (Agent*)</label>
-                            <select name="role_id" id="role_dropdown" class="form-select mt-1">
+                            <select name="role_id" id="role_dropdown" class="form-select mt-1" style="width: 100%">
                                 <option selected disabled>Select Agent</option>
                                 <?php $__currentLoopData = $roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($item->id); ?>"><?php echo e($item->role); ?></option>
@@ -51,7 +51,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="mb-3">
                         <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
-                        <select name="user_id[]" id="user_dropdown" class="form-select mt-1" aria-label="Default select example" multiple>
+                        <select name="user_id[]" id="user_dropdown" class="form-select mt-1" aria-label="Default select example" multiple="multiple" style="width: 100%">
                             <?php
                                 $show_users = [];
                             ?>
@@ -132,7 +132,7 @@ unset($__errorArgs, $__bag); ?>
                 </tr>
 
                 <div class="modal fade" id="deleteDepartment<?php echo e($department->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Department</h5>
@@ -157,7 +157,7 @@ unset($__errorArgs, $__bag); ?>
                 <!--=====MODAL FOR UPDATE USER=====-->
                 <div class="modal fade" id="updateDepartment<?php echo e($department->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Department</h5>
@@ -230,6 +230,8 @@ unset($__errorArgs, $__bag); ?>
 <?php $__env->startSection('js'); ?>
 <script>
     $(document).ready(function() {
+        $('#role_dropdown').select2();
+        $('#user_dropdown').select2({theme: "classic"});
         $('#role_dropdown').change(function() {
 
             var role_id = $(this).val();
