@@ -1,14 +1,12 @@
 
     @php
-
-        // $all_navigations = App\Models\Navigation::all();
         $users_permission = json_decode(Auth::user()->permission);
         $role_id = Auth::user()->role_id;
     @endphp
 
     <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text active"><i
     class="fa-solid fa-house me-2"></i> Dashboard <span class="badge ms-3">2</span></a>
-        
+
     @foreach ($users_permission as $item)
         @php
             $navigation_data = App\Models\Navigation::find($item);
@@ -22,10 +20,9 @@
         <a href="{{ route('navigation.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
         class="fa-solid fa-user me-2"></i>Create Navigation</a>
     @endif
-    
 
 
-    
 
-    
-    
+
+
+

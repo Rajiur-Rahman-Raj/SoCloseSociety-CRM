@@ -102,23 +102,43 @@ class NavigationController extends Controller
     {
         $users = User::all();
 
-        foreach($users as $user){
-            $permissions = json_decode($user->permission);
-            $nw_permissons =  array_diff( $permissions, [$navigation->id] );
-
-            $user->permission = json_encode($nw_permissons);
+        foreach($users as $user)
+        {
+            $permissions = [];
+            foreach(json_decode($user->permission, true) as $permission)
+            {
+                if($permission != $navigation->id)
+                {
+                    $permissions[] = $permission;
+                }
+            }
+            $user->permission = json_encode($permissions);
             $user->save();
-        };
+       }
 
-        $rols = UserRole::all();
+       foreach(UserRole::all() as $role)
+       {
 
-        foreach($rols as $rol){
-            $permissions = json_decode($rol->permission);
-            $nw_permissons =  array_diff( $permissions, [$navigation->id] );
+        $array = json_decode($role->permission);
+        $perm = [];
+        if($navigation->id == 1)
+                                 {
+            unset($array[0]);
+         }
+         else
+         {
+            $number = $navigation->id - 1;
+            unset($array[$number]);
+         }
+            foreach($array as $key => $value)
+            {
+                $perm[] = $value;
+            }
 
-            $rol->permission = json_encode($nw_permissons);
-            $rol->save();
-        };
+            $role->permission = $perm;
+            // $user->save();
+            $role->save();
+        }
 
         $navigation->delete();
 

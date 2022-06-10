@@ -42,6 +42,7 @@ class UserRoleController extends Controller
         $request->validate([
             'role' => 'required|unique:user_roles',
         ]);
+        // dd($request->permission);
 
         // UserRole::create($request->except('_token') + ['created_at' => Carbon::now()]);
         UserRole::insert([
@@ -103,7 +104,7 @@ class UserRoleController extends Controller
     public function destroy(UserRole $userRole)
     {
         User::where('role_id',$userRole->id)->delete();
-        
+
         $userRole->delete();
 
         return redirect()->route('user_role.index')->withDanger('Role Deleted Successfully');

@@ -125,7 +125,7 @@
                             $permission = json_decode($item->permission);
                         @endphp
                         @foreach ($permission as $data)
-                            {{ App\Models\Navigation::find($data)->name }},
+                            {{ App\Models\Navigation::find($data)->name ?? '' }},
                         @endforeach
                     </td>
                     <td>{{ $item->created_at->format('d-M-Y') }}</td>

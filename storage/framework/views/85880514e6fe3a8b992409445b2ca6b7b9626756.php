@@ -130,7 +130,7 @@ unset($__errorArgs, $__bag); ?>
                             $permission = json_decode($item->permission);
                         ?>
                         <?php $__currentLoopData = $permission; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php echo e(App\Models\Navigation::find($data)->name); ?>,
+                            <?php echo e(App\Models\Navigation::find($data)->name ?? ''); ?>,
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </td>
                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
