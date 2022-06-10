@@ -100,7 +100,7 @@ unset($__errorArgs, $__bag); ?>
             <thead>
                 <tr>
                     <th scope="col">Serial</th>
-                    <th scope="col">Name</th>
+                    <th scope="col"><?php echo e(__('Name')); ?></th>
                     <th scope="col">Created Date</th>
                     <th scope="col">Action</th>
                 </tr>

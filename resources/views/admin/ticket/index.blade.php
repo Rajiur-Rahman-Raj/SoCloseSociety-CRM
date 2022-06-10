@@ -173,19 +173,27 @@
                                     <th>Status</th>
                                     <th>Priority</th>
                                     <th>Created Date</th>
+                                    <th>Reply</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- for ticket replay condition divided customer ticket rep --}}
                                 @foreach ($tickets as $item)
-                                <tr id="tr1 ">
+                                    <tr id="tr1 ">
                                     <td>#{{ $item->id }}</td>
-                                    <td>{{ $item->get_customer->name ?? ''}}</td>
+                                    <td>
+                                        {{ $item->get_customer->name ?? ''}}
+                                    </td>
                                     <td>{{ $item->get_department->name }}</td>
                                     <td>{{ $item->subject }}</td>
                                     <td>{{ $item->get_status->name ?? ''}}</td>
                                     <td>{{ $item->get_priority->name ?? '' }}</td>
                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
+
+                                    <td>
+                                        <a href=" {{ route('ticket.reply', $item->id) }} "> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a>
+                                    </td>
                                     <td class="text-center ">
                                         <div class="dropdown">
 
@@ -219,7 +227,9 @@
                                             </ul>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>  
+
+                               
 
                                 {{-- ######## Edit admin create ticket Data ####### --}}
                                 <div class="modal fade" id="editTicket_{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel"
@@ -310,8 +320,10 @@
                                                     <div class="offcanvas-body">
                                                        
 
-                                                        <label class="mt-3" for="#">Customer Name</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->get_customer->name }}">
+                                                        <label class="mt-3" for="#">Ticket Id</label>
+                                                        <input type="text" name="customer" class="form-control mt-1" value="#{{ $item->id }}">
+
+                                                        <input type="hidden" name="customer" class="form-control mt-1" value="{{ $item->get_customer->id }}">
 
                                                         <label class="mt-3" for="#">Status</label>
                                                         <select name="status" class="form-select mt-1" aria-label="Default select example">
@@ -328,27 +340,22 @@
                                                             <option value="{{ $prio->id }}">{{ $prio->name }}</option>
                                                             @endforeach
                                                         </select>
-                                                        <label class="mt-3" for="#">Customer Name</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->get_customer->name }}">
+                                                        
 
-                                                        <label class="mt-3" for="#">Status</label>
-                                                        <select name="status" class="form-select mt-1" aria-label="Default select example">
-                                                            <option value="" disabled selected>--Select One--</option>
-                                                            @foreach ($status as $stat)
-                                                            <option value="{{ $stat->id }}">{{ $stat->name }}</option>
-                                                            @endforeach
-                                                        </select>
-
-                                                        <label class="mt-3" for="#">Priority</label>
-                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
-                                                            <option value="" disabled selected>--Select One--</option>
-                                                            @foreach ($priority as $prio)
-                                                            <option value="{{ $prio->id }}">{{ $prio->name }}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        
 
                                                         <label class="mt-3" for="#">Department</label>
-                                                        <input type="text" name="department" class="form-control" value="{{ $item->get_department->name }}">
+                                                        <select name="" id="" class="form-control">
+                                                            @foreach ($department as $single_dept)
+
+                                                            @if( $item->get_department->id == $single_dept->id )
+                                                            <option value="{{ $item->get_department->id }}">{{ $single_dept->name }}</option>
+                                                            @endif
+
+                                                            @endforeach
+                                                        </select>
+                                                        
+                                                        {{-- <input type="text" name="department" class="form-control" value="{{ $item->get_department->id }}"> --}}
 
                                                         <label class="mt-3" for="agent_id">Agent</label>
                                                      
@@ -409,18 +416,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @else
@@ -525,11 +520,12 @@
 
     <div class="current_tickets_heading d-flex justify-content-between mt-5 mb-0">
         <div class="current_tickets_heading__left">
+
             <h3>Your Tickets</h3>
         </div>
         <div class="current_tickets_heading__right">
             <div class="input-group mb-3">
-                <button class="btn bg-white" type="button" id="button-addon1 ">
+                <button class="btn bg-white" type="button" id="button-addon1">
                     <i class="fa-solid fa-magnifying-glass "></i>
                 </button>
                 <input type="text " class="form-control border-0 " placeholder="Search Tickets.. "
@@ -556,7 +552,6 @@
                                     <th>Department</th>
                                     <th>Subjects</th>
                                     <th>Status</th>
-                                    <th>priority</th>
                                     <th>Created Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -575,7 +570,6 @@
                                     <td>{{ $item->get_department->name }}</td>
                                     <td>{{ $item->subject }}</td>
                                     <td>{{ $item->get_status->name ?? '' }}</td>
-                                    <td>{{ $item->get_priority->name ?? '' }}</td>
                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
                                     <td class="text-center ">
                                         <div class="dropdown">
@@ -597,7 +591,7 @@
                                                 <li class="m-2">
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editCustomerTicket_{{ $item->id }}" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
-                                                        Edit
+                                                        Edit 
                                                     </a>
                                                 </li>
                                                 <li class="m-2">
@@ -702,7 +696,7 @@
                                                     <li class="m-2">
                                                         <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editTicket_{{ $item->id }}" data-bs-whatever="@mdo">
                                                             <span><i class="fa-solid fa-edit me-2"></i></span>
-                                                            Edit
+                                                            Edit 
                                                         </a>
                                                     </li>
                                                     <li class="m-2">

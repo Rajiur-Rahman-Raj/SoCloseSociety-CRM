@@ -48,7 +48,7 @@
                         <span class="me-2 flag-icon">
                             <img src="{{ asset('dashboard_assets/assets') }}/images/lang.png" alt="lang.png">
                         </span>
-                        Eng
+                        Eng         
                     </a>
                 </li>
                 <li>

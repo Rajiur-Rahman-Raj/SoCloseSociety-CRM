@@ -21,6 +21,7 @@ class CreateTicketsTable extends Migration
             $table->integer('status')->nullable();
             $table->integer('priority')->nullable();
             $table->text('ticket_body');
+            $table->string('agent_id')->nullable();
             $table->integer('creator')->nullable();
             $table->timestamps();
         });

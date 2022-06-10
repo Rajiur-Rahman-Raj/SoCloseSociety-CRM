@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use App\Models\Priority;
 use App\Models\UserRole;
 use App\Models\Department;
+use App\Models\Ticket_reply;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -100,7 +101,7 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        $ticket->update($request->except('_token') + ['updated_at' => Carbon::now()]);
+        $ticket->update($request->except('_token') + ['updated_at' => Carbon::now(), 'agent_id' => json_encode($request->agent_id)]);
 
         return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
     }
@@ -157,5 +158,16 @@ class TicketController extends Controller
         $data = $view->render();
         return response()->json(['data' => $data]);
 
+    }
+
+    public function ticket_reply($id){
+
+        return view('admin.ticket.reply', compact('id'));
+    }
+
+    public function ticket_reply_store(Request $request){
+       
+        Ticket_reply::create($request->except('_token') + ['created_at' => Carbon::now()]);
+        return back();
     }
 }

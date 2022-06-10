@@ -173,19 +173,28 @@
                                     <th>Status</th>
                                     <th>Priority</th>
                                     <th>Created Date</th>
+                                    <th>Reply</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 <?php $__currentLoopData = $tickets; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <tr id="tr1 ">
+                                    <tr id="tr1 ">
                                     <td>#<?php echo e($item->id); ?></td>
-                                    <td><?php echo e($item->get_customer->name ?? ''); ?></td>
+                                    <td>
+                                        <?php echo e($item->get_customer->name ?? ''); ?>
+
+                                    </td>
                                     <td><?php echo e($item->get_department->name); ?></td>
                                     <td><?php echo e($item->subject); ?></td>
                                     <td><?php echo e($item->get_status->name ?? ''); ?></td>
                                     <td><?php echo e($item->get_priority->name ?? ''); ?></td>
                                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
+
+                                    <td>
+                                        <a href=" <?php echo e(route('ticket.reply', $item->id)); ?> "> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a>
+                                    </td>
                                     <td class="text-center ">
                                         <div class="dropdown">
 
@@ -219,7 +228,9 @@
                                             </ul>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr>  
+
+                               
 
                                 
                                 <div class="modal fade" id="editTicket_<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="editModalLabel"
@@ -310,8 +321,10 @@
                                                     <div class="offcanvas-body">
                                                        
 
-                                                        <label class="mt-3" for="#">Customer Name</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->get_customer->name); ?>">
+                                                        <label class="mt-3" for="#">Ticket Id</label>
+                                                        <input type="text" name="customer" class="form-control mt-1" value="#<?php echo e($item->id); ?>">
+
+                                                        <input type="hidden" name="customer" class="form-control mt-1" value="<?php echo e($item->get_customer->id); ?>">
 
                                                         <label class="mt-3" for="#">Status</label>
                                                         <select name="status" class="form-select mt-1" aria-label="Default select example">
@@ -328,27 +341,22 @@
                                                             <option value="<?php echo e($prio->id); ?>"><?php echo e($prio->name); ?></option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
-                                                        <label class="mt-3" for="#">Customer Name</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->get_customer->name); ?>">
+                                                        
 
-                                                        <label class="mt-3" for="#">Status</label>
-                                                        <select name="status" class="form-select mt-1" aria-label="Default select example">
-                                                            <option value="" disabled selected>--Select One--</option>
-                                                            <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($stat->id); ?>"><?php echo e($stat->name); ?></option>
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                        </select>
-
-                                                        <label class="mt-3" for="#">Priority</label>
-                                                        <select name="priority" class="form-select mt-1" aria-label="Default select example">
-                                                            <option value="" disabled selected>--Select One--</option>
-                                                            <?php $__currentLoopData = $priority; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($prio->id); ?>"><?php echo e($prio->name); ?></option>
-                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                        </select>
+                                                        
 
                                                         <label class="mt-3" for="#">Department</label>
-                                                        <input type="text" name="department" class="form-control" value="<?php echo e($item->get_department->name); ?>">
+                                                        <select name="" id="" class="form-control">
+                                                            <?php $__currentLoopData = $department; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $single_dept): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                                                            <?php if( $item->get_department->id == $single_dept->id ): ?>
+                                                            <option value="<?php echo e($item->get_department->id); ?>"><?php echo e($single_dept->name); ?></option>
+                                                            <?php endif; ?>
+
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        </select>
+                                                        
+                                                        
 
                                                         <label class="mt-3" for="agent_id">Agent</label>
                                                      
@@ -409,18 +417,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php else: ?>
@@ -525,11 +521,12 @@
 
     <div class="current_tickets_heading d-flex justify-content-between mt-5 mb-0">
         <div class="current_tickets_heading__left">
+
             <h3>Your Tickets</h3>
         </div>
         <div class="current_tickets_heading__right">
             <div class="input-group mb-3">
-                <button class="btn bg-white" type="button" id="button-addon1 ">
+                <button class="btn bg-white" type="button" id="button-addon1">
                     <i class="fa-solid fa-magnifying-glass "></i>
                 </button>
                 <input type="text " class="form-control border-0 " placeholder="Search Tickets.. "
@@ -556,7 +553,6 @@
                                     <th>Department</th>
                                     <th>Subjects</th>
                                     <th>Status</th>
-                                    <th>priority</th>
                                     <th>Created Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -575,7 +571,6 @@
                                     <td><?php echo e($item->get_department->name); ?></td>
                                     <td><?php echo e($item->subject); ?></td>
                                     <td><?php echo e($item->get_status->name ?? ''); ?></td>
-                                    <td><?php echo e($item->get_priority->name ?? ''); ?></td>
                                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
                                     <td class="text-center ">
                                         <div class="dropdown">
@@ -597,7 +592,7 @@
                                                 <li class="m-2">
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editCustomerTicket_<?php echo e($item->id); ?>" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
-                                                        Edit
+                                                        Edit 
                                                     </a>
                                                 </li>
                                                 <li class="m-2">
@@ -702,7 +697,7 @@
                                                     <li class="m-2">
                                                         <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editTicket_<?php echo e($item->id); ?>" data-bs-whatever="@mdo">
                                                             <span><i class="fa-solid fa-edit me-2"></i></span>
-                                                            Edit
+                                                            Edit 
                                                         </a>
                                                     </li>
                                                     <li class="m-2">
