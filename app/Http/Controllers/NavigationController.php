@@ -39,15 +39,7 @@ class NavigationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:navigations',
-            'icon' => 'required',
-            'route' => 'required|unique:navigations',
-        ]);
-
-        Navigation::create($request->except('_token') + ['created_at' => Carbon::now()]);
-
-        return redirect()->route('navigation.index')->with('success', 'Data upload successfull');
+        //
     }
 
     /**
@@ -84,7 +76,6 @@ class NavigationController extends Controller
         $request->validate([
             'name' => 'required',
             'icon' => 'required',
-            'route' => 'required',
         ]);
 
         $navigation->update($request->except('_token') + ['updated_at' => Carbon::now()]);
@@ -98,50 +89,54 @@ class NavigationController extends Controller
      * @param  \App\Models\Navigation  $navigation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Navigation $navigation)
-    {
-        $users = User::all();
 
-        foreach($users as $user)
-        {
-            $permissions = [];
-            foreach(json_decode($user->permission, true) as $permission)
-            {
-                if($permission != $navigation->id)
-                {
-                    $permissions[] = $permission;
-                }
-            }
-            $user->permission = json_encode($permissions);
-            $user->save();
-       }
 
-       foreach(UserRole::all() as $role)
-       {
+    //  ############ REMOVE DATA FROM ARRAY ###################
 
-        $array = json_decode($role->permission);
-        $perm = [];
-        if($navigation->id == 1)
-                                 {
-            unset($array[0]);
-         }
-         else
-         {
-            $number = $navigation->id - 1;
-            unset($array[$number]);
-         }
-            foreach($array as $key => $value)
-            {
-                $perm[] = $value;
-            }
+    // public function destroy(Navigation $navigation)
+    // {
+    //     $users = User::all();
 
-            $role->permission = $perm;
-            // $user->save();
-            $role->save();
-        }
+    //     foreach($users as $user)
+    //     {
+    //         $permissions = [];
+    //         foreach(json_decode($user->permission, true) as $permission)
+    //         {
+    //             if($permission != $navigation->id)
+    //             {
+    //                 $permissions[] = $permission;
+    //             }
+    //         }
+    //         $user->permission = json_encode($permissions);
+    //         $user->save();
+    //    }
 
-        $navigation->delete();
+    //    foreach(UserRole::all() as $role)
+    //    {
 
-        return back()->with('danger', 'data delete successfully');
-    }
+    //     $array = json_decode($role->permission);
+    //     $perm = [];
+    //     if($navigation->id == 1)
+    //                              {
+    //         unset($array[0]);
+    //      }
+    //      else
+    //      {
+    //         $number = $navigation->id - 1;
+    //         unset($array[$number]);
+    //      }
+    //         foreach($array as $key => $value)
+    //         {
+    //             $perm[] = $value;
+    //         }
+
+    //         $role->permission = $perm;
+    //         // $user->save();
+    //         $role->save();
+    //     }
+
+    //     $navigation->delete();
+
+    //     return back()->with('danger', 'data delete successfully');
+    // }
 }

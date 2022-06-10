@@ -11,14 +11,14 @@
         @php
             $navigation_data = App\Models\Navigation::find($item);
         @endphp
-        <a href="{{ route($navigation_data->route.'.index') }}"
+        <a href="{{ route($navigation_data->route) }}"
         class="list-group-item list-group-item-action bg-transparent second-text fw-bold">{!! $navigation_data->icon !!} {{ $navigation_data->name }}
         </a>
     @endforeach
 
     @if ($role_id == 1)
         <a href="{{ route('navigation.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
-        class="fa-solid fa-user me-2"></i>Create Navigation</a>
+        class="fa-solid fa-user me-2"></i>Navigation</a>
     @endif
 
 
