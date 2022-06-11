@@ -20,7 +20,7 @@
                                             <table  class="table table-bordered">
                                                 <tbody>
                                                     <tr>
-                                                        <th>
+                                                        <th class="table_header_show">
                                                              Name
                                                         </th>
                                                         <td>
@@ -29,7 +29,7 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <th>
+                                                        <th class="table_header_show">
                                                             Role
                                                         </th>
                                                         <td>
@@ -39,7 +39,7 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <th>
+                                                        <th class="table_header_show">
                                                             Permission
                                                         </th>
                                                         <td>
@@ -54,7 +54,7 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <th>
+                                                        <th class="table_header_show">
                                                             Phone
                                                         </th>
                                                         <td>
@@ -62,7 +62,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th>
+                                                        <th class="table_header_show">
                                                             Email
                                                         </th>
                                                         <td>

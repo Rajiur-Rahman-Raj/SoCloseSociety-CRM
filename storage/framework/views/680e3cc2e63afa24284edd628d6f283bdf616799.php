@@ -59,7 +59,7 @@
                 <?php $__currentLoopData = $all_navigations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="form-check form-switch">
                     <input class="form-check-input inner-checkbox" name="permission[]" value="<?php echo e($item->id); ?>" type="checkbox" id="flexSwitchCheckDefault<?php echo e($item->id); ?>">
-                    <label class="form-check-label" for="flexSwitchCheckDefault<?php echo e($item->id); ?>"> <?php echo e($item->name); ?> [ <?php echo $item->icon; ?> ]</label>
+                    <label class="form-check-label" for="flexSwitchCheckDefault<?php echo e($item->id); ?>"> <?php echo e($item->name); ?> </label>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

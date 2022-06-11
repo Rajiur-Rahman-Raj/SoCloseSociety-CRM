@@ -8,7 +8,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header border-bottom-0">
+                <div class="modal-header border-bottom-0 modal_header">
                     <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -97,9 +97,9 @@ unset($__errorArgs, $__bag); ?>
 
                         
 
-                        <div class="modal-footer border-top-0">
-                            <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
-                                class="btn w-100">Create User</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button  type="submit" class="btn btn-primary">Save</button>
                         </div>
 
                     </form>
@@ -130,7 +130,6 @@ unset($__errorArgs, $__bag); ?>
                 <span><i class="fa-solid fa-circle-plus me-2"></i></span>
                 Create User
             </button>
-
         </div>
     </div>
     <!--==========Priority Table==========-->
@@ -188,8 +187,8 @@ unset($__errorArgs, $__bag); ?>
                 <div class="modal fade" id="deleteUsers<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Priority</h5>
+                            <div class="modal-header border-bottom-0 modal_header">
+                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete User</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -212,9 +211,9 @@ unset($__errorArgs, $__bag); ?>
                <!--=====MODAL FOR UPDATE USER=====-->
                <div class="modal fade" id="updateUser<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header border-bottom-0">
+                        <div class="modal-header border-bottom-0 modal_header">
                             <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update User</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
@@ -297,8 +296,12 @@ unset($__errorArgs, $__bag); ?>
                                     <?php echo $__env->make('includes.user_update_role', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-3">Update</button>
+                                
                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button  type="submit" class="btn btn-primary">Update</button>
                         </div>
 
                     </div>

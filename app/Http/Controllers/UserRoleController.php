@@ -61,8 +61,10 @@ class UserRoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(UserRole $userRole)
-    {
-        //
+    {   
+        $single_role_info = UserRole::find($userRole->id);;
+        
+        return view('admin.user_role.show', compact('single_role_info'));
     }
 
     /**

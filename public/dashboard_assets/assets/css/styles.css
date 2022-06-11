@@ -1512,3 +1512,9 @@ table.dataTable thead th,
 table.dataTable thead td {
   border-bottom: 0;
 }
+.modal_header{
+  box-shadow: -1px 5px 4px -1px;
+}
+.table_header_show{
+  border-right: 2px solid #ddd !important;
+}

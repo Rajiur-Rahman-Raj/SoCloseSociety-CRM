@@ -8,7 +8,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header border-bottom-0">
+                <div class="modal-header border-bottom-0 modal_header">
                     <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -67,9 +67,9 @@
                             @include('includes.role_permission')
                         </div> --}}
 
-                        <div class="modal-footer border-top-0">
-                            <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
-                                class="btn w-100">Create User</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button  type="submit" class="btn btn-primary">Save</button>
                         </div>
 
                     </form>
@@ -156,8 +156,8 @@
                 <div class="modal fade" id="deleteUsers{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Priority</h5>
+                            <div class="modal-header border-bottom-0 modal_header">
+                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete User</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -180,9 +180,9 @@
                <!--=====MODAL FOR UPDATE USER=====-->
                <div class="modal fade" id="updateUser{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header border-bottom-0">
+                        <div class="modal-header border-bottom-0 modal_header">
                             <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update User</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
@@ -237,8 +237,12 @@
                                     @include('includes.user_update_role')
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-3">Update</button>
+                                
                             </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button  type="submit" class="btn btn-primary">Update</button>
                         </div>
 
                     </div>
