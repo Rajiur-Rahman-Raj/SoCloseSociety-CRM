@@ -4,7 +4,7 @@
         $role_id = Auth::user()->role_id;
     @endphp
 
-    <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+    <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action bg-transparent second-text @yield('dashboard_active')"><i
     class="fa-solid fa-house me-2"></i> Dashboard <span class="badge ms-3">2</span></a>
 
     @foreach ($users_permission as $item)
@@ -12,12 +12,12 @@
             $navigation_data = App\Models\Navigation::find($item);
         @endphp
         <a href="{{ route($navigation_data->route) }}"
-        class="list-group-item list-group-item-action bg-transparent second-text fw-bold">{!! $navigation_data->icon !!} {{ $navigation_data->name }}
+        class="list-group-item @yield($navigation_data->route) list-group-item-action bg-transparent second-text fw-bold">{!! $navigation_data->icon !!} {{ $navigation_data->name }}
         </a>
     @endforeach
 
     @if ($role_id == 1)
-        <a href="{{ route('navigation.index') }}" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+        <a href="{{ route('navigation.index') }}" class="list-group-item @yield('nav_active') list-group-item-action bg-transparent second-text fw-bold"><i
         class="fa-solid fa-user me-2"></i>Navigation</a>
     @endif
 

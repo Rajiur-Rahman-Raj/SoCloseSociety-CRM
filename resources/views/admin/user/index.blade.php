@@ -116,69 +116,71 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($all_user_data as $item)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>
-                        {{ $item->name }}
-                    </td>
-                    <td>{{ $item->getRole->role }}</td>
-                    <td>{{ $item->email }}</td>
-                    <td>{{ $item->created_at->Format('d-M-Y') }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="{{ route('users.show', $item->id) }}" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
-                                <li>
-                                    @if($item->role_id == 1)
+                @if (count($all_user_data) > 0)
+                    @foreach ($all_user_data as $item)
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>
+                            <a href="{{ route('users.show', $item->id) }}" style="text-decoration: none">{{ $item->name }}</a>
+                            
+                        </td>
+                        <td>{{ $item->getRole->role }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->created_at->Format('d-M-Y') }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="{{ route('users.show', $item->id) }}" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
+                                    <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
+                                    <li>
+                                        @if($item->role_id == 1)
 
-                                    @else
-                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
-                                    @endif
+                                        @else
+                                            <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers{{ $item->id }}" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                        @endif
 
-                                </li>
+                                    </li>
 
-                            </ul>
+                                </ul>
 
-                        </div>
-                    </td>
-
-                </tr>
-
-
-                {{-- modal for delete data --}}
-
-                <div class="modal fade" id="deleteUsers{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0 modal_header">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete User</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <h6>Are You Sure?</h6>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <form action="{{ route('users.destroy', $item->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
+                        </td>
 
+                    </tr>
+
+
+                    {{-- modal for delete data --}}
+
+                    <div class="modal fade" id="deleteUsers{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0 modal_header">
+                                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6>Are You Sure?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <form action="{{ route('users.destroy', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-               </div>
 
-               <!--=====MODAL FOR UPDATE USER=====-->
-               <div class="modal fade" id="updateUser{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <!--=====MODAL FOR UPDATE USER=====-->
+                <div class="modal fade" id="updateUser{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
@@ -248,7 +250,12 @@
                     </div>
                 </div>
                 </div>
-                @endforeach
+                @endforeach 
+                @else
+                   <tr>
+                        <td class="text-danger text-center p-3" colspan="1000"> No User Available Here!</td>
+                   </tr>
+                @endif
             </tbody>
         </table>
     </div>

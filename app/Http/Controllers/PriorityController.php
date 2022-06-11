@@ -76,8 +76,13 @@ class PriorityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Priority $priority)
-    {
-        //
+    {   
+        Priority::find($priority->id)->update([
+            'name' => $request->priority,
+            'updated_at' => Carbon::now()
+        ]);
+
+        return redirect()->route('priority.index')->withSuccess('Upddated Successfully');
     }
 
     /**

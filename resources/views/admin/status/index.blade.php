@@ -1,13 +1,15 @@
 @extends('layouts.app_backend')
-
+@section('status.index')
+    active
+@endsection
 @section('content')
 <div class="container-fluid px-4">
     <!--=====MODAL FOR CREATE USER=====-->
     <div class="modal fade" id="createStatus" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header border-bottom-0">
+                <div class="modal-header border-bottom-0 modal_header">
                     <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -23,13 +25,12 @@
                             @enderror
                         </div>
 
-                        <div class="modal-footer border-top-0">
-                            <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
-                                class="btn w-100">Create
-                                Status</button>
-                        </div>
-
                     </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  type="submit" class="btn btn-primary">Save</button>
                 </div>
 
             </div>
@@ -70,6 +71,7 @@
                 </tr>
             </thead>
             <tbody>
+                @if (count($statuses) > 0)
                 @foreach ($statuses as $status)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
@@ -96,7 +98,7 @@
                 <div class="modal fade" id="deleteStatus{{ $status->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
+                            <div class="modal-header border-bottom-0 modal_header">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Status</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -119,9 +121,9 @@
                 <!--=====MODAL FOR UPDATE USER=====-->
                 <div class="modal fade" id="updateStatus{{ $status->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
+                            <div class="modal-header border-bottom-0 modal_header">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Status</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -137,15 +139,24 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                                </form>
+                               
                             </div>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button  type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
 
                 @endforeach
+                @else
+                   <tr>
+                        <td class="text-danger text-center p-3" colspan="1000"> No Status Available Here!</td>
+                   </tr>
+                @endif
 
             </tbody>
         </table>

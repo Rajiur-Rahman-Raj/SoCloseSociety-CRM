@@ -4,7 +4,7 @@
         $role_id = Auth::user()->role_id;
     ?>
 
-    <a href="<?php echo e(route('dashboard')); ?>" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+    <a href="<?php echo e(route('dashboard')); ?>" class="list-group-item list-group-item-action bg-transparent second-text <?php echo $__env->yieldContent('dashboard_active'); ?>"><i
     class="fa-solid fa-house me-2"></i> Dashboard <span class="badge ms-3">2</span></a>
 
     <?php $__currentLoopData = $users_permission; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -12,13 +12,13 @@
             $navigation_data = App\Models\Navigation::find($item);
         ?>
         <a href="<?php echo e(route($navigation_data->route)); ?>"
-        class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><?php echo $navigation_data->icon; ?> <?php echo e($navigation_data->name); ?>
+        class="list-group-item <?php echo $__env->yieldContent($navigation_data->route); ?> list-group-item-action bg-transparent second-text fw-bold"><?php echo $navigation_data->icon; ?> <?php echo e($navigation_data->name); ?>
 
         </a>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
     <?php if($role_id == 1): ?>
-        <a href="<?php echo e(route('navigation.index')); ?>" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+        <a href="<?php echo e(route('navigation.index')); ?>" class="list-group-item <?php echo $__env->yieldContent('nav_active'); ?> list-group-item-action bg-transparent second-text fw-bold"><i
         class="fa-solid fa-user me-2"></i>Navigation</a>
     <?php endif; ?>
 

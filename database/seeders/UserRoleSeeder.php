@@ -18,11 +18,6 @@ class UserRoleSeeder extends Seeder
             'permission' => json_encode(['1', '2', '3', '4', '5', '6']),
         ]);
 
-        UserRole::create([
-            'role' => "Agent",
-            'permission' => json_encode(['1']),
-        ]);
-
 
     }
 }

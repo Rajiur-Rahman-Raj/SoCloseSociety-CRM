@@ -1,5 +1,9 @@
 
 
+<?php $__env->startSection('nav_active'); ?>
+    active
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 <div class="container-fluid px-4">
@@ -7,6 +11,21 @@
 
 
     <!--=====MODAL FOR CREATE User End =====-->
+    <div class="team_header d-flex justify-content-between flex-wrap mt-3 ">
+        <div class="team_header__left">
+            <div class="input-group mb-3">
+                <button class="btn bg-white" type="button" id="button-addon1"><i
+                        class="fa-solid fa-magnifying-glass"></i></button>
+
+                <input type="text" class="form-control border-0" placeholder="Search Here"
+                    aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                <span>
+                    <button class="btn tickets_header_btn ms-3">Done</button>
+                </span>
+            </div>
+        </div>
+    </div>
 
     <!--==========Navigation Table==========-->
     <div class="user_list user-page table-responsive table-overflow-none">

@@ -146,70 +146,71 @@ unset($__errorArgs, $__bag); ?>
                 </tr>
             </thead>
             <tbody>
-                <?php $__currentLoopData = $all_user_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                    <th scope="row"><?php echo e($loop->iteration); ?></th>
-                    <td>
-                        <?php echo e($item->name); ?>
+                <?php if(count($all_user_data) > 0): ?>
+                    <?php $__currentLoopData = $all_user_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <th scope="row"><?php echo e($loop->iteration); ?></th>
+                        <td>
+                            <a href="<?php echo e(route('users.show', $item->id)); ?>" style="text-decoration: none"><?php echo e($item->name); ?></a>
+                            
+                        </td>
+                        <td><?php echo e($item->getRole->role); ?></td>
+                        <td><?php echo e($item->email); ?></td>
+                        <td><?php echo e($item->created_at->Format('d-M-Y')); ?></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="<?php echo e(route('users.show', $item->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
+                                    <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
+                                    <li>
+                                        <?php if($item->role_id == 1): ?>
 
-                    </td>
-                    <td><?php echo e($item->getRole->role); ?></td>
-                    <td><?php echo e($item->email); ?></td>
-                    <td><?php echo e($item->created_at->Format('d-M-Y')); ?></td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="<?php echo e(route('users.show', $item->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateUser<?php echo e($item->id); ?>' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
-                                <li>
-                                    <?php if($item->role_id == 1): ?>
+                                        <?php else: ?>
+                                            <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
+                                        <?php endif; ?>
 
-                                    <?php else: ?>
-                                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteUsers<?php echo e($item->id); ?>" style="cursor: pointer"> <i class="fa-solid fa-trash"></i> Delete </a>
-                                    <?php endif; ?>
+                                    </li>
 
-                                </li>
+                                </ul>
 
-                            </ul>
-
-                        </div>
-                    </td>
-
-                </tr>
-
-
-                
-
-                <div class="modal fade" id="deleteUsers<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0 modal_header">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete User</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <h6>Are You Sure?</h6>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <form action="<?php echo e(route('users.destroy', $item->id)); ?>" method="POST" enctype="multipart/form-data">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('delete'); ?>
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
+                        </td>
 
+                    </tr>
+
+
+                    
+
+                    <div class="modal fade" id="deleteUsers<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0 modal_header">
+                                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6>Are You Sure?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <form action="<?php echo e(route('users.destroy', $item->id)); ?>" method="POST" enctype="multipart/form-data">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('delete'); ?>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-               </div>
 
-               <!--=====MODAL FOR UPDATE USER=====-->
-               <div class="modal fade" id="updateUser<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <!--=====MODAL FOR UPDATE USER=====-->
+                <div class="modal fade" id="updateUser<?php echo e($item->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
@@ -307,7 +308,12 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
                 </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+                <?php else: ?>
+                   <tr>
+                        <td class="text-danger text-center p-3" colspan="1000"> No User Available Here!</td>
+                   </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>

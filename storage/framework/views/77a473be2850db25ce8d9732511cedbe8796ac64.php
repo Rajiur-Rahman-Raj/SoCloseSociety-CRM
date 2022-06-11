@@ -162,7 +162,7 @@ unset($__errorArgs, $__bag); ?>
 
                     <!-- Modal Delete Role -->
                     <div class="modal fade" id="deleteModal<?php echo e($item->id); ?>" tabindex="-1"      aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header modal_header">
                                     <h5 class="modal-title" id="exampleModalLabel">Delete Role</h5>

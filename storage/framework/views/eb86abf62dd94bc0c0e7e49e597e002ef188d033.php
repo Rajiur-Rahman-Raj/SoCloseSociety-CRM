@@ -1,13 +1,15 @@
 
-
+<?php $__env->startSection('status.index'); ?>
+    active
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid px-4">
     <!--=====MODAL FOR CREATE USER=====-->
     <div class="modal fade" id="createStatus" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header border-bottom-0">
+                <div class="modal-header border-bottom-0 modal_header">
                     <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Create Status</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -30,13 +32,12 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
 
-                        <div class="modal-footer border-top-0">
-                            <button style="background-color: #6C7BFF; color: #ffffff;" type="submit"
-                                class="btn w-100">Create
-                                Status</button>
-                        </div>
-
                     </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  type="submit" class="btn btn-primary">Save</button>
                 </div>
 
             </div>
@@ -77,6 +78,7 @@ unset($__errorArgs, $__bag); ?>
                 </tr>
             </thead>
             <tbody>
+                <?php if(count($statuses) > 0): ?>
                 <?php $__currentLoopData = $statuses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
                     <th scope="row"><?php echo e($loop->iteration); ?></th>
@@ -104,7 +106,7 @@ unset($__errorArgs, $__bag); ?>
                 <div class="modal fade" id="deleteStatus<?php echo e($status->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
+                            <div class="modal-header border-bottom-0 modal_header">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Status</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -127,9 +129,9 @@ unset($__errorArgs, $__bag); ?>
                 <!--=====MODAL FOR UPDATE USER=====-->
                 <div class="modal fade" id="updateStatus<?php echo e($status->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
+                            <div class="modal-header border-bottom-0 modal_header">
                                 <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Status</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -152,15 +154,24 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                                </form>
+                               
                             </div>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button  type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
 
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php else: ?>
+                   <tr>
+                        <td class="text-danger text-center p-3" colspan="1000"> No Status Available Here!</td>
+                   </tr>
+                <?php endif; ?>
 
             </tbody>
         </table>

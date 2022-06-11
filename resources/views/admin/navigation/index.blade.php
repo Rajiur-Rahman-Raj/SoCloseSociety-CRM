@@ -1,5 +1,9 @@
 @extends('layouts.app_backend')
 
+@section('nav_active')
+    active
+@endsection
+
 @section('content')
 
 <div class="container-fluid px-4">

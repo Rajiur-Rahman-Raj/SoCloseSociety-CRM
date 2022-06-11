@@ -1,5 +1,9 @@
 @extends('layouts.app_backend')
 
+@section('dashboard_active')
+    active
+@endsection
+
 @section('content')
 
 
