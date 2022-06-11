@@ -11,6 +11,8 @@ use App\Models\UserRole;
 use App\Models\Department;
 use App\Models\Ticket_reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AgentMailSend;
 use Auth;
 
 class TicketController extends Controller
@@ -78,7 +80,7 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
+        return view('admin.ticket.admin_ticket_show', compact('ticket'));
     }
 
     /**
@@ -100,7 +102,18 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ticket $ticket)
-    {
+    {   
+        $ticket_id = $request->customer;
+        $status = $request->status;
+        $priority = $request->priority;
+        $department = $request->department;
+        $ticket_subject = $request->subject;
+        $agent_id = $request->agent_id;
+
+        foreach ($request->agent_email as $email) {
+            Mail::to($email)->send(new AgentMailSend($ticket_id, $status, $priority, $department, $ticket_subject, $agent_id));
+        }
+
         $ticket->update($request->except('_token') + ['updated_at' => Carbon::now(), 'agent_id' => json_encode($request->agent_id)]);
 
         return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
@@ -162,12 +175,20 @@ class TicketController extends Controller
 
     public function ticket_reply($id){
 
-        return view('admin.ticket.reply', compact('id'));
+        $all_reply_individual_tickets = Ticket_reply::where('ticket_id', $id)->orderBy('id', 'DESC')->get(); // also use latest()
+
+        return view('admin.ticket.reply', compact('id','all_reply_individual_tickets'));
     }
 
     public function ticket_reply_store(Request $request){
-       
-        Ticket_reply::create($request->except('_token') + ['created_at' => Carbon::now()]);
-        return back();
+
+        Ticket_reply::insert([
+            'ticket_id' => $request->ticket_id,
+            'user_id' => Auth::id(),
+            'reply' => $request->reply,
+            'created_at' => Carbon::now()
+        ]);
+
+        return back()->with('success', 'replay success');
     }
 }

@@ -495,6 +495,22 @@ tr {
   width: 100% !important;
 }
 
+.relply-section{
+  border: 2px solid #ddd;
+    padding: 7px 25px;
+    margin: 15px 23px;
+    box-shadow: 4px 0px 1px 0px;
+}
+
+.reply-text-area{
+    border: 2px solid #ddd;
+    padding: 7px 25px;
+    box-shadow: 3px 4px 4px 0px;
+}
+.fruit{
+  background-color: red !important;
+}
+
 
 .select2-container {
   display: block;

@@ -17,7 +17,7 @@ class CreateTicketRepliesTable extends Migration
             $table->id();
             $table->integer('ticket_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->integer('reply')->nullable();
+            $table->longText('reply')->nullable();
             $table->timestamps();
         });
     }

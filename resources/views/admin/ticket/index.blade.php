@@ -167,7 +167,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Request Name</th>
+                                    <th>Name</th>
                                     <th>Department</th>
                                     <th>Subjects</th>
                                     <th>Status</th>
@@ -192,7 +192,10 @@
                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
 
                                     <td>
-                                        <a href=" {{ route('ticket.reply', $item->id) }} "> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a>
+                                        @php
+                                            $all_replies = App\Models\Ticket_reply::where('ticket_id', $item->id)->get();
+                                        @endphp
+                                        <a href=" {{ route('ticket.reply', $item->id) }} "> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> <span> ( {{ count($all_replies) }} )</span> </a>
                                     </td>
                                     <td class="text-center ">
                                         <div class="dropdown">
@@ -205,6 +208,13 @@
 
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                 <li class="m-2">
+                                                    <a style="cursor: pointer;"  href="{{ route('ticket.show', $item->id) }}">
+                                                        <span><i class="fa-solid fa-eye me-2"></i></span>
+                                                        Show
+                                                    </a>
+                                                </li>
+                                                <li class="m-2">
+                                                  
                                                     @if($item->creator == 1)
                                                     <a style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#editTicket_{{ $item->id }}" data-bs-whatever="@mdo">
                                                         <span><i class="fa-solid fa-edit me-2"></i></span>
@@ -321,9 +331,11 @@
                                                        
 
                                                         <label class="mt-3" for="#">Ticket Id</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="#{{ $item->id }}">
+                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->id }}">
 
-                                                        <input type="hidden" name="customer" class="form-control mt-1" value="{{ $item->get_customer->id }}">
+                                                        <label class="mt-3" for="#">Subject</label>
+                                                        <input type="hidden" name="subject" class="form-control mt-1" value="{{ $item->subject }}">
+
 
                                                         <label class="mt-3" for="#">Status</label>
                                                         <select name="status" class="form-select mt-1" aria-label="Default select example">
@@ -345,7 +357,7 @@
                                                         
 
                                                         <label class="mt-3" for="#">Department</label>
-                                                        <select name="" id="" class="form-control">
+                                                        <select name="department" id="" class="form-control">
                                                             @foreach ($department as $single_dept)
 
                                                             @if( $item->get_department->id == $single_dept->id )
@@ -368,10 +380,22 @@
                                                             @php
                                                                 $agent_name = App\Models\User::find($agent)->name;
                                                                 $agent_id = App\Models\User::find($agent)->id;
+                                                                $agent_email = App\Models\User::find($agent)->email;
                                                             @endphp
+                                                            
                                                             <option value="{{ $agent_id }}">{{ ucwords($agent_name) }}</option>
+                                                           
                                                             @endforeach
                                                         </select>
+
+                                                            @foreach ($all_agent as $agent)
+                                                            @php
+                                                                $agent_email = App\Models\User::find($agent)->email;
+                                                            @endphp
+                                                            
+                                                            <input type="text" value="{{ $agent_email }}" name="agent_email[]">
+                                                           
+                                                            @endforeach
 
                                                         <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
                                                     </div>
@@ -553,6 +577,7 @@
                                     <th>Subjects</th>
                                     <th>Status</th>
                                     <th>Created Date</th>
+                                    <th>Message </th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -563,6 +588,7 @@
 
                             @if ($customer_data)
                             <tbody>
+                              
                                 @foreach ($customer_data as $item)
                                 <tr id="tr1 ">
                                     <td>#{{ $item->id }}</td>
@@ -571,6 +597,14 @@
                                     <td>{{ $item->subject }}</td>
                                     <td>{{ $item->get_status->name ?? '' }}</td>
                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
+                                    @php
+                                       $all_replies = App\Models\Ticket_reply::where('ticket_id', $item->id)->get();
+                                    @endphp
+                                    <td>
+                                        
+                                        <a href=" {{ route('ticket.reply', $item->id) }} "> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> <span> ( {{ count($all_replies) }} )</span> </a>
+                                        
+                                    </td>
                                     <td class="text-center ">
                                         <div class="dropdown">
 

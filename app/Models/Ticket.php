@@ -26,4 +26,7 @@ class Ticket extends Model
     public function get_status(){
         return $this->hasOne(Status::class, 'id', 'status');
     }
+
+
+    
 }
