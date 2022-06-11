@@ -28,29 +28,53 @@
                                             <button type="submit" class="btn btn-primary">Reply</button>
                                           </form>
                                     </div>
-                                    
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @foreach ($all_reply_individual_tickets as $ticket)              
-                                            <figure class="relply-section">
-                                                <blockquote class="blockquote" >
-                                                    <span style="font-size:18px; font-style:italic">{{ $ticket->get_user_name_from_ticket->name }} - </span>
-                                                    <span class="text-dark" style="font-size: 14px"> {{ $ticket->created_at->diffForHumans() }}</span>
 
-                                                <p></p>
-                                                </blockquote>
-                                                <figcaption class="blockquote-footer">
-                                                    <p class="float-left"> {{ $ticket->reply }}
-                                                        <span><a href="#reply_icon" style="float: right; font-size: 18px;"> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a></span>
-                                                    </p>
-                                        
-                                                    <div class="clear"></div>
-                                                </figcaption>
-                                            </figure>
-                                        @endforeach
-                                    </div>
                                 </div>
+
+                                    @foreach ($all_reply_individual_tickets as $ticket)
+                                    @if ($ticket->user_id == Auth::id())
+                                    <div class="row">
+                                    <div class="col-md-8">
+                                        <figure class="relply-section">
+                                            <blockquote class="blockquote" >
+                                                <span style="font-size:18px; font-style:italic">{{ $ticket->get_user_name_from_ticket->name }} - </span>
+                                                <span class="text-dark" style="font-size: 14px"> {{ $ticket->created_at->diffForHumans() }}</span>
+
+                                            <p></p>
+                                            </blockquote>
+                                            <figcaption class="blockquote-footer">
+                                                <p class="float-left"> {{ $ticket->reply }}
+                                                    <span><a href="#reply_icon" style="float: right; font-size: 18px;"> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a></span>
+                                                </p>
+
+                                                <div class="clear"></div>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    </div>
+                                    @else
+                                    <div class="row">
+                                    <div class="col-md-8  ms-auto">
+                                        <figure class="relply-section">
+                                            <blockquote class="blockquote" >
+                                                <span style="font-size:18px; font-style:italic">{{ $ticket->get_user_name_from_ticket->name }} - </span>
+                                                <span class="text-dark" style="font-size: 14px"> {{ $ticket->created_at->diffForHumans() }}</span>
+
+                                            <p></p>
+                                            </blockquote>
+                                            <figcaption class="blockquote-footer">
+                                                <p class="float-left"> {{ $ticket->reply }}
+                                                    <span><a href="#reply_icon" style="float: right; font-size: 18px;"> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a></span>
+                                                </p>
+
+                                                <div class="clear"></div>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    </div>
+                                    @endif
+
+                                    @endforeach
                             </div>
                         </div>
                     </div>

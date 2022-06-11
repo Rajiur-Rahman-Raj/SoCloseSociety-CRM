@@ -58,7 +58,7 @@
                 @foreach ($all_navigations as $item)
                     <div class="form-check form-switch">
                         <input class="form-check-input inner-checkbox" {{ in_array($item->id, $selected_permission)? 'checked' : '' }} name="permission[]" value="{{ $item->id }}" type="checkbox" id="flexSwitchCheckDefault{{ $item->id }}">
-                        <label class="form-check-label" for="flexSwitchCheckDefault{{ $item->id }}"> {{ $item->name }} [ {!! $item->icon !!} ]</label>
+                        <label class="form-check-label" for="flexSwitchCheckDefault{{ $item->id }}"> {{ $item->name }}</label>
                     </div>
                 @endforeach
         </div>

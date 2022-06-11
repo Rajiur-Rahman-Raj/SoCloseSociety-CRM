@@ -125,7 +125,7 @@
                             $permission = json_decode($item->permission);
                         @endphp
                         @foreach ($permission as $data)
-                            {{ App\Models\Navigation::find($data)->name ?? '' }},
+                            {{ App\Models\Navigation::find($data)->name }},
                         @endforeach
                     </td>
                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
@@ -138,7 +138,9 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="mb-1"><a style="cursor: pointer" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}"><i class="fa-solid fa-edit" class="mr-50"></i> Edit</a></li>
 
+                                @if ($item->id != 1)
                                 <li><a style="cursor: pointer" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}"><i class="fa-solid fa-trash" class="mr-50"></i> Delete</a></li>
+                                @endif
 
                             </ul>
                         </div>

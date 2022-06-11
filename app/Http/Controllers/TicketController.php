@@ -9,11 +9,11 @@ use App\Models\Ticket;
 use App\Models\Priority;
 use App\Models\UserRole;
 use App\Models\Department;
+use App\Mail\AgentMailSend;
 use App\Models\Ticket_reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\AgentMailSend;
-use Auth;
 
 class TicketController extends Controller
 {
@@ -26,13 +26,13 @@ class TicketController extends Controller
     {
 
         // $loged_in_user_id = Auth::user()->role_id;
-        
+
         // if($loged_in_user_id == 1){
         //     $tickets = Ticket::latest()->get();
         // }else{
         //     $tickets = Ticket::where('customer', Auth::id())->latest()->get();
         // }
-        
+
         return view('admin.ticket.index',[
             'tickets' => Ticket::latest()->get(),
             'status' => Status::orderBy('name','ASC')->get(),
@@ -68,7 +68,7 @@ class TicketController extends Controller
     //create customer ticket method
     public function customer_ticket(Request $request){
         Ticket::create($request->except('_token') + ['created_at' => Carbon::now(), 'customer' => Auth::id()]);
-        
+
         return redirect()->route('ticket.index')->withSuccess('Created Successfully');
     }
 
@@ -102,7 +102,7 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ticket $ticket)
-    {   
+    {
         $ticket_id = $request->customer;
         $status = $request->status;
         $priority = $request->priority;

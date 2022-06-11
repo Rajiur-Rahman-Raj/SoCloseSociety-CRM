@@ -130,7 +130,7 @@ unset($__errorArgs, $__bag); ?>
                             $permission = json_decode($item->permission);
                         ?>
                         <?php $__currentLoopData = $permission; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php echo e(App\Models\Navigation::find($data)->name ?? ''); ?>,
+                            <?php echo e(App\Models\Navigation::find($data)->name); ?>,
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </td>
                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
@@ -143,7 +143,9 @@ unset($__errorArgs, $__bag); ?>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li class="mb-1"><a style="cursor: pointer" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#editModal<?php echo e($item->id); ?>"><i class="fa-solid fa-edit" class="mr-50"></i> Edit</a></li>
 
+                                <?php if($item->id != 1): ?>
                                 <li><a style="cursor: pointer" class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo e($item->id); ?>"><i class="fa-solid fa-trash" class="mr-50"></i> Delete</a></li>
+                                <?php endif; ?>
 
                             </ul>
                         </div>

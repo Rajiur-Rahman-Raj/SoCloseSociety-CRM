@@ -128,7 +128,6 @@ unset($__errorArgs, $__bag); ?>
                 <span><i class="fa-solid fa-circle-plus me-2"></i></span>
                 Create User
             </button>
-
         </div>
     </div>
     <!--==========Priority Table==========-->
