@@ -130,6 +130,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Assignee</th>
                                     <th>Department</th>
                                     <th>Subjects</th>
                                     <th>Status</th>
@@ -148,6 +149,18 @@
                                         <?php echo e($item->get_customer->name ?? ''); ?>
 
                                     </td>
+                                    <td>
+                                    <?php if($item->agent_id): ?>
+                                        <?php $__currentLoopData = json_decode($item->agent_id); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent_id): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php
+                                                $agent_name = App\Models\User::find($agent_id)->name;
+                                            ?>
+                                            
+                                                <?php echo e($agent_name ?? 'NULL'); ?>,
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endif; ?>
+                                    </td>
+                                    
                                     <td><?php echo e($item->get_department->name); ?></td>
                                     <td><?php echo e($item->subject); ?></td>
                                     <td><?php echo e($item->get_status->name ?? 'NULL'); ?></td>
@@ -294,7 +307,7 @@
 
 
                                                         <label class="mt-3" for="#">Ticket Id</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->id); ?>">
+                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->customer); ?>">
 
                                                         <label class="mt-3" for="#">Subject</label>
                                                         <input type="hidden" name="subject" class="form-control mt-1" value="<?php echo e($item->subject); ?>">

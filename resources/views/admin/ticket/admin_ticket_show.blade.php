@@ -79,6 +79,23 @@
                                                             {{ $ticket->get_priority->name ?? 'NULL' }}
                                                            
                                                         </td>
+                                                    </tr> 
+
+                                                    <tr>
+                                                        <th>
+                                                            Assignee
+                                                        </th>
+                                                        <td>
+                                                            @if ($ticket->agent_id)
+                                                                @foreach (json_decode($ticket->agent_id) as $agent_id)
+                                                                    @php
+                                                                        $agent_name = App\Models\User::find($agent_id)->name;
+                                                                    @endphp
+                                                                    
+                                                                        {{ $agent_name ?? 'NULL'}},
+                                                                @endforeach
+                                                            @endif
+                                                        </td>
                                                     </tr>    
                                                     <tr>
                                                         <th>

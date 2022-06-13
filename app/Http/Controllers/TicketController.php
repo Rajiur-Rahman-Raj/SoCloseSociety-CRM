@@ -129,6 +129,14 @@ class TicketController extends Controller
         return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
     }
 
+    public function agent_ticket_update(Request $request, $id){
+        Ticket::find($id)->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('ticket.index')->withSuccess('Upddated Successfully');
+    }
+
     public function customer_ticket_delete(Request $request, $id){
         Ticket::find($id)->delete();
         return redirect()->route('ticket.index')->withSuccess('Delete Successfully');

@@ -141,7 +141,7 @@ class UserController extends Controller
 
         foreach(Ticket::all() as $ticket){
             $users = [];
-            foreach(json_decode($ticket->user_id) as $user){
+            foreach(json_decode($ticket->agent_id) as $user){
                 if($user != $id)
                 {
                     $users[] = $user;

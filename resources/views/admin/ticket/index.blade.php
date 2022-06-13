@@ -130,6 +130,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Assignee</th>
                                     <th>Department</th>
                                     <th>Subjects</th>
                                     <th>Status</th>
@@ -147,6 +148,18 @@
                                     <td>
                                         {{ $item->get_customer->name ?? ''}}
                                     </td>
+                                    <td>
+                                    @if ($item->agent_id)
+                                        @foreach (json_decode($item->agent_id) as $agent_id)
+                                            @php
+                                                $agent_name = App\Models\User::find($agent_id)->name;
+                                            @endphp
+                                            
+                                                {{ $agent_name ?? 'NULL'}},
+                                        @endforeach
+                                    @endif
+                                    </td>
+                                    
                                     <td>{{ $item->get_department->name }}</td>
                                     <td>{{ $item->subject }}</td>
                                     <td>{{ $item->get_status->name ?? 'NULL'}}</td>
@@ -293,7 +306,7 @@
 
 
                                                         <label class="mt-3" for="#">Ticket Id</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->id }}">
+                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->customer }}">
 
                                                         <label class="mt-3" for="#">Subject</label>
                                                         <input type="hidden" name="subject" class="form-control mt-1" value="{{ $item->subject }}">
