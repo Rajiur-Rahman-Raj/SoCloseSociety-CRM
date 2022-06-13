@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function(){
 
     //customer ticket create
     Route::post('/customer/ticket', [TicketController::class, 'customer_ticket'])->name('customer_ticket.store');
-    Route::post('/customer/ticket/update/{id}', [TicketController::class, 'customer_ticket_update'])->name('customer_ticket.update');
+    Route::put('/customer/ticket/update/{id}', [TicketController::class, 'customer_ticket_update'])->name('customer_ticket.update');
     Route::put('/agent/ticket/update/{id}', [TicketController::class, 'agent_ticket_update'])->name('agent_ticket.update');
 
     //User Role controller

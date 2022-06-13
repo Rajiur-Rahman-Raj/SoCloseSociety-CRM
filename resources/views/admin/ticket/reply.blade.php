@@ -44,7 +44,7 @@
                                             </blockquote>
                                             <figcaption class="blockquote-footer">
                                                 <p class="float-left"> {{ $ticket->reply }}
-                                                    <span><a href="#reply_icon" style="float: right; font-size: 18px;"> <i class="fa-solid fa-reply-all" class="replay-icon-css"></i> </a></span>
+                                                    <span><a href="#reply_icon" style="float: right; font-size: 18px;"> </a></span>
                                                 </p>
 
                                                 <div class="clear"></div>

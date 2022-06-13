@@ -57,38 +57,38 @@
                         </tr>
                         @endif
 
-            {{-- edit Agent cutomer ticket  --}}
-            <div class="modal fade" id="edit_agent_customer_Ticket_{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel"
-                aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0 modal_header">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="editModalLabel">Update Ticket</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('agent_ticket.update', $item->id) }}" method="post">
-                                    @csrf
-                                    @method("PUT")
-                                    <div class="offcanvas-body">
-    
-                                        <label class="mt-3" for="#">Status</label>
-                                        <select name="status" class="form-select mt-1" aria-label="Default select example">
-                                            <option value="" disabled selected>--Select One--</option>
-                                            @foreach ($status as $stat)
-                                            <option value="{{ $stat->id }}">{{ $stat->name }}</option>
-                                            @endforeach
-                                        </select>
-      
-                                        <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
+                        {{-- edit Agent cutomer ticket  --}}
+                        <div class="modal fade" id="edit_agent_customer_Ticket_{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel"
+                        aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0 modal_header">
+                                        <h5 style="color: #6C7BFF;" class="modal-title" id="editModalLabel">Update Ticket</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
-                                </form>
+                                    <div class="modal-body">
+                                        <form action="{{ route('agent_ticket.update', $item->id) }}" method="post">
+                                            @csrf
+                                            @method("PUT")
+                                            <div class="offcanvas-body">
+
+                                                <label class="mt-3" for="#">Status</label>
+                                                <select name="status" class="form-select mt-1" aria-label="Default select example">
+                                                    <option value="" disabled selected>--Select One--</option>
+                                                    @foreach ($status as $stat)
+                                                    <option value="{{ $stat->id }}">{{ $stat->name }}</option>
+                                                    @endforeach
+                                                </select>
+                
+                                                <button class="btn w-100 create_ticket_btn mt-3">Update Ticket</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
                             </div>
-    
                         </div>
-                    </div>
-                </div>
                     @endforeach
                 @endif
 

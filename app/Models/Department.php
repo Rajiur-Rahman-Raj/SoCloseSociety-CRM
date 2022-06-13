@@ -13,4 +13,8 @@ class Department extends Model
     public function get_role(){
         return $this->hasOne(UserRole::class, 'id', 'role_id');
     }
+
+    public function get_agent(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

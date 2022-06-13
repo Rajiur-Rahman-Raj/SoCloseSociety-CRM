@@ -306,17 +306,15 @@
 
 
                                                         <label class="mt-3" for="#">Ticket Id</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="{{ $item->customer }}">
+                                                        <input type="text" name="ticket_id" class="form-control mt-1" value="#{{ $item->id }}">
 
-                                                        <label class="mt-3" for="#">Subject</label>
-                                                        <input type="hidden" name="subject" class="form-control mt-1" value="{{ $item->subject }}">
 
 
                                                         <label class="mt-3" for="#">Status</label>
                                                         <select name="status" class="form-select mt-1" aria-label="Default select example">
                                                             <option value="" disabled selected>--Select One--</option>
                                                             @foreach ($status as $stat)
-                                                            <option value="{{ $stat->id }}">{{ $stat->name }}</option>
+                                                            <option value="{{ $stat->id }}" {{ $stat->id == $item->status ? 'selected':'' }}>{{ $stat->name }}</option>
                                                             @endforeach
                                                         </select>
 
@@ -324,7 +322,7 @@
                                                         <select name="priority" class="form-select mt-1" aria-label="Default select example">
                                                             <option value="" disabled selected>--Select One--</option>
                                                             @foreach ($priority as $prio)
-                                                            <option value="{{ $prio->id }}">{{ $prio->name }}</option>
+                                                            <option value="{{ $prio->id }}" {{ $prio->id == $item->priority ? 'selected':'' }}> {{ $prio->name }} </option>
                                                             @endforeach
                                                         </select>
 
@@ -354,10 +352,16 @@
                                                                 $agent_name = App\Models\User::find($agent)->name;
                                                                 $agent_id = App\Models\User::find($agent)->id;
                                                                 $agent_email = App\Models\User::find($agent)->email;
+                                                                $selected_agent = json_decode($item->agent_id);
                                                             @endphp
 
-                                                            <option value="{{ $agent_id }}">{{ ucwords($agent_name) }}</option>
-
+                                                            @if($selected_agent)
+                                                                @foreach ($selected_agent as $agent) 
+                                                                <option value="{{ $agent_id }}"  {{ $agent_id == $agent ? 'selected':'' }}>{{ ucwords($agent_name) }} </option>
+                                                                @endforeach
+                                                            @else
+                                                            <option value="{{ $agent_id }}">{{ ucwords($agent_name) }} </option>
+                                                            @endif
                                                             @endforeach
                                                         </select>
 
@@ -608,7 +612,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('ticket.update', $item->id) }}" method="post">
+                                                    <form action="{{ route('customer_ticket.update', $item->id) }}" method="post">
                                                         @csrf
                                                         @method("PUT")
                                                         <div class="offcanvas-body">

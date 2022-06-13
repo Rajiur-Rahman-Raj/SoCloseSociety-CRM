@@ -307,17 +307,15 @@
 
 
                                                         <label class="mt-3" for="#">Ticket Id</label>
-                                                        <input type="text" name="customer" class="form-control mt-1" value="<?php echo e($item->customer); ?>">
+                                                        <input type="text" name="ticket_id" class="form-control mt-1" value="#<?php echo e($item->id); ?>">
 
-                                                        <label class="mt-3" for="#">Subject</label>
-                                                        <input type="hidden" name="subject" class="form-control mt-1" value="<?php echo e($item->subject); ?>">
 
 
                                                         <label class="mt-3" for="#">Status</label>
                                                         <select name="status" class="form-select mt-1" aria-label="Default select example">
                                                             <option value="" disabled selected>--Select One--</option>
                                                             <?php $__currentLoopData = $status; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($stat->id); ?>"><?php echo e($stat->name); ?></option>
+                                                            <option value="<?php echo e($stat->id); ?>" <?php echo e($stat->id == $item->status ? 'selected':''); ?>><?php echo e($stat->name); ?></option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
 
@@ -325,7 +323,7 @@
                                                         <select name="priority" class="form-select mt-1" aria-label="Default select example">
                                                             <option value="" disabled selected>--Select One--</option>
                                                             <?php $__currentLoopData = $priority; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <option value="<?php echo e($prio->id); ?>"><?php echo e($prio->name); ?></option>
+                                                            <option value="<?php echo e($prio->id); ?>" <?php echo e($prio->id == $item->priority ? 'selected':''); ?>> <?php echo e($prio->name); ?> </option>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
 
@@ -355,10 +353,16 @@
                                                                 $agent_name = App\Models\User::find($agent)->name;
                                                                 $agent_id = App\Models\User::find($agent)->id;
                                                                 $agent_email = App\Models\User::find($agent)->email;
+                                                                $selected_agent = json_decode($item->agent_id);
                                                             ?>
 
-                                                            <option value="<?php echo e($agent_id); ?>"><?php echo e(ucwords($agent_name)); ?></option>
-
+                                                            <?php if($selected_agent): ?>
+                                                                <?php $__currentLoopData = $selected_agent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $agent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                                <option value="<?php echo e($agent_id); ?>"  <?php echo e($agent_id == $agent ? 'selected':''); ?>><?php echo e(ucwords($agent_name)); ?> </option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            <?php else: ?>
+                                                            <option value="<?php echo e($agent_id); ?>"><?php echo e(ucwords($agent_name)); ?> </option>
+                                                            <?php endif; ?>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         </select>
 
@@ -609,7 +613,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="<?php echo e(route('ticket.update', $item->id)); ?>" method="post">
+                                                    <form action="<?php echo e(route('customer_ticket.update', $item->id)); ?>" method="post">
                                                         <?php echo csrf_field(); ?>
                                                         <?php echo method_field("PUT"); ?>
                                                         <div class="offcanvas-body">

@@ -25,7 +25,7 @@
 
                         <div class="mb-3">
                             <label for="role_id" class="col-form-label">Select Role (Agent*)</label>
-                            <select name="role_id" id="role_dropdown" class="form-select mt-1" style="width: 100%">
+                            <select name="role_id" id="role_dropdown" class="form-select mt-1 form-control" style="width: 100%">
                                 <option selected disabled>Select Agent</option>
                                 @foreach ($roles as $item)
                                     <option value="{{ $item->id }}">{{ $item->role }}</option>
@@ -163,23 +163,30 @@
                                     <div class="mb-3">
                                         <label for="role_id" class="col-form-label"> Role (Agent*)</label>
                                         <select name="role_id" id="role_drop{{ $department->id }}" class="form-select mt-1">
-                                            <option selected disabled>Select Agent</option>
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->id}}" {{ $role->id == $department->role_id ? 'selected' : '' }}>{{ $role->role }}</option>
-                                            @endforeach
+                                         
+                                            <option value="{{ $department->role_id }}">{{ $department->get_role->role ?? '' }}</option>
+                                        
                                         </select>
                                         @error("role_id")
                                             <span class="text-danger"> {{ $message }}</span>
                                         @enderror
                                     </div>
+                                   
 
                                     <div class="mb-3">
+
+                                        @php
+                                            $user_role = App\Models\User::where('role_id', $department->role_id)->get();
+                                        @endphp
+
                                         <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
                                         <select name="user_id[]" multiple id="user_drop{{ $department->id }}" class="form-select mt-1" aria-label="Default select example">
-                                            @php
-                                                $show_users = [];
-                                            @endphp
-                                            @include('includes.user_drop')
+
+                                            @foreach ($user_role as $all_agent_name)
+                                                <option value="{{ $all_agent_name->id }}" {{ in_array($all_agent_name->id, json_decode($department->user_id)) ? 'selected':'' }}> {{ $all_agent_name->name }} </option>
+
+                                            @endforeach
+
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -189,7 +196,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 @endforeach
 
             </tbody>
@@ -199,9 +206,17 @@
 @endsection
 
 @section('js')
+
+@foreach ($departments as $department)
+    <script>
+        $(document).ready(function() {
+            $('#user_drop{{ $department->id }}').select2({theme: "classic"});
+        });
+    </script>
+@endforeach
+
 <script>
     $(document).ready(function() {
-        $('#role_dropdown').select2();
         $('#user_dropdown').select2({theme: "classic"});
         $('#role_dropdown').change(function() {
 
