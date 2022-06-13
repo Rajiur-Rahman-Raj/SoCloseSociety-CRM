@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
 
 <section class="banner-main-section py-5 all-pages-input" id="main">

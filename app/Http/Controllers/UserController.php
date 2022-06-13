@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Ticket;
+use App\Models\Ticket_reply;
 use Illuminate\Http\Request;
 use App\Models\UserRole;
 use App\Models\User;
@@ -121,6 +124,33 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        Ticket::where('customer', $id)->delete();
+        Ticket_reply::where('user_id', $id)->delete();
+
+        foreach(Department::all() as $dept){
+            $users = [];
+            foreach(json_decode($dept->user_id) as $user){
+                if($user != $id)
+                {
+                    $users[] = $user;
+                }
+            }
+            $dept->user_id = json_encode($users);
+            $dept->save();
+        }
+
+        foreach(Ticket::all() as $ticket){
+            $users = [];
+            foreach(json_decode($ticket->user_id) as $user){
+                if($user != $id)
+                {
+                    $users[] = $user;
+                }
+            }
+            $ticket->user_id = json_encode($users);
+            $ticket->save();
+        }
+
         User::find($id)->delete();
         return back()->with('danger', "Data Delete Succcess");
     }

@@ -1,3 +1,9 @@
+
+
+<?php $__env->startSection('dashboard_active'); ?>
+    active
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 

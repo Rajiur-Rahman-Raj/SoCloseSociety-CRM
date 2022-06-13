@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid px-4">
     <!--=====MODAL FOR CREATE USER=====-->
