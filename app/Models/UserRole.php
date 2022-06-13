@@ -11,7 +11,4 @@ class UserRole extends Model
 
     protected $guarded = ['id'];
 
-    // public function get_rol(){
-    //     return $this->hasOne(Department::class, 'role_id', 'id');
-    // }
 }

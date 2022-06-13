@@ -159,11 +159,11 @@
                         </div>
                     </div>
                 </div>
-
                     @endforeach
+
                     @else
                    <tr>
-                        <td class="text-danger text-center p-3" colspan="1000"> No Role Available Here!</td>
+                        <td class="text-danger text-center p-3" colspan="1000"> No Priority Available Here!</td>
                    </tr>
                 @endif
                 

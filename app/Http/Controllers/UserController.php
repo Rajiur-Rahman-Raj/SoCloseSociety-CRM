@@ -19,8 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user_role_data = UserRole::all();
-        $all_user_data = User::all();
+        $user_role_data   = UserRole::all();
+        $all_user_data    = User::all();
+
         return view('admin.user.index', compact('user_role_data', 'all_user_data'));
     }
 
@@ -43,22 +44,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
       $request->validate([
-            'name' => 'required',
-            'phone' => 'numeric',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'role_id' => 'required',
-            // 'permission' => 'required',
+            'name'          => 'required',
+            'email'         => 'required|email|unique:users',
+            'password'      => 'required',
+            'role_id'       => 'required',
         ]);
 
         User::insert([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'role_id' => $request->role_id,
-            'permission' => UserRole::find($request->role_id)->permission,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'created_at' => Carbon::now(),
+            'name'          => $request->name,
+            'phone'         => $request->phone,
+            'role_id'       => $request->role_id,
+            'permission'    => UserRole::find($request->role_id)->permission,
+            'email'         => $request->email,
+            'password'      => bcrypt($request->password),
+            'created_at'    => Carbon::now(),
         ]);
 
         return redirect()->route('users.index')->with('success', 'Data upload successfull');
@@ -97,20 +96,20 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'phone' => 'numeric',
-            'email' => 'required|email',
-            'role_id' => 'required',
-            'permission' => 'required',
+            'name'        => 'required',
+            'phone'       => 'numeric',
+            'email'       => 'required|email',
+            'role_id'     => 'required',
+            'permission'  => 'required',
         ]);
 
         User::find($id)->update([
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'role_id' => $request->role_id,
-            'permission' => json_encode($request->permission),
-            'email' => $request->email,
-            'updated_at' => Carbon::now(),
+            'name'        => $request->name,
+            'phone'       => $request->phone,
+            'role_id'     => $request->role_id,
+            'permission'  => json_encode($request->permission),
+            'email'       => $request->email,
+            'updated_at'  => Carbon::now(),
         ]);
 
         return redirect()->route('users.index')->with('success', 'Data update successfull');
@@ -160,8 +159,9 @@ class UserController extends Controller
 
         $role_id  =  $request->role_id;
 
-        $view = view('includes.role_permission', compact('role_id'));
-        $data  = $view->render();
+        $view     = view('includes.role_permission', compact('role_id'));
+        $data     = $view->render();
+        
         return response()->json(['data' => $data]);
     }
 }

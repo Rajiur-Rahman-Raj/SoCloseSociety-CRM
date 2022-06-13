@@ -106,127 +106,134 @@ unset($__errorArgs, $__bag); ?>
                 </tr>
             </thead>
             <tbody>
-                <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                    <th scope="row"><?php echo e($loop->iteration); ?></th>
-                    <td>
-                        <?php echo e($department->name); ?>
+                <?php if(count($departments) > 0): ?>
 
-                    </td>
-                    <td><?php echo e($department->created_at->format('d-m-Y')); ?></td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="<?php echo e(route('department.show', $department->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateDepartment<?php echo e($department->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
-                                <li>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteDepartment<?php echo e($department->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
-                                </li>
-                            </ul>
+                    <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <th scope="row"><?php echo e($loop->iteration); ?></th>
+                        <td>
+                            <?php echo e($department->name); ?>
+
+                        </td>
+                        <td><?php echo e($department->created_at->format('d-m-Y')); ?></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="<?php echo e(route('department.show', $department->id)); ?>" style="cursor: pointer"> <i class="fa-solid fa-eye"></i> Show </a></li>
+                                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateDepartment<?php echo e($department->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-edit"> </i> Edit</a></li>
+                                    <li>
+                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteDepartment<?php echo e($department->id); ?>" style="cursor:pointer"> <i class="fa-solid fa-trash"> </i> Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <div class="modal fade" id="deleteDepartment<?php echo e($department->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0">
+                                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Department</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6>Are You Sure?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    <form action="<?php echo e(route('department.destroy', $department->id)); ?>" method="POST" enctype="multipart/form-data">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('delete'); ?>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
-                    </td>
-                </tr>
-
-                <div class="modal fade" id="deleteDepartment<?php echo e($department->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Delete Department</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h6>Are You Sure?</h6>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                <form action="<?php echo e(route('department.destroy', $department->id)); ?>" method="POST" enctype="multipart/form-data">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('delete'); ?>
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-               </div>
-                <!--=====MODAL FOR UPDATE USER=====-->
-                <div class="modal fade" id="updateDepartment<?php echo e($department->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header border-bottom-0">
-                                <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Department</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="<?php echo e(route('department.update', $department->id)); ?>" method="POST">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('put'); ?>
-                                    <div class="form-group mt-2">
-                                        <label class="form-label">Name <span class="text-danger"> *</span></label>
-                                        <input type="text" name="name" class="form-control" value="<?php echo e($department->name); ?>">
-                                        <?php $__errorArgs = ['name'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"><?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="role_id" class="col-form-label"> Role (Agent*)</label>
-                                        <select name="role_id" id="role_drop<?php echo e($department->id); ?>" class="form-select mt-1">
-                                         
-                                            <option value="<?php echo e($department->role_id); ?>"><?php echo e($department->get_role->role ?? ''); ?></option>
-                                        
-                                        </select>
-                                        <?php $__errorArgs = ["role_id"];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                            <span class="text-danger"> <?php echo e($message); ?></span>
-                                        <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
-                                   
-
-                                    <div class="mb-3">
-
-                                        <?php
-                                            $user_role = App\Models\User::where('role_id', $department->role_id)->get();
-                                        ?>
-
-                                        <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
-                                        <select name="user_id[]" multiple id="user_drop<?php echo e($department->id); ?>" class="form-select mt-1" aria-label="Default select example">
-
-                                            <?php $__currentLoopData = $user_role; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $all_agent_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option value="<?php echo e($all_agent_name->id); ?>" <?php echo e(in_array($all_agent_name->id, json_decode($department->user_id)) ? 'selected':''); ?>> <?php echo e($all_agent_name->name); ?> </option>
-
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
-                
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <!--=====MODAL FOR UPDATE USER=====-->
+                    <div class="modal fade" id="updateDepartment<?php echo e($department->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header border-bottom-0">
+                                    <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update Department</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?php echo e(route('department.update', $department->id)); ?>" method="POST">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('put'); ?>
+                                        <div class="form-group mt-2">
+                                            <label class="form-label">Name <span class="text-danger"> *</span></label>
+                                            <input type="text" name="name" class="form-control" value="<?php echo e($department->name); ?>">
+                                            <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <span class="text-danger"><?php echo e($message); ?></span>
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="role_id" class="col-form-label"> Role (Agent*)</label>
+                                            <select name="role_id" id="role_drop<?php echo e($department->id); ?>" class="form-select mt-1">
+                                            
+                                                <option value="<?php echo e($department->role_id); ?>"><?php echo e($department->get_role->role ?? ''); ?></option>
+                                            
+                                            </select>
+                                            <?php $__errorArgs = ["role_id"];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <span class="text-danger"> <?php echo e($message); ?></span>
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                        </div>
+                                    
+
+                                        <div class="mb-3">
+
+                                            <?php
+                                                $user_role = App\Models\User::where('role_id', $department->role_id)->get();
+                                            ?>
+
+                                            <label for="user_id" class="mt-3 col-form-label">Agent Name</label>
+                                            <select name="user_id[]" multiple id="user_drop<?php echo e($department->id); ?>" class="form-select mt-1" aria-label="Default select example">
+
+                                                <?php $__currentLoopData = $user_role; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $all_agent_name): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($all_agent_name->id); ?>" <?php echo e(in_array($all_agent_name->id, json_decode($department->user_id)) ? 'selected':''); ?>> <?php echo e($all_agent_name->name); ?> </option>
+
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php else: ?>
+                   <tr>
+                        <td class="text-danger text-center p-3" colspan="1000"> No Department Available Here!</td>
+                   </tr>
+                <?php endif; ?>
 
             </tbody>
         </table>

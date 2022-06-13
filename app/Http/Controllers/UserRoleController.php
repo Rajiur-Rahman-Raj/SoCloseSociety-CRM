@@ -40,13 +40,11 @@ class UserRoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'role' => 'required|unique:user_roles',
+            'role'        => 'required|unique:user_roles',
         ]);
-        // dd($request->permission);
 
-        // UserRole::create($request->except('_token') + ['created_at' => Carbon::now()]);
         UserRole::insert([
-            'role' => $request->role,
+            'role'       => $request->role,
             'permission' => json_encode($request->permission),
             'created_at' => Carbon::now(),
         ]);
@@ -88,9 +86,9 @@ class UserRoleController extends Controller
     public function update(Request $request, UserRole $userRole)
     {
         $userRole->update([
-            'role' => $request->role,
-            'permission' => json_encode($request->permission),
-            'created_at' => Carbon::now(),
+            'role'        => $request->role,
+            'permission'  => json_encode($request->permission),
+            'created_at'  => Carbon::now(),
         ]);
         $userRole->save();
 
@@ -106,9 +104,7 @@ class UserRoleController extends Controller
     public function destroy(UserRole $userRole)
     {
         User::where('role_id',$userRole->id)->delete();
-
         $userRole->delete();
-
         return redirect()->route('user_role.index')->withDanger('Role Deleted Successfully');
     }
 }

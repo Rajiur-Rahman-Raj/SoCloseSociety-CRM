@@ -27,6 +27,4 @@ class Ticket extends Model
         return $this->hasOne(Status::class, 'id', 'status');
     }
 
-
-    
 }

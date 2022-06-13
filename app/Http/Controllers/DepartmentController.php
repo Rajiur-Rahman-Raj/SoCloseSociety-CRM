@@ -17,8 +17,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
-        $roles = UserRole::all();
+        $departments    = Department::all();
+        $roles          = UserRole::all();
         return view('admin.department.index', compact('departments','roles'));
     }
 
@@ -47,10 +47,10 @@ class DepartmentController extends Controller
 
         // Department::create($request->except('_token') + ['created_at' => Carbon::now()]);
          Department::insert([
-            'name'=>$request->name,
-            'role_id'=> $request->role_id,
-            'user_id'=> json_encode($request->user_id),
-            'created_at'=> Carbon::now()
+            'name'       =>$request->name,
+            'role_id'    => $request->role_id,
+            'user_id'    => json_encode($request->user_id),
+            'created_at' => Carbon::now()
         ]);
 
         return redirect()->route('department.index')->withSuccess('Data Store Success');
@@ -64,7 +64,6 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        // return $department;
         return view('admin.department.show', compact('department'));
     }
 
@@ -92,11 +91,11 @@ class DepartmentController extends Controller
             'name' => 'required'
         ]);
 
-        $department->name = $request->name;
+        $department->name    = $request->name;
         $department->role_id = $request->role_id;
         $department->user_id = json_encode($request->user_id);
-        $department->save();
 
+        $department->save();
         return redirect()->route('department.index')->withSuccess('Data Update Success');
 
     }
@@ -118,10 +117,9 @@ class DepartmentController extends Controller
         // return $request->role_id;
         $show_users = User::where('role_id', $request->role_id)->get(['id', 'name']);
 
-        $view = view('includes.user_drop', compact('show_users'));
-        $data = $view->render();
+        $view       = view('includes.user_drop', compact('show_users'));
+        $data       = $view->render();
         return response()->json(['data' => $data]);
 
     }
-
 }

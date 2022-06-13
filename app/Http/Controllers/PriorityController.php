@@ -78,7 +78,7 @@ class PriorityController extends Controller
     public function update(Request $request, Priority $priority)
     {   
         Priority::find($priority->id)->update([
-            'name' => $request->priority,
+            'name'       => $request->priority,
             'updated_at' => Carbon::now()
         ]);
 

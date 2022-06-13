@@ -40,69 +40,75 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($all_navigation_data as $item)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>
-                        {!! $item->icon !!}
-                    </td>
+                @if (count($all_navigation_data) > 0)
+                    @foreach ($all_navigation_data as $item)
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>
+                                {!! $item->icon !!}
+                            </td>
 
-                    <td>{{ $item->name  }}</td>
-                    <td>{{ $item->created_at->Format('Y-m-d') }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateNavigation{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
-                            </ul>
+                            <td>{{ $item->name  }}</td>
+                            <td>{{ $item->created_at->Format('Y-m-d') }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" data-bs-toggle='modal' data-bs-target='#updateNavigation{{ $item->id }}' style="cursor: pointer"> <i class="fa-solid fa-edit"></i> Edit</a></li>
+                                    </ul>
 
-                        </div>
-                    </td>
-                </tr>
-
-               <!--=====MODAL FOR UPDATE USER=====-->
-               <div class="modal fade" id="updateNavigation{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header border-bottom-0">
-                            <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update User</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('navigation.update', $item->id) }}" method="POST">
-                                @csrf
-                                @method('put')
-                                <div class="form-group mt-2">
-                                <label class="form-label">Name <span class="text-danger"> *</span></label>
-                                <input type="text" name="name" class="form-control" value="{{ $item->name }}">
-                                @error('name')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
                                 </div>
+                            </td>
+                        </tr>
 
-                                <div class="form-group mt-2">
-                                    <label class="form-label">Icon <span class="text-danger"> *</span></label>
-                                    <input type="text" name="icon" class="form-control" value="{{ $item->icon }}">
-                                    @error('icon')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                        <!--=====MODAL FOR UPDATE USER=====-->
+                        <div class="modal fade" id="updateNavigation{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <h5 style="color: #6C7BFF;" class="modal-title" id="exampleModalLabel">Update User</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('navigation.update', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('put')
+                                            <div class="form-group mt-2">
+                                            <label class="form-label">Name <span class="text-danger"> *</span></label>
+                                            <input type="text" name="name" class="form-control" value="{{ $item->name }}">
+                                            @error('name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                            </div>
+
+                                            <div class="form-group mt-2">
+                                                <label class="form-label">Icon <span class="text-danger"> *</span></label>
+                                                <input type="text" name="icon" class="form-control" value="{{ $item->icon }}">
+                                                @error('icon')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                        </form>
+                                    </div>
+
                                 </div>
-
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                            </form>
+                            </div>
                         </div>
+                        
+                    @endforeach
+                    @else
+                    <tr>
+                         <td class="text-danger text-center p-3" colspan="1000"> No Navigation Available Here!</td>
+                    </tr>
 
-                    </div>
-                </div>
-            </div>
-
-                @endforeach
-
+                @endif
             </tbody>
         </table>
     </div>

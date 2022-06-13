@@ -37,7 +37,7 @@
                                                             @php
                                                                 $customer_name = App\Models\User::find($ticket->customer);   
                                                             @endphp
-                                                            {{ $customer_name->name }}
+                                                            {{ $customer_name->name ?? '' }}
                                                         </td>
                                                     </tr>                                
                                                                                                             
@@ -46,7 +46,7 @@
                                                             Department
                                                         </th>
                                                         <td>
-                                                            {{ $ticket->get_department->name }}
+                                                            {{ $ticket->get_department->name ?? '' }}
                                                            
                                                         </td>
                                                     </tr> 
@@ -56,7 +56,7 @@
                                                             Subject
                                                         </th>
                                                         <td>
-                                                            {{ $ticket->subject }}
+                                                            {{ $ticket->subject ?? '' }}
                                                            
                                                         </td>
                                                     </tr>  
@@ -102,7 +102,7 @@
                                                             Ticket Body
                                                         </th>
                                                         <td>
-                                                            {{ $ticket->ticket_body }}
+                                                            {{ $ticket->ticket_body ?? '' }}
                                                            
                                                         </td>
                                                     </tr>   

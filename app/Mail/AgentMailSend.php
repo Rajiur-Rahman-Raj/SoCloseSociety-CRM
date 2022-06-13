@@ -25,12 +25,12 @@ class AgentMailSend extends Mailable
 
     public function __construct($ticket_id, $status, $priority, $department, $ticket_subject, $agent_id)
     {
-        $this->ticket_id = $ticket_id;
-        $this->status = $status;
-        $this->priority = $priority;
-        $this->department = $department;
+        $this->ticket_id      = $ticket_id;
+        $this->status         = $status;
+        $this->priority       = $priority;
+        $this->department     = $department;
         $this->ticket_subject = $ticket_subject;
-        $this->agent_id = $agent_id;
+        $this->agent_id       = $agent_id;
     }
 
     /**

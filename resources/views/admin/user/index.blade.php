@@ -124,8 +124,8 @@
                             <a href="{{ route('users.show', $item->id) }}" style="text-decoration: none">{{ $item->name }}</a>
                             
                         </td>
-                        <td>{{ $item->getRole->role }}</td>
-                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->getRole->role ?? '' }}</td>
+                        <td>{{ $item->email ?? '' }}</td>
                         <td>{{ $item->created_at->Format('d-M-Y') }}</td>
                         <td>
                             <div class="dropdown">

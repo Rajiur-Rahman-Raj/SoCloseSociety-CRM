@@ -76,8 +76,9 @@ class StatusController extends Controller
     public function update(Request $request, Status $status)
     {
         $request->validate([
-            'name' => 'required'
+            'name'    => 'required'
         ]);
+        
         $status->name = $request->name;
         $status->save();
         return redirect()->route('status.index')->withSuccess('Data Update Success');
