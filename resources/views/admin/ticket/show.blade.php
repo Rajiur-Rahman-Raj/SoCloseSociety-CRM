@@ -66,7 +66,7 @@
                                                             Status
                                                         </th>
                                                         <td>
-                                                            {{ $single_ticket_details->get_status->name ?? 'Waiting' }}
+                                                            {{ $single_ticket_details->get_status->name ?? 'Pending' }}
                                                            
                                                         </td>
                                                     </tr>    

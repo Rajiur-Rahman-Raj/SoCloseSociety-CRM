@@ -66,7 +66,17 @@
                                                             Status
                                                         </th>
                                                         <td>
-                                                            {{ $ticket->get_status->name ?? 'Waiting' }}
+                                                            {{ $ticket->get_status->name ?? 'NULL' }}
+                                                           
+                                                        </td>
+                                                    </tr>  
+
+                                                    <tr>
+                                                        <th>
+                                                            Priority
+                                                        </th>
+                                                        <td>
+                                                            {{ $ticket->get_priority->name ?? 'NULL' }}
                                                            
                                                         </td>
                                                     </tr>    

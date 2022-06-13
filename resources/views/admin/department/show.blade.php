@@ -21,12 +21,12 @@
                                                 <tbody>
                                                     <tr>
                                                         <th> Name</th>
-                                                        <td>{{ ucwords($department->name) }}</td>
+                                                        <td>{{ ucwords($department->name) ?? '' }}</td>
                                                     </tr>
 
                                                     <tr>
                                                         <th>Role</th>
-                                                        <td>{{ $department->get_role->role }}</td>
+                                                        <td>{{ $department->get_role->role ?? '' }}</td>
                                                     </tr>
 
                                                     <tr>
@@ -38,7 +38,7 @@
                                                                 $dept = json_decode($department->user_id);
                                                             @endphp
                                                             @foreach ($dept as $item)
-                                                                {{ ucwords(App\Models\User::find($item)->name) }} ,
+                                                                {{ ucwords(App\Models\User::find($item)->name) ?? '' }} ,
                                                             @endforeach
                                                         </td>
                                                     </tr>

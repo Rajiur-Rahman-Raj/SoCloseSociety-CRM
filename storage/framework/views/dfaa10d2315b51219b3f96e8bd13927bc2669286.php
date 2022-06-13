@@ -150,8 +150,8 @@
                                     </td>
                                     <td><?php echo e($item->get_department->name); ?></td>
                                     <td><?php echo e($item->subject); ?></td>
-                                    <td><?php echo e($item->get_status->name ?? ''); ?></td>
-                                    <td><?php echo e($item->get_priority->name ?? ''); ?></td>
+                                    <td><?php echo e($item->get_status->name ?? 'NULL'); ?></td>
+                                    <td><?php echo e($item->get_priority->name ?? 'NULL'); ?></td>
                                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
 
                                     <td>
@@ -515,7 +515,7 @@
                                     <td><?php echo e($item->get_customer->name); ?></td>
                                     <td><?php echo e($item->get_department->name); ?></td>
                                     <td><?php echo e($item->subject); ?></td>
-                                    <td><?php echo e($item->get_status->name ?? ''); ?></td>
+                                    <td><?php echo e($item->get_status->name ?? 'Pending'); ?></td>
                                     <td><?php echo e($item->get_priority->name ?? ''); ?></td>
                                     <td><?php echo e($item->created_at->format('d-M-Y')); ?></td>
                                     <?php

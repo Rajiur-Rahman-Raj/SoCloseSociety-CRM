@@ -149,8 +149,8 @@
                                     </td>
                                     <td>{{ $item->get_department->name }}</td>
                                     <td>{{ $item->subject }}</td>
-                                    <td>{{ $item->get_status->name ?? ''}}</td>
-                                    <td>{{ $item->get_priority->name ?? '' }}</td>
+                                    <td>{{ $item->get_status->name ?? 'NULL'}}</td>
+                                    <td>{{ $item->get_priority->name ?? 'NULL' }}</td>
                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
 
                                     <td>
@@ -514,7 +514,7 @@
                                     <td>{{ $item->get_customer->name }}</td>
                                     <td>{{ $item->get_department->name }}</td>
                                     <td>{{ $item->subject }}</td>
-                                    <td>{{ $item->get_status->name ?? '' }}</td>
+                                    <td>{{ $item->get_status->name ?? 'Pending' }}</td>
                                     <td>{{ $item->get_priority->name ?? '' }}</td>
                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
                                     @php

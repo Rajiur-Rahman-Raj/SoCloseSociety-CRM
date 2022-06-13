@@ -14,11 +14,6 @@ class Departmentseeder extends Seeder
      */
     public function run()
     {
-        Department::create([
-            'name' => 'Web Design',
-            'user_id' => json_encode(['2']),
-            'role_id' => 2,
-        ]);
-
+        
     }
 }
